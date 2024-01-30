@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import model.User;
 
 public class UserDAO {
 
@@ -46,7 +47,7 @@ public class UserDAO {
     }
     
     public static void main(String[] args) {
-		Users userModel = new Users();
+		User u = new User(0, fullName, email, passWord, address, birthDay, registationDay, userRole, phoneNumber)
 		List<Map<String, Object>> list = userModel.getList();
 		for(Map<String, Object> obj: list) {
 			System.out.println(obj.get("id") + obj.toString());
