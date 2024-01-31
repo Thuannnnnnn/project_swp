@@ -1,3 +1,5 @@
+package dao;
+
 
 import dao.MysqlConnect;
 import java.sql.Connection;
@@ -47,11 +49,10 @@ public class UserDAO {
     }
     
     public static void main(String[] args) {
-		User u = new User(0, fullName, email, passWord, address, birthDay, registationDay, userRole, phoneNumber)
-		List<Map<String, Object>> list = userModel.getList();
+		UserDAO uDAO = new UserDAO();
+		List<Map<String, Object>> list = uDAO.getList();
 		for(Map<String, Object> obj: list) {
 			System.out.println(obj.get("id") + obj.toString());
 		}
-		System.out.println(list);
 	}
 }
