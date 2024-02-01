@@ -1,3 +1,11 @@
+controller\test.class
+controller\SendOtpServlet$1.class
+controller\SignUp.class
+controller\FogotPassword.class
 controller\UserController.class
+dao\UserDAO.class
+controller\login.class
 dao\MysqlConnect.class
-model\Users.class
+controller\SendOtpServlet.class
+controller\VerifyOtpServlet.class
+model\User.class

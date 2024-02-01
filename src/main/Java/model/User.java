@@ -1,27 +1,115 @@
 package model;
 
-import dao.MysqlConnect;
-import java.sql.Connection;
 import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+
 
 public class User {
-        private int userID;
-        private String fullName;
-        private String email;
-        private String passWord;
-        private String address;
-        private Date birthDay;
-        private Date registationDay;
-        private String userRole;
-        private String phoneNumber;
+       private int userId;
+    private String fullName;
+    private Date birthDate;
+    private String phoneNumber;
+    private String email;
+    private String password;
+    private String address;
+    private Date registrationDate;
+    private String userRole;
 
+    public User() {
+    }
+
+    public User(int userId, String fullName, Date birthDate, String phoneNumber, String email, String password, String address, Date registrationDate, String userRole) {
+        this.userId = userId;
+        this.fullName = fullName;
+        this.birthDate = birthDate;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.password = password;
+        this.address = address;
+        this.registrationDate = registrationDate;
+        this.userRole = userRole;
+    }
+    public User(String fullName, Date birthDate, String phoneNumber,String email, String password, String address, String userRole) { 
+        this.fullName = fullName;
+        this.birthDate = birthDate;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.password = password;
+        this.address = address;
+        this.userRole = userRole;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Date getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(Date registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
+    }
    
+
 }
