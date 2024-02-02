@@ -1,4 +1,9 @@
-dao\UserDAO.class
-dao\MysqlConnect.class
-Controller\CreateOrder.class
+Controller\Order\CRUDOrderController.class
+Controller\Order\orderController.class
+dao\DBConnection.class
+dao\userDAO.class
+Controller\Order\createOrder.class
+Controller\Order\editOrder.class
+dao\orderDAO.class
+model\Order.class
 model\User.class

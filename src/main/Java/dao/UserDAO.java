@@ -1,7 +1,7 @@
 package dao;
 
 
-import dao.MysqlConnect;
+import dao.DBConnection;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 import model.User;
 
-public class UserDAO {
+public class userDAO {
 
     private Connection connection;
     private Statement statement;
@@ -22,7 +22,7 @@ public class UserDAO {
 		String sql = "select * from Users" ;
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		try {
-			connection = MysqlConnect.getConnection();
+			connection = DBConnection.getConnection();
 			statement = connection.createStatement();
 			rs = statement.executeQuery(sql);
 			ResultSetMetaData md = rs.getMetaData(); 
@@ -49,7 +49,7 @@ public class UserDAO {
     }
     
     public static void main(String[] args) {
-		UserDAO uDAO = new UserDAO();
+		userDAO uDAO = new userDAO();
 		List<Map<String, Object>> list = uDAO.getList();
 		for(Map<String, Object> obj: list) {
 			System.out.println(obj.get("id") + obj.toString());
