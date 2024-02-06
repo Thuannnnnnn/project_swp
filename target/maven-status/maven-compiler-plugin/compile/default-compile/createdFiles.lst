@@ -1,9 +1,13 @@
-Controller\Order\CRUDOrderController.class
 Controller\Order\orderController.class
-dao\DBConnection.class
+model\Cart.class
 dao\userDAO.class
 Controller\Order\createOrder.class
 Controller\Order\editOrder.class
 dao\orderDAO.class
+dao\cartDAO.class
 model\Order.class
+Controller\Order\CRUDOrderController.class
+dao\DBConnection.class
+Controller\Cart\CRUDCart.class
+model\Product.class
 model\User.class

@@ -1,6 +1,5 @@
 package dao;
 
-
 import dao.DBConnection;
 import java.sql.Connection;
 import java.sql.ResultSet;
