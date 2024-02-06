@@ -1,31 +1,31 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import model.Order;
+import model.Cart;
+import model.Product;
 
-public class orderDAO {
+public class cartDAO {
 
     private Connection connection;
     private Statement statement;
     private ResultSet rs;
 
-    public List<Order> getOrderList() {
-        String sql = "select * from Orders";
-        List<Order> list = new ArrayList<>();
+    public List<Cart> getCartList() {
+        String sql = "select * from Cart";
+        List<Cart> list = new ArrayList<>();
         try {
             connection = DBConnection.getConnection();
             statement = connection.createStatement();
             rs = statement.executeQuery(sql);
             while (rs.next()) {
-                Order o = new Order(rs.getInt("order_id"), rs.getInt("user_id"), rs.getString("delivery_address"), rs.getString("phone_number"), rs.getString("recipient_name"), rs.getString("payment_method"), rs.getFloat("total_price"), rs.getInt("status_order_id"), rs.getDate("time_buy"));
-                list.add(o);
+                Cart c = new Cart(rs.getInt("cart_id"), rs.getInt("quantity_cart"), rs.getInt("user_id"), rs.getString("product_id"), rs.getInt("quantity"));
+                list.add(c);
             }
             connection.close();
         } catch (SQLException e) {
@@ -40,99 +40,108 @@ public class orderDAO {
         return list;
     }
 
-    public Order getOrderByID(int orderId) {
-        Order order = null;
-        String sql = "SELECT * FROM orders WHERE order_id = ?";
+    public Cart getCartByID(int userId) {
+        Cart cart = null;
+        String sql = "SELECT * FROM Cart WHERE user_id = ?";
         try {
             connection = DBConnection.getConnection();
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, orderId);
+            st.setInt(1, userId);
             rs = st.executeQuery();
             if (rs.next()) {
-                order = new Order(rs.getInt("order_id"), rs.getInt("user_id"), rs.getString("delivery_address"), rs.getString("phone_number"), rs.getString("recipient_name"), rs.getString("payment_method"), rs.getFloat("total_price"), rs.getInt("status_order_id"), rs.getDate("time_buy"));
+                cart = new Cart(rs.getInt("cart_id"), rs.getInt("quantity_cart"), rs.getInt("user_id"), rs.getString("product_id"), rs.getInt("quantity"));
             }
         } catch (SQLException e) {
             System.out.println("SQL Error: " + e.getMessage());
         }
-        return order;
-
+        return cart;
     }
 
-    /**
-     *
-     * @param orderId
-     * @param userId
-     * @param address
-     * @param phoneNumber
-     * @param receiver
-     * @param paymentMethod
-     * @param price
-     * @param createOrderDay
-     * @return
-     */
-    public boolean updateOrder(int orderId, int userId, String address, String phoneNumber, String receiver, String paymentMethod, float price, Date createOrderDay) throws SQLException {
-        boolean orderUpdated = false;
-        String sql = "UPDATE Orders SET user_id = ?,  delivery_address = ?, phone_number = ?, recipient_name = ?, payment_method = ?, total_price = ?, time_buy = ? WHERE order_id = ?;";
+    public boolean deleteCart(int cartId, int userId, String productId) throws SQLException {
+        boolean cartDeleted = false;
+        String sql = "DELETE FROM Cart WHERE cart_id = ? AND user_id = ? AND product_id = ?";
         connection = DBConnection.getConnection();
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, userId);
-            st.setString(2, address);
-            st.setString(3, phoneNumber);
-            st.setString(4, receiver);
-            st.setString(5, paymentMethod);
-            st.setFloat(6, price);
-            java.sql.Date sqlCreateOrderDay = new java.sql.Date(createOrderDay.getTime());
-            st.setDate(7, sqlCreateOrderDay);
-            st.setInt(8, orderId);
-            orderUpdated = st.executeUpdate() > 0;
+            st.setInt(1, cartId);
+            st.setInt(2, userId);
+            st.setString(3, productId);
+
+            cartDeleted = st.executeUpdate() > 0;
         } catch (SQLException e) {
             System.out.println("SQL Error: " + e.getMessage());
             return false;
+        } finally {
+            connection.close();
         }
-        return orderUpdated;
-    }
-    public boolean createOrder(int userId, String address, String phoneNumber, String receiver, String paymentMethod, float price, Date createOrderDay) throws SQLException {
-        boolean orderCreated = false;
-        String sql = "INSERT INTO Orders (userId, address, phoneNumber, receiver, paymentMethod, price, createOrderDay) VALUES (?, ?, ?, ?, ?, ?, ?);";
-        connection = DBConnection.getConnection();
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, userId);
-            st.setString(2, address);
-            st.setString(3, phoneNumber);
-            st.setString(4, receiver);
-            st.setString(5, paymentMethod);
-            st.setFloat(6, price);
-            java.sql.Date sqlCreateOrderDay = new java.sql.Date(createOrderDay.getTime());
-            st.setDate(7, sqlCreateOrderDay);
-            orderCreated = st.executeUpdate() > 0;
-        } catch (SQLException e) {
-            System.out.println("SQL Error: " + e.getMessage());
-            return false;
-        }
-        return orderCreated;
+        return cartDeleted;
     }
 
-    public boolean deleteOrder(int orderId) throws SQLException {
-        boolean orderDeleted = false;
-        String sql = "DELETE FROM Orders WHERE order_id = ?;";
-        connection = DBConnection.getConnection();
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, orderId);
+    public boolean updateCartQuantity(int cartId, int newQuantity) throws SQLException {
+    boolean updated = false;
+    String deleteCartSql = "DELETE FROM Cart WHERE cart_id = ?";
+    String updateCartSql = "UPDATE Cart SET quantity = ? WHERE cart_id = ?";
+    String getStockQuantitySql = "SELECT stock_quantity FROM products WHERE product_id = ?";
 
-            orderDeleted = st.executeUpdate() > 0;
-        } catch (SQLException e) {
-            System.out.println("SQL Error: " + e.getMessage());
-            return false;
+    connection = DBConnection.getConnection();
+    try {
+        connection.setAutoCommit(false);
+
+        // Get current quantity in the cart
+        PreparedStatement getCartStatement = connection.prepareStatement("SELECT * FROM Cart WHERE cart_id = ?");
+        getCartStatement.setInt(1, cartId);
+        rs = getCartStatement.executeQuery();
+
+        if (rs.next()) {
+            int userId = rs.getInt("user_id");
+            String productId = rs.getString("product_id");
+
+            // Get stock quantity of the product
+            PreparedStatement getStockQuantityStatement = connection.prepareStatement(getStockQuantitySql);
+            getStockQuantityStatement.setString(1, productId);
+            ResultSet stockQuantityResultSet = getStockQuantityStatement.executeQuery();
+
+            if (stockQuantityResultSet.next()) {
+                int stockQuantity = stockQuantityResultSet.getInt("stock_quantity");
+
+                // Check if the new quantity is within the stock quantity limit
+                if (newQuantity > 0 && newQuantity <= stockQuantity) {
+                    // Update cart quantity
+                    PreparedStatement updateCartStatement = connection.prepareStatement(updateCartSql);
+                    updateCartStatement.setInt(1, newQuantity);
+                    updateCartStatement.setInt(2, cartId);
+
+                    updated = updateCartStatement.executeUpdate() > 0;
+
+                    if (updated) {
+                        connection.commit();
+                    } else {
+                        connection.rollback();
+                    }
+                } else if (newQuantity <= 0) {
+                    // If new quantity is 0 or less, delete the cart
+                    PreparedStatement deleteCartStatement = connection.prepareStatement(deleteCartSql);
+                    deleteCartStatement.setInt(1, cartId);
+
+                    updated = deleteCartStatement.executeUpdate() > 0;
+
+                    if (updated) {
+                        connection.commit();
+                    } else {
+                        connection.rollback();
+                    }
+                }
+            }
         }
-        return orderDeleted;
+    } catch (SQLException e) {
+        connection.rollback();
+        e.printStackTrace();
+    } finally {
+        connection.setAutoCommit(true);
+        connection.close();
     }
 
-    public static void main(String[] args) {
-        orderDAO oDAO = new orderDAO();
-        Order result = oDAO.getOrderByID(44);
-        System.out.println("result :" + result.getTimeBuy());
-    }
+    return updated;
+}
+
 }
