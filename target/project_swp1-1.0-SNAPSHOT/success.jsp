@@ -18,7 +18,6 @@
             out.println("Product ID: " + img.getProduct_id() + "<br>");
             out.println("<img src=\"data:image/png;base64," + img.getImage_url() + "\" alt=\"Product Image\" style=\"width:200px;height:auto;\"/><br>");
             
-            // Form for delete request
             out.println("<form action='DeleteServlet' method='post'>");
             out.println("<input type='hidden' name='image_id' value='" + img.getImage_id() + "'/>");
             out.println("<input type='submit' value='Delete'/>");

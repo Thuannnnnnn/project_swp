@@ -13,7 +13,6 @@
                 <td> <input type="text" name="product_id" required> </td>
             </tr>
             <tr id="fileInputContainer">
-                <!-- Vùng hiển thị các tệp đã chọn -->
             </tr>
             <tr>
                 <td colspan="2">
