@@ -2,27 +2,27 @@
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
     <servlet>
         <servlet-name>test</servlet-name>
-        <servlet-class>controller.test</servlet-class>
+        <servlet-class>controller.User.test</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>login</servlet-name>
-        <servlet-class>controller.login</servlet-class>
+        <servlet-class>controller.User.login</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SendOtpServlet</servlet-name>
-        <servlet-class>controller.SendOtpServlet</servlet-class>
+        <servlet-class>controller.User.SendOtpServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>VerifyOtpServlet</servlet-name>
-        <servlet-class>controller.VerifyOtpServlet</servlet-class>
+        <servlet-class>controller.User.VerifyOtpServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SignUp</servlet-name>
-        <servlet-class>controller.SignUp</servlet-class>
+        <servlet-class>controller.User.SignUp</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>FogotPassword</servlet-name>
-        <servlet-class>controller.FogotPassword</servlet-class>
+        <servlet-class>controller.User.FogotPassword</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>test</servlet-name>

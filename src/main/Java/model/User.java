@@ -12,7 +12,7 @@ public class User {
     private String email;
     private String password;
     private String address;
-    private Date registrationDate;
+    private Date DateAdded;
     private String userRole;
 
     public User() {
@@ -26,7 +26,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.address = address;
-        this.registrationDate = registrationDate;
+        this.DateAdded = DateAdded;
         this.userRole = userRole;
     }
     public User(String fullName, Date birthDate, String phoneNumber,String email, String password, String address, String userRole) { 
@@ -95,13 +95,15 @@ public class User {
         this.address = address;
     }
 
-    public Date getRegistrationDate() {
-        return registrationDate;
+    public Date getDateAdded() {
+        return DateAdded;
     }
 
-    public void setRegistrationDate(Date registrationDate) {
-        this.registrationDate = registrationDate;
+    public void setDateAdded(Date DateAdded) {
+        this.DateAdded = DateAdded;
     }
+
+    
 
     public String getUserRole() {
         return userRole;

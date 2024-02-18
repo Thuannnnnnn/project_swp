@@ -29,7 +29,7 @@ public class UserDAO {
                         resultSet.getString("email"),
                         resultSet.getString("passwords"),
                         resultSet.getString("address"),
-                        resultSet.getDate("registration_date"), // Use getTimestamp for DATETIME type
+                        resultSet.getDate("Date_Added"), // Use getTimestamp for DATETIME type
                         resultSet.getString("user_role")
                 );
                 users.add(user);
@@ -57,7 +57,7 @@ public class UserDAO {
                             resultSet.getString("email"),
                             resultSet.getString("passwords"),
                             resultSet.getString("address"),
-                            resultSet.getDate("registration_date"),
+                            resultSet.getDate("Date_Added"),
                             resultSet.getString("user_role")
                     );
                 }

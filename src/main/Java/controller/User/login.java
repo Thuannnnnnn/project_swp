@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package controller.User;
 
 import dao.UserDAO;
 import java.io.IOException;
@@ -89,7 +89,7 @@ public class login extends HttpServlet {
                 session.setAttribute("BirthDate", u.getBirthDate());
                 session.setAttribute("PhoneNumber", u.getPhoneNumber());
                 session.setAttribute("UserRole", u.getUserRole());
-                session.setAttribute("RegistrationDate", u.getRegistrationDate());
+                session.setAttribute("Date_Added", u.getDateAdded());
                 if (rememberMe != null) {
                     System.out.println("remember not null");
                     Ce.setMaxAge(60 * 60 * 365);
@@ -104,7 +104,7 @@ public class login extends HttpServlet {
                 response.addCookie(Ce);
                 response.addCookie(Cp);
                 response.addCookie(Cr); 
-                response.sendRedirect("login.jsp");
+                response.sendRedirect("LoginPage.jsp?status=ss");
             } else {
                 System.out.println("Thông tin đăng nhập không chính xác");
                 response.sendRedirect("login.jsp?error=invalid");
