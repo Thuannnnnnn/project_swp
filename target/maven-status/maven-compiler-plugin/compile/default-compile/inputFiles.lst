@@ -1,10 +1,10 @@
-D:\Workspace\SP24\SWP\SWP_backend\src\main\java\model\User.java
-D:\Workspace\SP24\SWP\SWP_backend\src\main\java\dao\MysqlConnect.java
-D:\Workspace\SP24\SWP\SWP_backend\src\main\java\controller\User\SignUp.java
-D:\Workspace\SP24\SWP\SWP_backend\src\main\java\controller\User\test.java
-D:\Workspace\SP24\SWP\SWP_backend\src\main\java\controller\User\login.java
-D:\Workspace\SP24\SWP\SWP_backend\src\main\java\controller\User\UserController.java
-D:\Workspace\SP24\SWP\SWP_backend\src\main\java\controller\User\VerifyOtpServlet.java
-D:\Workspace\SP24\SWP\SWP_backend\src\main\java\controller\User\FogotPassword.java
-D:\Workspace\SP24\SWP\SWP_backend\src\main\java\dao\UserDAO.java
-D:\Workspace\SP24\SWP\SWP_backend\src\main\java\controller\User\SendOtpServlet.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\dao\UserDAO.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\model\User.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\dao\MysqlConnect.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\User\ForgotPassword.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\User\SignUp.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\User\UserController.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\User\login.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\User\SendOtpServlet.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\User\test.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\User\VerifyOtpServlet.java
