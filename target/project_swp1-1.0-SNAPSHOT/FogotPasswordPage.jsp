@@ -54,7 +54,7 @@ String error = request.getParameter("error");%>
                     var repassword = $("[name='Repassword']").val();
 
                     if (password !== repassword) {
-                        alert("Mật khẩu không khớp. Vui lòng nhập lại.");
+                        alert("Mật khẩu không khớp. Vui lòng nhập lạii.");
                         event.preventDefault(); // Ngăn chặn form được gửi nếu mật khẩu không khớp
                     }
                 });
