@@ -28,6 +28,7 @@ String error = request.getParameter("error");%>
         <%                
                      if ("enter".equals(method)) {
         %>
+        <h3 id="errorMessages" class="text-danger"></h3>
         <form action="VerifyOtpServlet" method="post">
             Enter OTP: <input type="text" name="otp" required />
             <input type="submit" value="Verify OTP" />
@@ -52,9 +53,12 @@ String error = request.getParameter("error");%>
                 $("#enterPassword").submit(function (event) {
                     var password = $("[name='password']").val();
                     var repassword = $("[name='Repassword']").val();
-
+                    var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+                    if (!passwordRegex.test(password)) {
+                        errorMessage += "Password must be at least 8 characters long, including uppercase, lowercase, and numbers.";
+                    }
                     if (password !== repassword) {
-                        alert("Mật khẩu không khớp. Vui lòng nhập lại.");
+                        errorMessage += "Mật khẩu không khớp. Vui lòng nhập lại.";
                         event.preventDefault(); // Ngăn chặn form được gửi nếu mật khẩu không khớp
                     }
                 });
