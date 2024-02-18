@@ -58,7 +58,7 @@ String error = request.getParameter("error");%>
                         errorMessage += "Password must be at least 8 characters long, including uppercase, lowercase, and numbers.";
                     }
                     if (password !== repassword) {
-                        errorMessage += "Mật khẩu không khớp. Vui lòng nhập lạii.";
+                        errorMessage += "Mật khẩu không khớp. Vui lòng nhập lạiiii.";
                         event.preventDefault(); // Ngăn chặn form được gửi nếu mật khẩu không khớp
                     }
                 });
