@@ -19,7 +19,7 @@ import org.apache.commons.codec.binary.Hex;
  *
  * @author tranq
  */
-public class FogotPassword extends HttpServlet {
+public class ForgotPassword extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -83,7 +83,7 @@ public class FogotPassword extends HttpServlet {
        String email = request.getParameter("email");
         UserDAO u = new UserDAO();
        if( !email.isEmpty() &&u.updatePassword(email, GenSHA256(password))){
-           response.sendRedirect("login.jsp");
+           response.sendRedirect("LoginPage.jsp");
        }else{
            response.sendRedirect("FogotPassword.jsp?error=invalid");
        }

@@ -93,9 +93,9 @@ public class SendOtpServlet extends HttpServlet {
                 session.setAttribute("otp", GenSHA256(otp));
                 session.setAttribute("otpExpiry", System.currentTimeMillis() + 300000); // 5 phút sau
 
-                response.sendRedirect("FogotPasswordPage.jsp?method=enter&email=" + email);
+                response.sendRedirect("ForgotPasswordPage.jsp?method=enter&email=" + email);
             } else {
-                response.sendRedirect("FogotPasswordPage.jsp?error=emailNotExit");
+                response.sendRedirect("ForgotPasswordPage.jsp?error=emailNotExit");
             }
         }
     }

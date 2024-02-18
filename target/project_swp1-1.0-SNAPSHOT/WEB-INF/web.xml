@@ -22,7 +22,7 @@
     </servlet>
     <servlet>
         <servlet-name>FogotPassword</servlet-name>
-        <servlet-class>controller.User.FogotPassword</servlet-class>
+        <servlet-class>controller.User.ForgotPassword</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>test</servlet-name>

@@ -2,10 +2,10 @@ controller\User\UserController.class
 controller\User\SendOtpServlet.class
 controller\User\SignUp.class
 controller\User\SendOtpServlet$1.class
+controller\User\ForgotPassword.class
 dao\UserDAO.class
 dao\MysqlConnect.class
 controller\User\test.class
 controller\User\VerifyOtpServlet.class
 controller\User\login.class
-controller\User\FogotPassword.class
 model\User.class

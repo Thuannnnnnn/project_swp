@@ -97,9 +97,9 @@ public class VerifyOtpServlet extends HttpServlet {
         } else {
             if (sessionOtp != null && userOtp.equals(sessionOtp) && System.currentTimeMillis() <= otpExpiry) {
                 session.removeAttribute("otp"); // Xóa OTP sau khi xác thực thành công
-                response.sendRedirect("FogotPasswordPage.jsp?method=enterPassword&email=" + email);
+                response.sendRedirect("ForgotPasswordPage.jsp?method=enterPassword&email=" + email);
             } else {
-                response.sendRedirect("FogotPasswordPage.jsp?error=invalidOTP&otp1="+sessionOtp+"&otp2="+userOtp);
+                response.sendRedirect("ForgotPasswordPage.jsp?method=enter&error=invalidOTP&email=" + email);
             }
 
         }
