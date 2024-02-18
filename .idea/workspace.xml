@@ -4,21 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47e9c5b5-6d65-460b-a74b-74352ce2698d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/Java/dao/MysqlConnect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Java/dao/MysqlConnect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Java/model/Users.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Java/model/Users.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/project_swp1-1.0-SNAPSHOT.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/project_swp1-1.0-SNAPSHOT.war" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/project_swp1-1.0-SNAPSHOT/WEB-INF/classes/dao/MysqlConnect.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/project_swp1-1.0-SNAPSHOT/WEB-INF/classes/dao/MysqlConnect.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/ConnectDB/ConnectDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/ConnectDB/ConnectDB.class" afterDir="false" />
-    </list>
+    <list default="true" id="47e9c5b5-6d65-460b-a74b-74352ce2698d" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="feature/login,Fogot,signUp" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="LogFilters">
@@ -28,9 +33,9 @@
     <option name="FILTER_DEBUG" value="true" />
     <option name="CUSTOM_FILTER" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 3
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="2bdSo29FQZRHNRVWXdWvGAgIotS" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -41,12 +46,13 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "D:/Workspace/SP24/SWP/swp391",
+    "git-widget-placeholder": "feature/login,Fogot,signUp",
+    "last_opened_file_path": "D:/Workspace/SP24/SWP/SWP_backend",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -152,10 +158,34 @@
       <option name="presentableId" value="Default" />
       <updated>1706543637742</updated>
       <workItem from="1706543638699" duration="1407000" />
+      <workItem from="1708264990415" duration="222000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="feature/login,Fogot,signUp" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
