@@ -4,45 +4,94 @@
 <head>
     <title>Image Upload</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        .image-preview {
+            display: inline-block;
+            margin: 10px;
+            position: relative;
+        }
+        .image-preview img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+        .image-preview .remove-image {
+            position: absolute;
+            top: 0;
+            right: 0;
+            cursor: pointer;
+            color: red;
+        }
+    </style>
 </head>
 <body>
     <form id="uploadForm" action="UploadServlet" method="post" enctype="multipart/form-data">
         <table>
             <tr>
-                <th>Product_id</th> 
-                <td> <input type="text" name="product_id" required> </td>
-            </tr>
-            <tr id="fileInputContainer">
+                <th>Product ID</th>
+                <td><input type="text" name="product_id" required></td>
             </tr>
             <tr>
-                <td colspan="2">
-                    <button type="button" id="addImage">Add Image</button>
+                <th>Images</th>
+                <td>
+                    <input type="file" name="images[]" id="imageInput" multiple required>
+                    <div id="selectedFiles"></div>
                 </td>
             </tr>
             <tr>
-                <th></th> 
-                <td> <input type="submit" value="Upload"> </td>
+                <td colspan="2">
+                    <button type="submit">Upload</button>
+                </td>
             </tr>
         </table>
     </form>
 
     <script>
     $(document).ready(function() {
-        var fileInputContainer = $("#fileInputContainer");
-        var addImageButton = $("#addImage");
+        var MAX_FILES_ALLOWED = 5;
+        var selectedFilesContainer = $('#selectedFiles');
 
-        addImageButton.click(function() {
-            var fileInput = $('<input type="file" name="images[]" style="display:none;" required>');
-            fileInputContainer.append(fileInput);
-            fileInput.click();
+        $('#imageInput').change(function(e) {
+            var files = e.target.files;
 
-            fileInput.change(function() {
-                var fileName = fileInput.val().split('\\').pop();
-                fileInputContainer.append('<div>' + fileName + '</div>');
-            });
+            if (files.length + selectedFilesContainer.find('.image-preview').length > MAX_FILES_ALLOWED) {
+                alert('You can only upload up to ' + MAX_FILES_ALLOWED + ' images.');
+                return;
+            }
+
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                var reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    var img = $('<img>').attr('src', e.target.result);
+                    var removeBtn = $('<span class="remove-image">X</span>');
+
+                    removeBtn.click(function() {
+                        $(this).parent().remove();
+                    });
+
+                    var imgPreview = $('<div class="image-preview"></div>')
+                        .append(img)
+                        .append(removeBtn);
+                    selectedFilesContainer.append(imgPreview);
+                };
+
+                reader.readAsDataURL(file);
+            }
+        });
+
+        $('#addImage').click(function() {
+            $('#imageInput').click();
+        });
+
+        $('#uploadForm').submit(function(e) {
+            if (selectedFilesContainer.find('.image-preview').length > MAX_FILES_ALLOWED) {
+                alert('You cannot upload more than ' + MAX_FILES_ALLOWED + ' images.');
+                e.preventDefault(); // Stop form submission
+            }
         });
     });
-</script>
+    </script>
 
 </body>
 </html>

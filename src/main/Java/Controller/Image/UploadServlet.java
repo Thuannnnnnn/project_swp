@@ -19,7 +19,6 @@ import org.apache.commons.io.IOUtils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.Base64;
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -34,13 +33,7 @@ import java.util.stream.Collectors;
 @MultipartConfig
 public class UploadServlet extends HttpServlet {
    
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -102,11 +95,13 @@ public class UploadServlet extends HttpServlet {
         imageDAO dao = new imageDAO();
 
         for (Part imagePart : imageParts) {
-            try {
-                if (!isValidImageType(imagePart.getContentType())) {
-                    handleInvalidImageType(response);
-                    return;
-                }
+        try {
+            String contentType = imagePart.getContentType();
+            System.out.println("Content Type: " + contentType);
+            if (!isValidImageType(contentType)) {
+                handleInvalidImageType(response);
+                return;
+            }
 
                 if (imagePart.getSize() > 10485760) { // 10 MB limit
                     throw new ServletException("File size exceeds maximum limit (10 MB)");
@@ -129,10 +124,18 @@ public class UploadServlet extends HttpServlet {
     }
 
     private String convertImageToBase64(Part imagePart) throws IOException {
-        InputStream inputStream = imagePart.getInputStream();
-        byte[] imageBytes = IOUtils.toByteArray(inputStream);
-        return Base64.getEncoder().encodeToString(imageBytes);
+    String contentType = imagePart.getContentType();
+
+    // Only allow PNG and JPG images
+    if (!isValidImageType(contentType)) {
+        throw new IOException("Invalid image type: " + contentType);
     }
+
+    // Proceed with conversion if image type is valid
+    InputStream inputStream = imagePart.getInputStream();
+    byte[] imageBytes = IOUtils.toByteArray(inputStream);
+    return Base64.getEncoder().encodeToString(imageBytes);
+}
 
     private void handleMissingParameter(HttpServletResponse response, String message) throws IOException {
         response.setContentType("text/plain");
@@ -143,7 +146,7 @@ public class UploadServlet extends HttpServlet {
     private void handleInvalidImageType(HttpServletResponse response) throws IOException {
         response.setContentType("text/plain");
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        response.getWriter().println("Error: Only PNG and JPEG image types are accepted.");
+        response.getWriter().println("Error: Only PNG and JPG image types are accepted.");
     }
 
     private void handleError(HttpServletResponse response, String errorMessage) throws IOException {
@@ -153,8 +156,8 @@ public class UploadServlet extends HttpServlet {
     }
     
     private boolean isValidImageType(String contentType) {
-        return contentType.equals("image/png") || contentType.equals("image/jpeg");
-    }
+    return contentType.equals("image/jpeg") || contentType.equals("image/png");
+}
 
 
 
