@@ -1,9 +1,12 @@
-Controller\Order\CRUDOrderController.class
 Controller\Order\orderController.class
-dao\DBConnection.class
-dao\userDAO.class
+dao\imageDAO.class
 Controller\Order\createOrder.class
+model\image.class
 Controller\Order\editOrder.class
 dao\orderDAO.class
+Controller\Image\UploadServlet.class
 model\Order.class
+Controller\Order\CRUDOrderController.class
+dao\DBConnection.class
+Controller\Image\DeleteServlet.class
 model\User.class
