@@ -103,7 +103,6 @@ public class SignUp extends HttpServlet {
             // Phân tích cú pháp chuỗi ngày tháng sang java.util.Date
             birthdateUtil = dateFormat.parse(birthdateRaw);
         } catch (ParseException e) {
-            e.printStackTrace();
             response.sendRedirect("SignUpPage.jsp"); // Chuyển hướng người dùng nếu có lỗi
             return; // Dừng việc xử lý nếu có lỗi
         }
