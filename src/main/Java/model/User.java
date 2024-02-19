@@ -1,50 +1,39 @@
 package model;
-
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 
 
 public class User {
-       private int userId;
-    private String fullName;
-    private Date birthDate;
-    private String phoneNumber;
-    private String email;
-    private String password;
-    private String address;
-    private Date DateAdded;
-    private String userRole;
+        private int userID;
+        private String fullName;
+        private String email;
+        private String passWord;
+        private String address;
+        private Date birthDay;
+        private Date registationDay;
+        private String userRole;
+        private String phoneNumber;
 
     public User() {
     }
 
-    public User(int userId, String fullName, Date birthDate, String phoneNumber, String email, String password, String address, Date registrationDate, String userRole) {
-        this.userId = userId;
+    public User(int userID, String fullName, String email, String passWord, String address, Date birthDay, Date registationDay, String userRole, String phoneNumber) {
+        this.userID = userID;
         this.fullName = fullName;
-        this.birthDate = birthDate;
-        this.phoneNumber = phoneNumber;
         this.email = email;
-        this.password = password;
+        this.passWord = passWord;
         this.address = address;
-        this.DateAdded = DateAdded;
+        this.birthDay = birthDay;
+        this.registationDay = registationDay;
         this.userRole = userRole;
-    }
-    public User(String fullName, Date birthDate, String phoneNumber,String email, String password, String address, String userRole) { 
-        this.fullName = fullName;
-        this.birthDate = birthDate;
         this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.password = password;
-        this.address = address;
-        this.userRole = userRole;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getUserID() {
+        return userID;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
     public String getFullName() {
@@ -55,22 +44,6 @@ public class User {
         this.fullName = fullName;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -79,12 +52,12 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPassWord() {
+        return passWord;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
     }
 
     public String getAddress() {
@@ -95,15 +68,21 @@ public class User {
         this.address = address;
     }
 
-    public Date getDateAdded() {
-        return DateAdded;
+    public Date getBirthDay() {
+        return birthDay;
     }
 
-    public void setDateAdded(Date DateAdded) {
-        this.DateAdded = DateAdded;
+    public void setBirthDay(Date birthDay) {
+        this.birthDay = birthDay;
     }
 
-    
+    public Date getRegistationDay() {
+        return registationDay;
+    }
+
+    public void setRegistationDay(Date registationDay) {
+        this.registationDay = registationDay;
+    }
 
     public String getUserRole() {
         return userRole;
@@ -112,6 +91,15 @@ public class User {
     public void setUserRole(String userRole) {
         this.userRole = userRole;
     }
-   
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+        
+
+   
 }
