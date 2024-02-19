@@ -21,7 +21,6 @@
             String id2 = request.getParameter("id2");
             String id3 = request.getParameter("id3");
             productDescriptionDAO pdModel = new productDescriptionDAO();
-
             List<product> p = pdModel.getIMG(id1, id2, id3);
             List<productDescription> pd = pdModel.getProductDescription(id1, id2, id3);
         %>

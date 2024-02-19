@@ -1,0 +1,8 @@
+dao\productDescriptionDAO.class
+model\productDescription.class
+model\product.class
+Controller\compareProductServlet.class
+dao\UserDAO.class
+dao\MysqlConnect.class
+Controller\AddUser.class
+model\User.class

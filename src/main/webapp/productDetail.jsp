@@ -96,9 +96,16 @@
                     for (int i = 0; i < p.size(); i++) {
                         if (!p.get(i).getProduct_id().equals(productId)) {
                 %>
-                <a href="#" onclick="updateSelectedProduct('<%= pd.get(i).getProductId()%>', '<%= p.get(i).getImage_url()%>', '<%= productId%>')">
+
+                <a>
                     <img src="<%= p.get(i).getImage_url()%>" style="width: 200px; height: 200px;">
                 </a>
+
+                <form id="productForm" action="compareProductServlet" method="get">
+                    <input type="hidden"  name="id1" value="<%= p.get(i).getProduct_id()%>">
+                    <input type="hidden"  name="id2" value="<%=productId%>">
+                    <button type="submit">So sánh sản phẩm</button>
+                </form>
                 <%
                         }
                     }%>
@@ -106,94 +113,60 @@
             </div>
 
         </div>
-        <button class="accordion">Tiêu đề của phần thu gọn</button>
 
-        <div class="panel" style="display: flex">
-            <div id="selectedProductWrapper">
-            <img id="selectedProductImage" style="width: 200px; height: 200px;">
-            <button id="removeSelectedProduct1" style="display: none;" onclick="removeSelectedProduct(1)">Xóa</button>
-        </div>
-        <div id="secondProductWrapper">
-            <img id="secondProductImage" style="width: 200px; height: 200px;">
-            <button id="removeSelectedProduct2" style="display: none;" onclick="removeSelectedProduct(2)">Xóa</button>
-        </div>
 
-            <%
-                for (product product : p) {
-                    if (product.getProduct_id().equals(productId)) {
-            %>
-            <img  id="thirdProductImage" src="<%= product.getImage_url()%>" style="width: 200px; height: 200px  ;">
-            <%
-                    }
+
+
+        <%
+            for (product product : p) {
+                if (product.getProduct_id().equals(productId)) {
+        %>
+        <img  id="thirdProductImage" src="<%= product.getImage_url()%>" style="width: 200px; height: 200px  ;">
+        <%
                 }
-            %>
-            <form id="productForm" action="compareProductServlet" method="get">
-                <input type="hidden" id="selectedProductIdInput" name="id1" value="">
-                <input type="hidden" id="secondProductIdInput" name="id2" value="">
-                <input type="hidden" id="thirdProductIdInput" name="id3" value="">
-                <button type="submit">So sánh sản phẩm</button>
-            </form>
+            }
+        %>
 
-        </div>
 
-    </body>
-    <script>
-        var modal = document.getElementById("myModal");
+    </div>
 
-        var btn = document.getElementById("myBtn");
+</body>
+<script>
+    var modal = document.getElementById("myModal");
 
-        var span = document.getElementsByClassName("close")[0];
+    var btn = document.getElementById("myBtn");
 
-        btn.onclick = function () {
-            modal.style.display = "block";
-        };
+    var span = document.getElementsByClassName("close")[0];
 
-        span.onclick = function () {
+    btn.onclick = function () {
+        modal.style.display = "block";
+    };
+
+    span.onclick = function () {
+        modal.style.display = "none";
+    };
+
+    window.onclick = function (event) {
+        if (event.target === modal) {
             modal.style.display = "none";
-        };
-
-        window.onclick = function (event) {
-            if (event.target === modal) {
-                modal.style.display = "none";
-            }
-        };
-
-        var acc = document.getElementsByClassName("accordion");
-        var i;
-
-        for (i = 0; i < acc.length; i++) {
-            acc[i].addEventListener("click", function () {
-                this.classList.toggle("active");
-                var panel = this.nextElementSibling;
-                if (panel.style.maxHeight) {
-                    panel.style.maxHeight = null;
-                } else {
-                    panel.style.maxHeight = panel.scrollHeight + "px";
-                }
-            });
         }
+    };
 
-        // Thay đổi id của thẻ img
-        var selectedProductImage = document.getElementById("selectedProductImage");
-        var secondProductImage = document.getElementById("secondProductImage");
+    var acc = document.getElementsByClassName("accordion");
+    var i;
 
-        // Cập nhật thông tin khi sản phẩm được chọn trong modal
-        function updateSelectedProduct(productId, imageUrl, id) {
-            document.getElementById("thirdProductIdInput").value = id;
-            if (!selectedProductImage.src) {
-                selectedProductImage.src = imageUrl;
-                document.getElementById("selectedProductIdInput").value = productId;
-            } else if (!secondProductImage.src) {
-                secondProductImage.src = imageUrl;
-                document.getElementById("secondProductIdInput").value = productId;
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
             }
-        }
+        });
+    }
 
-        // Thêm mã sau vào phần JavaScript
-        var productForm = document.getElementById("productForm");
-        productForm.onsubmit = function (event) {
-            event.preventDefault();
-            productForm.submit();
-        };
-    </script>
+
+</script>
 </html>
