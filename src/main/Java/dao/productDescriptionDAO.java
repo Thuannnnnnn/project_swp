@@ -18,7 +18,7 @@ public class productDescriptionDAO {
     private ResultSet rs;
 
     public productDescriptionDAO() throws SQLException {
-        this.connection = MysqlConnect.getConnection();
+        this.connection = DBConnection.getConnection();
     }
 
     public List<productDescription> getAllProductDescription() {
