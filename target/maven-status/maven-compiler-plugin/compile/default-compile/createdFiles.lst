@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Controller\Order\orderController.class
 model\Cart.class
 dao\userDAO.class
@@ -10,4 +11,13 @@ Controller\Order\CRUDOrderController.class
 dao\DBConnection.class
 Controller\Cart\CRUDCart.class
 model\Product.class
+=======
+dao\productDescriptionDAO.class
+model\productDescription.class
+model\product.class
+Controller\compareProductServlet.class
+dao\UserDAO.class
+dao\MysqlConnect.class
+Controller\AddUser.class
+>>>>>>> features/description
 model\User.class
