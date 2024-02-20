@@ -43,15 +43,15 @@ public class imageDAO {
         }
     }
 
-    public void deleteImage(int imageId) throws SQLException {
-        String sql = "DELETE FROM images WHERE image_id = ?";
-        try (Connection connection = DBConnection.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setInt(1, imageId);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            // Handle exception
-            throw e;
-        }
+    public void deleteImage(String productId) throws SQLException {
+        String sql = "DELETE FROM images WHERE product_id = ?";
+    try (Connection connection = DBConnection.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        preparedStatement.setString(1, productId);
+        preparedStatement.executeUpdate();
+    } catch (SQLException e) {
+        // Handle exception
+        throw e;
+    }
     }
 
     // Example usage and handling potential exceptions

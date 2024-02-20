@@ -71,15 +71,13 @@ public class DeleteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            int imageId = Integer.parseInt(request.getParameter("image_id"));
+            String productId = request.getParameter("product_id");
             imageDAO dao = new imageDAO();
-            dao.deleteImage(imageId);
+            dao.deleteImage(productId);
 
             response.sendRedirect("success.jsp"); // Redirect back to the images page
-        } catch (NumberFormatException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Image ID");
         } catch (Exception e) {
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error deleting image");
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error deleting images");
         }
     }
 
