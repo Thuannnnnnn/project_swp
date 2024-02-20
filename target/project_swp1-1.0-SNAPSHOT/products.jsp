@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="model.product"%>  
+<%@page import="model.Products"%>  
 <%@page import="java.sql.ResultSet"%>
 <%@page import="dao.productDescriptionDAO"%>  
 <%@page import="java.util.List"%> 
@@ -21,11 +21,11 @@
                 productDescriptionDAO pdModel = new productDescriptionDAO();
 
           
-                List<product> p = pdModel.getProduct();
-                for (product product : p) {
+                List<Products> p = pdModel.getProduct();
+                for (Products product : p) {
             %>
-            <a href="productDetail.jsp?id=<%= product.getProduct_id()%>">
-                <img  src="<%= product.getImage_url()%>" style="width: 50%; height: 100%  ;">
+            <a href="productDetail.jsp?id=<%= product.getProductId()%>">
+                <img  src="<%= product.getImageUrl()%>" style="width: 50%; height: 100%  ;">
             </a>
             <%
                   

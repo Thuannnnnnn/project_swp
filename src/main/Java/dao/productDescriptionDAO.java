@@ -1,6 +1,6 @@
 package dao;
 
-import dao.MysqlConnect;
+import dao.DBConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import model.product;
+import model.Products;
 import model.productDescription;
 
 public class productDescriptionDAO {
@@ -44,14 +44,14 @@ public class productDescriptionDAO {
         return pDescriptions;
     }
 
-    public List<product> getProduct() {
-        List<product> list = new ArrayList<>();
+    public List<Products> getProduct() {
+        List<Products> list = new ArrayList<>();
         String sql = "select * from products";
         try {
             PreparedStatement st = connection.prepareStatement(sql); // Use PreparedStatement instead of Statement
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                product p = new product(
+                Products p = new Products(
                         rs.getString("product_id"),
                         rs.getString("product_name"),
                         rs.getDouble("product_price"),
@@ -74,8 +74,8 @@ public class productDescriptionDAO {
         return list;
     }
 
-    public List<product> getIMG(String id1, String id2, String id3) {
-        List<product> list = new ArrayList<>();
+    public List<Products> getIMG(String id1, String id2, String id3) {
+        List<Products> list = new ArrayList<>();
         String sql = "SELECT * from products WHERE product_id IN (?, ?, ?);";
         try {
             PreparedStatement st = connection.prepareStatement(sql); // Use PreparedStatement instead of Statement
@@ -84,7 +84,7 @@ public class productDescriptionDAO {
             st.setString(3, id3);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                product p = new product(
+                Products p = new Products(
                         rs.getString("product_id"),
                         rs.getString("product_name"),
                         rs.getDouble("product_price"),
@@ -135,7 +135,7 @@ public class productDescriptionDAO {
             System.out.println("anh " + description.getProductId());
         }
 //        List<product> p = pdModel.getProduct();
-        List<product> p1 = pdModel.getIMG("PROD1", "PROD2", "PROD3");
+        List<Products> p1 = pdModel.getIMG("PROD1", "PROD2", "PROD3");
         List<productDescription> p2 = pdModel.getProductDescription("PROD1", "PROD2", "PROD3");
         System.out.println(p2.size());
  

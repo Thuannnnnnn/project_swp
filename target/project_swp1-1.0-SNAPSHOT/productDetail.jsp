@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="model.product"%>  
+<%@page import="model.Products"%>  
 <%@page import="java.sql.ResultSet"%>
 <%@page import="dao.productDescriptionDAO"%>  
 <%@page import="java.util.List"%> 
@@ -86,7 +86,7 @@
             productDescriptionDAO pdModel = new productDescriptionDAO();
 
             List<productDescription> pd = pdModel.getAllProductDescription();
-            List<product> p = pdModel.getProduct();
+            List<Products> p = pdModel.getProduct();
         %>  
         <button id="myBtn">So sánh</button>
         <div id="myModal" class="modal">
@@ -94,15 +94,15 @@
                 <span class="close">&times;</span>
                 <%
                     for (int i = 0; i < p.size(); i++) {
-                        if (!p.get(i).getProduct_id().equals(productId)) {
+                        if (!p.get(i).getProductId().equals(productId)) {
                 %>
 
                 <a>
-                    <img src="<%= p.get(i).getImage_url()%>" style="width: 200px; height: 200px;">
+                    <img src="<%= p.get(i).getImageUrl()%>" style="width: 200px; height: 200px;">
                 </a>
 
                 <form id="productForm" action="compareProductServlet" method="get">
-                    <input type="hidden"  name="id1" value="<%= p.get(i).getProduct_id()%>">
+                    <input type="hidden"  name="id1" value="<%= p.get(i).getProductId()%>">
                     <input type="hidden"  name="id2" value="<%=productId%>">
                     <button type="submit">So sánh sản phẩm</button>
                 </form>
@@ -118,10 +118,10 @@
 
 
         <%
-            for (product product : p) {
-                if (product.getProduct_id().equals(productId)) {
+            for (Products product : p) {
+                if (product.getProductId().equals(productId)) {
         %>
-        <img  id="thirdProductImage" src="<%= product.getImage_url()%>" style="width: 200px; height: 200px  ;">
+        <img  id="thirdProductImage" src="<%= product.getImageUrl()%>" style="width: 200px; height: 200px  ;">
         <%
                 }
             }

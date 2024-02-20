@@ -6,7 +6,7 @@
 
 <%@page import="model.productDescription"%>
 <%@page import="java.util.List"%>
-<%@page import="model.product"%>
+<%@page import="model.Products"%>
 <%@page import="dao.productDescriptionDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -21,7 +21,7 @@
             String id2 = request.getParameter("id2");
             String id3 = request.getParameter("id3");
             productDescriptionDAO pdModel = new productDescriptionDAO();
-            List<product> p = pdModel.getIMG(id1, id2, id3);
+            List<Products> p = pdModel.getIMG(id1, id2, id3);
             List<productDescription> pd = pdModel.getProductDescription(id1, id2, id3);
         %>
 
@@ -37,7 +37,7 @@
             <tr>
                 <td>Mô tả sản phẩm</td>
                 <%for (int i = 0; i < p.size(); i++) {%>
-                <td><%= p.get(i).getProduct_name()%></td>
+                <td><%= p.get(i).getProductName()%></td>
                 <%
                     }
                 %>
@@ -45,7 +45,7 @@
             <tr>
                 <td>Ảnh sản phẩm</td>
                 <%for (int i = 0; i < p.size(); i++) {%>
-                <td><img src="<%= p.get(i).getImage_url()%>" ></td>
+                <td><img src="<%= p.get(i).getImageUrl()%>" ></td>
 
                 <%
                     }

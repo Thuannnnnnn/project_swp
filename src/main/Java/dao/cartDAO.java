@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import model.Cart;
-import model.Product;
+import model.Products;
 
 public class cartDAO {
 
