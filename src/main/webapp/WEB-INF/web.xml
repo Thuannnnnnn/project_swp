@@ -4,13 +4,23 @@
         <servlet-name>compareProductServlet</servlet-name>
         <servlet-class>Controller.Compare.compareProductServlet</servlet-class>
     </servlet>
-  
+    <servlet>
+        <servlet-name>UploadServlet</servlet-name>
+        <servlet-class>Controller.Image.UploadServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteServlet</servlet-name>
+        <servlet-class>Controller.Image.DeleteServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
-        <servlet-name>compareProductServlet</servlet-name>
-        <url-pattern>/compareProductServlet</url-pattern>
+        <servlet-name>UploadServlet</servlet-name>
+        <url-pattern>/UploadServlet</url-pattern>
     </servlet-mapping>
-  
-    <session-config>
+    <servlet-mapping>
+        <servlet-name>DeleteServlet</servlet-name>
+        <url-pattern>/DeleteServlet</url-pattern>
+    </servlet-mapping>
+     <session-config>
         <session-timeout>
             30
         </session-timeout>

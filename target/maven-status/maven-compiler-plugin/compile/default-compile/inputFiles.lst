@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 D:\Workspace\SP24\SWP\SWP_backend\src\main\java\model\User.java
 D:\Workspace\SP24\SWP\SWP_backend\src\main\java\dao\orderDAO.java
 D:\Workspace\SP24\SWP\SWP_backend\src\main\java\dao\productDescriptionDAO.java
@@ -19,3 +20,17 @@ D:\Workspace\SP24\SWP\SWP_backend\src\main\java\dao\UserDAO.java
 D:\Workspace\SP24\SWP\SWP_backend\src\main\java\Controller\User\SendOtpServlet.java
 D:\Workspace\SP24\SWP\SWP_backend\src\main\java\Controller\Order\CRUDOrderController.java
 D:\Workspace\SP24\SWP\SWP_backend\src\main\java\Controller\Compare\compareProductServlet.java
+=======
+D:\project_swp\project_swp\src\main\java\Controller\Order\CRUDOrderController.java
+D:\project_swp\project_swp\src\main\java\dao\DBConnection.java
+D:\project_swp\project_swp\src\main\java\dao\orderDAO.java
+D:\project_swp\project_swp\src\main\java\Controller\Order\createOrder.java
+D:\project_swp\project_swp\src\main\java\model\User.java
+D:\project_swp\project_swp\src\main\java\Controller\Image\DeleteServlet.java
+D:\project_swp\project_swp\src\main\java\Controller\Order\orderController.java
+D:\project_swp\project_swp\src\main\java\dao\imageDAO.java
+D:\project_swp\project_swp\src\main\java\Controller\Order\editOrder.java
+D:\project_swp\project_swp\src\main\java\model\Order.java
+D:\project_swp\project_swp\src\main\java\Controller\Image\UploadServlet.java
+D:\project_swp\project_swp\src\main\java\model\image.java
+>>>>>>> origin/features/UploadingImg

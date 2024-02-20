@@ -1,10 +1,17 @@
+<<<<<<< HEAD
 Controller\Compare\compareProductServlet.class
 dao\productDescriptionDAO.class
 Controller\Order\orderController.class
 model\Cart.class
+=======
+Controller\Order\orderController.class
+dao\imageDAO.class
+>>>>>>> origin/features/UploadingImg
 Controller\Order\createOrder.class
+model\image.class
 Controller\Order\editOrder.class
 dao\orderDAO.class
+<<<<<<< HEAD
 dao\cartDAO.class
 model\Order.class
 Controller\User\SendOtpServlet$1.class
@@ -18,5 +25,12 @@ model\productDescription.class
 Controller\Cart\CRUDCart.class
 Controller\User\SendOtpServlet.class
 dao\UserDAO.class
+=======
+Controller\Image\UploadServlet.class
+model\Order.class
+Controller\Order\CRUDOrderController.class
+dao\DBConnection.class
+Controller\Image\DeleteServlet.class
+>>>>>>> origin/features/UploadingImg
 model\User.class
 Controller\User\login.class
