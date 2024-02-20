@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.User;
+package Controller.User;
 
 import dao.UserDAO;
 import java.io.IOException;
@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpSession;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -24,6 +25,7 @@ import org.apache.commons.codec.binary.Hex;
  *
  * @author tranq
  */
+@WebServlet(name="SendOtpServlet", urlPatterns={"/SendOtpServlet"})
 public class SendOtpServlet extends HttpServlet {
 
     /**
