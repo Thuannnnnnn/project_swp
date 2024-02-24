@@ -7,6 +7,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="model.Order"%>
 <%@page import="dao.orderDAO"%>
+<%
+if(session.getAttribute("UserRole") == null){
+    response.sendRedirect("LoginPage.jsp");
+    return; 
+}
+%>
 <!DOCTYPE html>
 <html>
     <head>

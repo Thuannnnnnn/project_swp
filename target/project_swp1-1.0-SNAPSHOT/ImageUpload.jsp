@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%
+String role = (String) session.getAttribute("UserRole");
+if(role == null || !role.trim().equals("Admin")){
+     
+    response.sendRedirect("LoginPage.jsp");
+    return;}
+%>
 <html>
     <head>
         <title>Image Upload</title>

@@ -10,6 +10,12 @@
 <%@page import="dao.productDescriptionDAO"%>  
 <%@page import="java.util.List"%> 
 <%@page import="model.productDescription"%>  
+<%
+if(session.getAttribute("UserRole") == null){
+    response.sendRedirect("LoginPage.jsp");
+    return; 
+}
+%>
 <!DOCTYPE html>
 <html>
     <head>

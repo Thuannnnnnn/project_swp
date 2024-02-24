@@ -6,7 +6,12 @@
 <%@page import="java.util.*"%>
 <%@page import="dao.cartDAO"%>
 <%@page import="Controller.Cart.CRUDCart"%>
-
+<%
+if(session.getAttribute("UserRole") == null){
+    response.sendRedirect("LoginPage.jsp");
+    return; 
+}
+%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

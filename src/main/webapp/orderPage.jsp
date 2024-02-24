@@ -9,6 +9,12 @@
 <%@page import="java.util.*"%>
 <%@page import="model.Order"%>
 <%@page import="dao.orderDAO"%>
+<%
+String role = (String) session.getAttribute("UserRole");
+if(role == null || !role.trim().equals("Admin")){
+    response.sendRedirect("LoginPage.jsp");
+    return;}
+%>
 <!DOCTYPE html>
 <html>
     <head>
