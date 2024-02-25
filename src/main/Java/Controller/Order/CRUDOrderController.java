@@ -12,14 +12,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.sql.Date;
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -119,7 +114,8 @@ public class CRUDOrderController extends HttpServlet {
                 request.getRequestDispatcher("orderPage.jsp").forward(request, response);
             }
 
-        } if (method.equals("edit")) {
+        }
+        if (method.equals("edit")) {
             String orderId = request.getParameter("orderId");
             String userId = request.getParameter("userId");
             String address = request.getParameter("address");

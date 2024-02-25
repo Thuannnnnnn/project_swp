@@ -118,7 +118,7 @@ public class SignUp extends HttpServlet {
 
         if (uD.insertUser(user)) {
             System.out.println("Đăng ký thành công");
-            response.sendRedirect("test.jsp"); // Chuyển hướng tới trang thành công
+            response.sendRedirect("orderPage.jsp"); // Chuyển hướng tới trang thành công
         } else {
             System.out.println("Đăng ký thất bại");
             response.sendRedirect("SignUp.jsp"); // Chuyển hướng trở lại form đăng ký
