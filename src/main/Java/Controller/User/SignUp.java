@@ -94,7 +94,7 @@ public class SignUp extends HttpServlet {
         String fullName = request.getParameter("fullName");
         String birthdateRaw = request.getParameter("birthdate");
         String address = request.getParameter("address");
-        String phoneNumber = request.getParameter("phoneNumber"); // Sửa từ 'phongNumber' thành 'phoneNumber'
+        String phoneNumber = request.getParameter("phoneNumber"); 
         String email = request.getParameter("email");
         String userRole = request.getParameter("userRole");
         String passwordraw = request.getParameter("password");     
@@ -102,15 +102,15 @@ public class SignUp extends HttpServlet {
         Date birthdateUtil = null; // java.util.Date
         String password =GenSHA256(passwordraw);
         try {
-            // Phân tích cú pháp chuỗi ngày tháng sang java.util.Date
+            
             birthdateUtil = dateFormat.parse(birthdateRaw);
         } catch (ParseException e) {
             e.printStackTrace();
-            response.sendRedirect("SignUpPage.jsp"); // Chuyển hướng người dùng nếu có lỗi
+            response.sendRedirect("SignUpPage.jsp"); 
             return; // Dừng việc xử lý nếu có lỗi
         }
 
-        // Chuyển đổi java.util.Date sang java.sql.Date
+        
         java.sql.Date birthdateSql = new java.sql.Date(birthdateUtil.getTime());
 
         UserDAO uD = new UserDAO();

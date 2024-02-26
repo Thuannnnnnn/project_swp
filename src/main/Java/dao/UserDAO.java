@@ -70,6 +70,36 @@ public class UserDAO {
         return user;
     }
 
+    public boolean updateUser(User user) {
+        String sql = "UPDATE Users SET full_name = ?, birth_date = ?, phone_number = ?, email = ?, address = ? WHERE user_id = ?;";
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement statement = conn.prepareStatement(sql);) {
+            statement.setString(1, user.getFullName());
+            statement.setDate(2, user.getBirthDate());
+            statement.setString(3, user.getPhoneNumber());
+            statement.setString(4, user.getEmail());
+            statement.setString(5, user.getAddress());
+            statement.setInt(6, user.getUserId());
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.err.println("Error occurred during the update User operation: " + e.getMessage());
+            return false;
+        }
+
+    }
+
+    public boolean deleteUser(int id) {
+        String sql = "DELETE FROM Users WHERE user_id = ?;";
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement statement = conn.prepareStatement(sql);) {
+            statement.setInt(1, id);
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.err.println("Error occurred during the update User operation: " + e.getMessage());
+            return false;
+        }
+    }
+
     public boolean insertUser(User user) {
         String sql = "INSERT INTO Users (full_name, birth_date,  phone_number, email, passwords,  address, user_role) VALUES (?,?,?,?,?,?,?)";
         try (Connection conn = DBConnection.getConnection(); PreparedStatement statement = conn.prepareStatement(sql);) {

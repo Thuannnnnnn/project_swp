@@ -1,6 +1,7 @@
 dao\productDescriptionDAO.class
 Controller\Order\orderController.class
 model\Cart.class
+Controller\User\AdminUser.class
 dao\imageDAO.class
 model\image.class
 Controller\Order\editOrder.class
@@ -10,6 +11,7 @@ Controller\Order\CRUDOrderController.class
 Controller\User\ForgotPassword.class
 Controller\User\SignUp.class
 Controller\Cart\CRUDCart.class
+Controller\User\AddEditDeleteUser.class
 Controller\User\SendOtpServlet.class
 dao\UserDAO.class
 model\User.class
