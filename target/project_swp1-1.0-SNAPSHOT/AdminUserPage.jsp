@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page import="java.lang.Boolean" %>
 <html>
+
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Danh sách người dùng</title>
@@ -12,6 +13,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </head>
     <body>
+
         <h2>Danh sách người dùng</h2>
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUser">
             Add
@@ -26,9 +28,9 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                         <h5 id="errorMessages" class="text-danger"></h5>
+                        <h5 id="errorMessages" class="text-danger"></h5>
                         <form id="userInformationForm" action="SendOtpServlet" method="get" class="container mt-3">
-                            
+
                             <div class="mb-3">
                                 <input type="hidden" class="form-control" name="id" placeholder="Please Enter Full Name" value="" required />
                             </div>
@@ -74,7 +76,7 @@
                     <div class="modal-body">
                         <form action="VerifyOtpServlet" method="POST">
 
-                            <input class="form-control" placeholder="Please Check Your Email" name="otp" type="number" value="" required=""/>          
+                            <input class="form-control" placeholder="Please Enter OTP" name="otp" type="number" value="" required=""/>          
                             <input name="feature" type="hidden" value="add" required=""/>       
 
 
@@ -107,15 +109,12 @@
                     <td>${user.phoneNumber}</td>
                     <td>${user.email}</td>
                     <td>${user.address}</td>
-
                     <td><fmt:formatDate value="${user.dateAdded}" pattern="yyyy/MM/dd"/></td>
                     <td>${user.userRole}</td>
                     <td>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signupModal${user.userId}">
                             Edit
                         </button>
-
-                        <!-- Modal -->
                         <div class="modal fade" id="signupModal${user.userId}" tabindex="-1" aria-labelledby="signupModalLabel${user.userId}" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -124,9 +123,9 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <h5 id="errorMessages" class="text-danger"></h5>
-                                        <form id="userInformationForm" action="AddEditDeleteUser" method="post" class="container mt-3">
-                                                
+                                        <h5 id="errorMessages1" class="text-danger"></h5>
+                                        <form id="userInformationForm1" action="AddEditDeleteUser" method="post" class="container mt-3">
+
                                             <div class="mb-3">
                                                 <input type="hidden" class="form-control" name="id" placeholder="Please Enter Full Name" value="${user.userId}" required />
                                             </div>
@@ -134,16 +133,19 @@
                                                 <input type="text" class="form-control" name="fullName" placeholder="Please Enter Full Name" value="${user.fullName}" required />
                                             </div>
                                             <div class="mb-3">
-                                                <input type="date" class="form-control" name="birthdate" id="datePicker" placeholder="Please Enter Birthdate" value="${user.birthDate}"  required />
+                                                <input type="date" class="form-control" name="birthdate" id="datePicker1" placeholder="Please Enter Birthdate" value="${user.birthDate}"  required />
                                             </div>
                                             <div class="mb-3">
                                                 <input type="text" class="form-control" name="address" required placeholder="Please Enter Address" value="${user.address}" />
                                             </div>
                                             <div class="mb-3">
-                                                <input type="number" class="form-control" name="phoneNumber" required placeholder="Please Enter Phone Number" value="${user.phoneNumber}" />
+                                                <input type="number" class="form-control" id="phoneNumber1" name="phoneNumber" required placeholder="Please Enter Phone Number" value="${user.phoneNumber}" />
                                             </div>
                                             <div class="mb-3">
                                                 <input type="email" class="form-control" name="email" required placeholder="Please Enter email" value="${user.email}" />
+                                            </div>
+                                            <div class="mb-3">
+                                                <input type="password" class="form-control" id="password1" name="password" required placeholder="Please Enter Password" value="${user.password}" />
                                             </div>
                                             <input type="hidden" value="edit" name="method"/>
 
@@ -193,64 +195,84 @@
 
         </table>
         <script>
-            // Đợi cho đến khi toàn bộ DOM được tải
             document.addEventListener("DOMContentLoaded", function () {
-                // Lấy nút mở modal và modal
+
                 var openModalButton = document.getElementById('openModalButton');
                 var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
-                    keyboard: true // Cho phép đóng modal bằng phím Esc
+                    keyboard: true
                 });
 
-                // Thêm sự kiện click cho nút để mở modal
+
                 openModalButton.addEventListener('click', function () {
                     myModal.show();
                 });
             });
 
             document.addEventListener('DOMContentLoaded', (event) => {
-                // Hàm này giúp lấy giá trị của một tham số từ URL
+
                 function getQueryParam(param) {
                     const urlParams = new URLSearchParams(window.location.search);
                     return urlParams.get(param);
                 }
 
-                // Kiểm tra xem tham số 'method' có phải là 'add' hay không
+
                 if (getQueryParam('method') === 'add') {
-                    // Sử dụng jQuery để mở modal
+
                     $('#exampleModal').modal('show');
 
-                    // Nếu bạn không sử dụng jQuery, bạn có thể thay thế dòng trên bằng vanilla JS:
-                    // new bootstrap.Modal(document.getElementById('exampleModal')).show();
+
                 }
             });
-            $(document).ready(function () {
-                $("#userInformationForm").submit(function (event) {
-                    var phoneNumber = $("input[name='phoneNumber']").val();
-                    var password = $("input[name='password']").val();
-                    var phoneNumberRegex = /^\d{10}$/;
-                    var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-                    var errorMessage = '';
+            $("#userInformationForm").submit(function (event) {
+                var phoneNumber = $("input[name='phoneNumber']").val();
+                var password = $("input[name='password']").val();
+                var phoneNumberRegex = /^\d{10}$/;
+                var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+                var errorMessage = '';
+                console.log(phoneNumber);
+                if (!phoneNumberRegex.test(phoneNumber)) {
+                    errorMessage += "Phone number must be 10 digits and start by 0.<br>";
+                }
 
-                    if (!phoneNumberRegex.test(phoneNumber)) {
-                        errorMessage += "Phone number must be 10 digits and start by 0.<br>";
-                    }
+                if (!passwordRegex.test(password)) {
+                    errorMessage += "Password must be at least 8 characters long, including uppercase, lowercase, and numbers.";
+                }
 
-                    if (!passwordRegex.test(password)) {
-                        errorMessage += "Password must be at least 8 characters long, including uppercase, lowercase, and numbers.";
-                    }
+                if (errorMessage.length > 0) {
+                    $("#errorMessages1").html(errorMessage);
+                    event.preventDefault(); // Prevent form submission
+                } else {
+                    $("#errorMessages1").html(''); // Clear error message
+                }
+            });
 
-                    if (errorMessage.length > 0) {
-                        $("#errorMessages").html(errorMessage);
-                        event.preventDefault(); // Prevent form submission
-                    } else {
-                        $("#errorMessages").html(''); // Clear error message
-                    }
-                });
+            $("#userInformationForm1").submit(function (event) {
+                var phoneNumber = $("#phoneNumber1").val();
+                var password = $("#password1").val();
+                var phoneNumberRegex = /^\d{10}$/;
+                var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+                var errorMessage = '';
+                console.log(phoneNumber);
+                if (!phoneNumberRegex.test(phoneNumber)) {
+                    errorMessage += "Phone number must be 10 digits and start by 0.<br>";
+                }
+
+                if (!passwordRegex.test(password)) {
+                    errorMessage += "Password must be at least 8 characters long, including uppercase, lowercase, and numbers.";
+                }
+
+                if (errorMessage.length > 0) {
+                    $("#errorMessages1").html(errorMessage);
+                    event.preventDefault(); // Prevent form submission
+                } else {
+                    $("#errorMessages1").html(''); // Clear error message
+                }
             });
 
             var today = new Date();
             var date = '2012-12-31';
             document.getElementById('datePicker').setAttribute("max", date);
+            document.getElementById('datePicker1').setAttribute("max", date);
         </script>
 
     </body>

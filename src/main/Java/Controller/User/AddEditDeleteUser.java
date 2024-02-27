@@ -13,11 +13,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import model.User;
+import org.apache.commons.codec.binary.Hex;
 
 /**
  *
@@ -66,7 +69,20 @@ public class AddEditDeleteUser extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
+  public String GenSHA256(String input) {
+        String hashedValue = null;
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] digest = md.digest(input.getBytes());
 
+            hashedValue = Hex.encodeHexString(digest);
+            System.out.println(hashedValue);
+
+        } catch (NoSuchAlgorithmException e) {
+
+        }
+        return hashedValue;
+    }
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -98,6 +114,8 @@ public class AddEditDeleteUser extends HttpServlet {
             String address = request.getParameter("address");
             String email = request.getParameter("email");
             String phoneNumber = request.getParameter("phoneNumber");
+            String passwordraw = request.getParameter("password");
+            String password = GenSHA256(passwordraw);
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date birthdateUtil = null;
             try {
@@ -109,7 +127,7 @@ public class AddEditDeleteUser extends HttpServlet {
                 return; // Dừng việc xử lý nếu có lỗi
             }
             java.sql.Date birthdateSql = new java.sql.Date(birthdateUtil.getTime());
-            User u = new User(id, fullName, birthdateSql, phoneNumber, email, address);
+            User u = new User(id, fullName, birthdateSql, phoneNumber, email, address, password);
 
             if (!ud.updateUser(u)) {
                 response.sendRedirect("AdminUser?e=UError");
