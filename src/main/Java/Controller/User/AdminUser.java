@@ -5,6 +5,7 @@
 package Controller.User;
 
 import dao.UserDAO;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,16 +13,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import org.apache.commons.codec.binary.Hex;
+import java.util.List;
+import model.User;
 
 /**
  *
  * @author tranq
  */
-@WebServlet(name="ForgotPassword", urlPatterns={"/forgotPassword"})
-public class ForgotPassword extends HttpServlet {
+    @WebServlet(name = "AdminUser", urlPatterns = {"/AdminUser"})
+public class AdminUser extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +40,10 @@ public class ForgotPassword extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet FogotPassword</title>");            
+            out.println("<title>Servlet ShowUser</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet FogotPassword at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ShowUser at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,34 +61,25 @@ public class ForgotPassword extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-          request.getRequestDispatcher("forgotPasswordPage.jsp").forward(request, response);
+        UserDAO u = new UserDAO();
+        List<User> listUsers = u.getAll();
+        request.setAttribute("listUsers", listUsers);
+        request.getRequestDispatcher("/AdminUserPage.jsp").forward(request, response);
     }
+    
 
-   public String GenSHA256(String input) {
-        String hashedValue = null;
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] digest = md.digest(input.getBytes());
-
-            hashedValue = Hex.encodeHexString(digest);
-            System.out.println(hashedValue);
-
-        } catch (NoSuchAlgorithmException e) {
-
-        }
-        return hashedValue;
-    }
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       String password = request.getParameter("password");
-       String email = request.getParameter("email");
-        UserDAO u = new UserDAO();
-       if( !email.isEmpty() &&u.updatePassword(email, GenSHA256(password))){
-           response.sendRedirect("LoginPage.jsp");
-       }else{
-           response.sendRedirect("FogotPassword.jsp?error=invalid");
-       }
+        processRequest(request, response);
     }
 
     /**

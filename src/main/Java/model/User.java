@@ -3,22 +3,22 @@ package model;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
-
 public class User {
-       private int userId;
+
+    private int userId;
     private String fullName;
     private Date birthDate;
     private String phoneNumber;
     private String email;
     private String password;
     private String address;
-    private Date DateAdded;
+    private Date dateAdded;
     private String userRole;
 
     public User() {
     }
 
-    public User(int userId, String fullName, Date birthDate, String phoneNumber, String email, String password, String address, Date registrationDate, String userRole) {
+    public User(int userId, String fullName, Date birthDate, String phoneNumber, String email, String password, String address, Date dateAdded, String userRole) {
         this.userId = userId;
         this.fullName = fullName;
         this.birthDate = birthDate;
@@ -26,10 +26,11 @@ public class User {
         this.email = email;
         this.password = password;
         this.address = address;
-        this.DateAdded = DateAdded;
+        this.dateAdded = dateAdded;
         this.userRole = userRole;
     }
-    public User(String fullName, Date birthDate, String phoneNumber,String email, String password, String address, String userRole) { 
+
+    public User(String fullName, Date birthDate, String phoneNumber, String email, String password, String address, String userRole) {
         this.fullName = fullName;
         this.birthDate = birthDate;
         this.phoneNumber = phoneNumber;
@@ -37,6 +38,16 @@ public class User {
         this.password = password;
         this.address = address;
         this.userRole = userRole;
+    }
+
+    public User(int userId, String fullName, Date birthDate, String phoneNumber, String email, String address, String password) {
+        this.userId = userId;
+        this.fullName = fullName;
+        this.birthDate = birthDate;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.address = address;
+        this.password = password;
     }
 
     public int getUserId() {
@@ -96,14 +107,12 @@ public class User {
     }
 
     public Date getDateAdded() {
-        return DateAdded;
+        return dateAdded;
     }
 
     public void setDateAdded(Date DateAdded) {
-        this.DateAdded = DateAdded;
+        this.dateAdded = DateAdded;
     }
-
-    
 
     public String getUserRole() {
         return userRole;
@@ -112,6 +121,5 @@ public class User {
     public void setUserRole(String userRole) {
         this.userRole = userRole;
     }
-   
 
 }

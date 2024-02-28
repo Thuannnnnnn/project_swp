@@ -8,7 +8,7 @@
 <%@page import="Controller.Cart.CRUDCart"%>
 <%
 if(session.getAttribute("UserRole") == null){
-    response.sendRedirect("LoginPage.jsp");
+    response.sendRedirect("login");
     return; 
 }
 %>

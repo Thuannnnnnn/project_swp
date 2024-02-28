@@ -4,6 +4,8 @@
  */
 package Controller.User;
 
+import com.mysql.cj.conf.PropertyKey;
+import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,13 +16,16 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import model.User;
 import org.apache.commons.codec.binary.Hex;
 
 /**
  *
  * @author tranq
  */
-@WebServlet(name="VerifyOtpServlet", urlPatterns={"/VerifyOtpServlet"})
+@WebServlet(name = "VerifyOtpServlet", urlPatterns = {"/VerifyOtpServlet"})
 public class VerifyOtpServlet extends HttpServlet {
 
     /**
@@ -62,7 +67,9 @@ public class VerifyOtpServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+
     }
+    
 
     public String GenSHA256(String input) {
         String hashedValue = null;
@@ -96,7 +103,7 @@ public class VerifyOtpServlet extends HttpServlet {
             } else {
                 response.sendRedirect("SignUpPage.jsp?method=enter&email=" + email + "&error=invalidOTP");
             }
-        } else {
+        } else if (feature.equals("FGPW")) {
             if (sessionOtp != null && userOtp.equals(sessionOtp) && System.currentTimeMillis() <= otpExpiry) {
                 session.removeAttribute("otp"); // Xóa OTP sau khi xác thực thành công
                 response.sendRedirect("ForgotPasswordPage.jsp?method=enterPassword&email=" + email);
@@ -104,6 +111,39 @@ public class VerifyOtpServlet extends HttpServlet {
                 response.sendRedirect("ForgotPasswordPage.jsp?method=enter&error=invalidOTP&email=" + email);
             }
 
+        } else {
+            if (sessionOtp != null && userOtp.equals(sessionOtp) && System.currentTimeMillis() <= otpExpiry) {
+                session.removeAttribute("otp");
+                String fullName = (String) session.getAttribute("fullName");
+                String birthdateRaw = (String) session.getAttribute("birthdate");
+                String address = (String) session.getAttribute("address");
+                String email1 = (String) session.getAttribute("email");
+                String phoneNumber = (String) session.getAttribute("phoneNumber");
+                String password = (String) session.getAttribute("password");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date birthdateUtil = null;
+                try {
+
+                    birthdateUtil = dateFormat.parse(birthdateRaw);
+                } catch (java.text.ParseException e) {
+                    e.printStackTrace();
+                    response.sendRedirect("AdminUser?e=bd");
+                    return; // Dừng việc xử lý nếu có lỗi
+                }
+
+                java.sql.Date birthdateSql = new java.sql.Date(birthdateUtil.getTime());
+
+                String Role = "Customer";
+                User u = new User(fullName, birthdateSql, phoneNumber, email1, password, address, Role);
+                UserDAO ud = new UserDAO();
+                if (!ud.insertUser(u)) {
+                    response.sendRedirect("AdminUser?e=Add");
+
+                } else {
+                    response.sendRedirect("AdminUser");
+
+                }
+            }
         }
     }
 

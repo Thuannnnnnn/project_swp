@@ -9,12 +9,7 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="dao.productDescriptionDAO"%>  
 <%@page import="java.util.List"%> 
-<%
-if(session.getAttribute("UserRole") == null){
-    response.sendRedirect("LoginPage.jsp");
-    return; 
-}
-%>
+
 <!DOCTYPE html>
 <html>
     <head>

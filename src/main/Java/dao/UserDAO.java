@@ -27,7 +27,7 @@ public class UserDAO {
                         resultSet.getDate("birth_date"),
                         resultSet.getString("phone_number"),
                         resultSet.getString("email"),
-                        resultSet.getString("passwords"),
+                        resultSet.getString("password"),
                         resultSet.getString("address"),
                         resultSet.getDate("Date_Added"), // Use getTimestamp for DATETIME type
                         resultSet.getString("user_role")
@@ -70,8 +70,50 @@ public class UserDAO {
         return user;
     }
 
+    public boolean updateUser(User user) {
+        String sql = "UPDATE Users SET full_name = ?, birth_date = ?, phone_number = ?, email = ?, address = ? , password=? WHERE user_id = ?;";
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement statement = conn.prepareStatement(sql);) {
+            statement.setString(1, user.getFullName());
+            statement.setDate(2, user.getBirthDate());
+            statement.setString(3, user.getPhoneNumber());
+            statement.setString(4, user.getEmail());
+            statement.setString(5, user.getAddress());
+            statement.setString(6, user.getPassword());
+            statement.setInt(7, user.getUserId());
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.err.println("Error occurred during the update User operation: " + e.getMessage());
+            return false;
+        }
+
+    }
+
+    public boolean deleteUser(int userId) {
+        try (Connection conn = DBConnection.getConnection()) {
+            deleteFromTable(conn, "cart", "user_id", userId);
+            deleteFromTable(conn, "replycomments", "user_id", userId);
+            deleteFromTable(conn, "feedbacks", "user_id", userId);
+            deleteFromTable(conn, "orders", "user_id", userId);
+            deleteFromTable(conn, "users", "user_id", userId);
+
+            return true;
+        } catch (SQLException e) {
+            System.err.println("Error occurred during the delete user operation: " + e.getMessage());
+            return false;
+        }
+    }
+
+    private void deleteFromTable(Connection conn, String tableName, String columnName, int value) throws SQLException {
+        String deleteSQL = "DELETE FROM " + tableName + " WHERE " + columnName + " = ?";
+        try (PreparedStatement deleteStatement = conn.prepareStatement(deleteSQL)) {
+            deleteStatement.setInt(1, value);
+            deleteStatement.executeUpdate();
+        }
+    }
+
     public boolean insertUser(User user) {
-        String sql = "INSERT INTO Users (full_name, birth_date,  phone_number, email, passwords,  address, user_role) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Users (full_name, birth_date,  phone_number, email, password,  address, user_role) VALUES (?,?,?,?,?,?,?)";
         try (Connection conn = DBConnection.getConnection(); PreparedStatement statement = conn.prepareStatement(sql);) {
             statement.setString(1, user.getFullName());
             statement.setDate(2, user.getBirthDate());
@@ -106,7 +148,7 @@ public class UserDAO {
     }
 
     public boolean updatePassword(String email, String newPassword) {
-        String sql = "UPDATE Users SET passwords = ? WHERE email = ?";
+        String sql = "UPDATE Users SET password = ? WHERE email = ?";
         try (Connection conn = DBConnection.getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
 
             statement.setString(1, newPassword);

@@ -17,6 +17,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpSession;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 import java.util.Random;
 import org.apache.commons.codec.binary.Hex;
@@ -25,7 +27,7 @@ import org.apache.commons.codec.binary.Hex;
  *
  * @author tranq
  */
-@WebServlet(name="SendOtpServlet", urlPatterns={"/SendOtpServlet"})
+@WebServlet(name = "SendOtpServlet", urlPatterns = {"/SendOtpServlet"})
 public class SendOtpServlet extends HttpServlet {
 
     /**
@@ -86,7 +88,7 @@ public class SendOtpServlet extends HttpServlet {
             } else {
                 response.sendRedirect("SignUpPage.jsp?error=invalid");
             }
-        } else {
+        } else if (feature.equals("FGPW")) {
             if (email != null && !email.isEmpty() && u.emailExists(email)) {
                 String otp = String.valueOf(new Random().nextInt(999999));
                 sendOtpByEmail(email, otp);
@@ -98,6 +100,36 @@ public class SendOtpServlet extends HttpServlet {
                 response.sendRedirect("ForgotPasswordPage.jsp?method=enter&email=" + email);
             } else {
                 response.sendRedirect("ForgotPasswordPage.jsp?error=emailNotExit");
+            }
+        } else {
+            if (u.emailExists(email)) {
+                System.out.println("");
+                response.sendRedirect("AdminUser?error=exited");
+            } else if (email != null && !email.isEmpty()) {
+                String otp = String.format("%06d", new Random().nextInt(1000000));
+                sendOtpByEmail(email, otp);
+                String idStr = request.getParameter("id");
+                String fullName = request.getParameter("fullName");
+                String birthdateRaw = request.getParameter("birthdate");
+                String address = request.getParameter("address");
+                String phoneNumber = request.getParameter("phoneNumber");               
+                String rawpassword = request.getParameter("password");
+                String password = GenSHA256(rawpassword);
+             
+                HttpSession session = request.getSession();
+                session.setAttribute("id", idStr);
+                session.setAttribute("fullName", fullName);
+                session.setAttribute("birthdate", birthdateRaw);
+                session.setAttribute("address", address);
+                session.setAttribute("phoneNumber", phoneNumber);
+                session.setAttribute("email", email);
+                session.setAttribute("password", password);
+                session.setAttribute("otp", GenSHA256(otp));
+                session.setAttribute("otpExpiry", System.currentTimeMillis() + 300000); // 5 phút sau
+
+               response.sendRedirect("AdminUser?method=add");
+            } else {
+                response.sendRedirect("AdminUser?error=invalid");
             }
         }
     }
