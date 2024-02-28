@@ -55,7 +55,7 @@ public class UserDAO {
                             resultSet.getDate("birth_date"),
                             resultSet.getString("phone_number"),
                             resultSet.getString("email"),
-                            resultSet.getString("passwords"),
+                            resultSet.getString("password"),
                             resultSet.getString("address"),
                             resultSet.getDate("Date_Added"),
                             resultSet.getString("user_role")

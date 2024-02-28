@@ -106,15 +106,15 @@ public class login extends HttpServlet {
                 response.addCookie(Ce);
                 response.addCookie(Cp);
                 response.addCookie(Cr); 
-                response.sendRedirect("LoginPage.jsp?status=ss");
+                response.sendRedirect("login?status=ss");
             } else {
                 System.out.println("Thông tin đăng nhập không chính xác");
-                response.sendRedirect("login.jsp?error=invalid");
+                response.sendRedirect("login?error=invalid");
             }
         } catch (NullPointerException e) {
             // Handle the NullPointerException here
             System.out.println("User with the given email not found or user's password is null.");
-            response.sendRedirect("login.jsp?error=invalid");
+            response.sendRedirect("login?error=invalid");
         }
     }
 
