@@ -59,7 +59,8 @@
             <h2 class="title-sign-up">Sign Up</h2>
 
             <% String method = request.getParameter("method");
-               String email = request.getParameter("email");
+               String email = (String) session.getAttribute("email");
+               
                String error = request.getParameter("error");
             %>
 
@@ -71,6 +72,7 @@
             <form action="SendOtpServlet" method="get">
                 <div class="wrap-input-email">
                     <input type="text" name="email" required placeholder="Enter your email" class="input-email"/>
+                    
                 </div>
 
                 <input type="hidden" name="feature" value="SignUp"/>

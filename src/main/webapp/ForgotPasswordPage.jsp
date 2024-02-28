@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%String email = request.getParameter("email");%>
+<%String email = (String) session.getAttribute("email");;%>
 <%String method = request.getParameter("method"); %>
 <%String emailExit = request.getParameter("emailExit"); 
 String error = request.getParameter("error");%>
@@ -86,7 +86,7 @@ String error = request.getParameter("error");%>
                 </div>
 
                 <input type="hidden" name="feature" value="FGPW"/>
-                <input type= hidden name="email" value="<%= email%>" required/>
+                <input type= "hidden" name="email" value="<%= email%>" required/>
             </form>
 
             <% 

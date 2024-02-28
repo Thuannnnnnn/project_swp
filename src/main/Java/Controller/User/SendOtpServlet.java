@@ -82,9 +82,10 @@ public class SendOtpServlet extends HttpServlet {
 
                 HttpSession session = request.getSession();
                 session.setAttribute("otp", GenSHA256(otp));
+                session.setAttribute("email", email);
                 session.setAttribute("otpExpiry", System.currentTimeMillis() + 300000); // 5 phút sau
 
-                response.sendRedirect("signUp?method=enter&email=" + email);
+                response.sendRedirect("signUp?method=enter");
             } else {
                 response.sendRedirect("signUp?error=invalid");
             }
@@ -96,8 +97,8 @@ public class SendOtpServlet extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("otp", GenSHA256(otp));
                 session.setAttribute("otpExpiry", System.currentTimeMillis() + 300000); // 5 phút sau
-
-                response.sendRedirect("forgotPassword?method=enter&email=" + email);
+                   session.setAttribute("email", email);
+                response.sendRedirect("forgotPassword?method=enter");
             } else {
                 response.sendRedirect("forgotPassword?error=emailNotExit");
             }
