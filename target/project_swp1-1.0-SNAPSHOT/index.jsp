@@ -292,7 +292,7 @@ if(session.getAttribute("UserRole") != null){
                             alt="..."
                             />
                         <div class="card-body">
-                            <h5 class="card-title">Cô gái đẹp nhất mã DX118C 600W600W</h5>
+                            <h5 class="card-title">MacBook Pro M2</h5>
                             <h5 class="card-title">
                                 <span class="newPrice mr-4 text-danger">300.000.000</span>
                                 <span
@@ -300,7 +300,7 @@ if(session.getAttribute("UserRole") != null){
                                     >200.000.000</span
                                 >
                             </h5>
-                            <p class="card-text">Cô gái đẹp nhất mã DX118C 600W600W</p>
+                            <p class="card-text">1 Siêu Phẩm Đến Từ Nhà Quả Táo Căn Dỡ</p>
                         </div>
                     </div>
                     <div class="card">
@@ -312,7 +312,7 @@ if(session.getAttribute("UserRole") != null){
                             alt="..."
                             />
                         <div class="card-body">
-                            <h5 class="card-title">Cô gái đẹp nhất mã DX118C 600W600W</h5>
+                            <h5 class="card-title">MacBook Pro M2</h5>
                             <h5 class="card-title">
                                 <span class="newPrice mr-4 text-danger">300.000.000</span>
                                 <span
@@ -320,7 +320,7 @@ if(session.getAttribute("UserRole") != null){
                                     >200.000.000</span
                                 >
                             </h5>
-                            <p class="card-text">Cô gái đẹp nhất mã DX118C 600W600W</p>
+                            <p class="card-text">1 Siêu Phẩm Đến Từ Nhà Quả Táo Căn Dỡ</p>
                         </div>
                     </div>
                     <div class="card">
@@ -332,7 +332,7 @@ if(session.getAttribute("UserRole") != null){
                             alt="..."
                             />
                         <div class="card-body">
-                            <h5 class="card-title">Cô gái đẹp nhất mã DX118C 600W600W</h5>
+                            <h5 class="card-title">MacBook Pro M2</h5>
                             <h5 class="card-title">
                                 <span class="newPrice mr-4 text-danger">300.000.000</span>
                                 <span
@@ -340,7 +340,7 @@ if(session.getAttribute("UserRole") != null){
                                     >200.000.000</span
                                 >
                             </h5>
-                            <p class="card-text">Cô gái đẹp nhất mã DX118C 600W600W</p>
+                            <p class="card-text">1 Siêu Phẩm Đến Từ Nhà Quả Táo Căn Dỡ</p>
                         </div>
                     </div>
                     <div class="card">
@@ -352,7 +352,7 @@ if(session.getAttribute("UserRole") != null){
                             alt="..."
                             />
                         <div class="card-body">
-                            <h5 class="card-title">Cô gái đẹp nhất mã DX118C 600W600W</h5>
+                            <h5 class="card-title">MacBook Pro M2</h5>
                             <h5 class="card-title">
                                 <span class="newPrice mr-4 text-danger">300.000.000</span>
                                 <span
@@ -360,7 +360,7 @@ if(session.getAttribute("UserRole") != null){
                                     >200.000.000</span
                                 >
                             </h5>
-                            <p class="card-text">Cô gái đẹp nhất mã DX118C 600W600W</p>
+                            <p class="card-text">1 Siêu Phẩm Đến Từ Nhà Quả Táo Căn Dỡ</p>
                         </div>
                     </div>
                     <div class="card">
@@ -372,7 +372,7 @@ if(session.getAttribute("UserRole") != null){
                             alt="..."
                             />
                         <div class="card-body">
-                            <h5 class="card-title">Cô gái đẹp nhất mã DX118C 600W600W</h5>
+                            <h5 class="card-title">MacBook Pro M2</h5>
                             <h5 class="card-title">
                                 <span class="newPrice mr-4 text-danger">300.000.000</span>
                                 <span
@@ -380,59 +380,60 @@ if(session.getAttribute("UserRole") != null){
                                     >200.000.000</span
                                 >
                             </h5>
-                            <p class="card-text">Cô gái đẹp nhất mã DX118C 600W600W</p>
+                            <p class="card-text">1 Siêu Phẩm Đến Từ Nhà Quả Táo Căn Dỡ</p>
                         </div>
                     </div>
                 </div>
-                <div class="mt-5">
-                    <nav aria-label="" class="d-flex justify-content-center">
-                        <ul class="pagination gap-3">
-                            <li class="page-item"><a class="page-link bg-primary"  style="padding:6px" href="#"><ion-icon name="arrow-back-circle-outline" style="width:16px; height:16px; margin-top:4px; color:white;"></ion-icon></a></li>
-                            <li class="page-item"><a class="page-link bg-primary text-white" style="font-size: 17px;" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link bg-primary text-white" style="font-size: 17px;" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link bg-primary text-white" style="font-size: 17px;" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link bg-primary" style="padding:6px" href="#"><ion-icon name="arrow-forward-circle-outline" style="width:16px; height:16px; margin-top:4px; color:white;"></ion-icon></a></li>
-                        </ul>
-                    </nav>
-                </div>
+           
+            <div class="mt-5">
+                <nav aria-label="" class="d-flex justify-content-center">
+                    <ul class="pagination gap-3">
+                        <li class="page-item"><a class="page-link bg-primary"  style="padding:6px" href="#"><ion-icon name="arrow-back-circle-outline" style="width:16px; height:16px; margin-top:4px; color:white;"></ion-icon></a></li>
+                        <li class="page-item"><a class="page-link bg-primary text-white" style="font-size: 17px;" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link bg-primary text-white" style="font-size: 17px;" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link bg-primary text-white" style="font-size: 17px;" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link bg-primary" style="padding:6px" href="#"><ion-icon name="arrow-forward-circle-outline" style="width:16px; height:16px; margin-top:4px; color:white;"></ion-icon></a></li>
+                    </ul>
+                </nav>
             </div>
-            <div>
-                <div class=" mt-5 py-3 footerr">
-                    <div class="ml-5 mt-5 ft1"> <h3 class="text-white">EndureTale S</h3>
-                        <h3 class="text-white">CÔNG TY TNHH ENDURETALES</h3>
-                        <p class="text-white">Mã số thuế : 92828823</p>
-                        <p class="text-white">Địa chỉ : tòa nhà số 5, đường Nguyễn Văn Cừ nối dài, phường An Khánh, quận Ninh Kiều, Cần Thơ.s</p>
-                        <h5 class="text-white">Kết nối với chúng tôi</h5>
-                        <div class="d-flex justify-content-between"><ion-icon name="mail-outline"></ion-icon> <input type="mail" placeholder="Nhập email của bạn..."> <button>Xac Nhan</button></div></div>
+        </div>
+        <div>
+            <div class=" mt-5 py-3 footerr">
+                <div class="ml-5 mt-5 ft1"> <h3 class="text-white">EndureTale S</h3>
+                    <h3 class="text-white">CÔNG TY TNHH ENDURETALES</h3>
+                    <p class="text-white">Mã số thuế : 92828823</p>
+                    <p class="text-white">Địa chỉ : tòa nhà số 5, đường Nguyễn Văn Cừ nối dài, phường An Khánh, quận Ninh Kiều, Cần Thơ.s</p>
+                    <h5 class="text-white">Kết nối với chúng tôi</h5>
+                    <div class="d-flex justify-content-between"><ion-icon name="mail-outline"></ion-icon> <input type="mail" placeholder="Nhập email của bạn..."> <button>Xac Nhan</button></div></div>
 
-                    <div style="width: 30%;" class="mt-5 ft2 items-center"> 
-                        <div> <a href="#" class="text-decoration-none text-white">Mua hàng và thanh toán Online </a> <br>
-                            <a href="#"class="text-decoration-none text-white">Mua hàng trả góp Online</a><br>
-                            <a href="#"class="text-decoration-none text-white">Chính sách giao hàng</a><br>
-                            <a href="#"class="text-decoration-none text-white"> Tra điểm Smember</a><br>
-                            <a href="#"class="text-decoration-none text-white">Xem ưu đãi Smember</a><br>
-                            <a href="#"class="text-decoration-none text-white">Tra thông tin bảo hành</a><br>
-                            <a href="#"class="text-decoration-none text-white">Tra cứu hoá đơn điện tử</a><br>
-                            <a href="#"class="text-decoration-none text-white"> Thông tin hoá đơn mua hàng</a><br>
-                            <a href="#"class="text-decoration-none text-white">Trung tâm bảo hành chính hãng</a><br>
-                            <a href="#"class="text-decoration-none text-white">Quy định về việc sao lưu dữ liệu</a><br></div>
-                    </div>
+                <div style="width: 30%;" class="mt-5 ft2 items-center"> 
+                    <div> <a href="#" class="text-decoration-none text-white">Mua hàng và thanh toán Online </a> <br>
+                        <a href="#"class="text-decoration-none text-white">Mua hàng trả góp Online</a><br>
+                        <a href="#"class="text-decoration-none text-white">Chính sách giao hàng</a><br>
+                        <a href="#"class="text-decoration-none text-white"> Tra điểm Smember</a><br>
+                        <a href="#"class="text-decoration-none text-white">Xem ưu đãi Smember</a><br>
+                        <a href="#"class="text-decoration-none text-white">Tra thông tin bảo hành</a><br>
+                        <a href="#"class="text-decoration-none text-white">Tra cứu hoá đơn điện tử</a><br>
+                        <a href="#"class="text-decoration-none text-white"> Thông tin hoá đơn mua hàng</a><br>
+                        <a href="#"class="text-decoration-none text-white">Trung tâm bảo hành chính hãng</a><br>
+                        <a href="#"class="text-decoration-none text-white">Quy định về việc sao lưu dữ liệu</a><br></div>
+                </div>
 
-                    <div style="width: 30%;" class="mr-5 mt-5 ft3"> 
-                        <div>
-                            <a href="#" class="text-decoration-none text-white"> Khách hàng doanh nghiệp (B2B) </a> <br>
-                            <a href="#"class="text-decoration-none text-white">Ưu đãi thanh toán</a><br>
-                            <a href="#"class="text-decoration-none text-white">Quy chế hoạt động</a><br>
-                            <a href="#"class="text-decoration-none text-white"> Chính sách Bảo hành</a><br>
-                            <a href="#"class="text-decoration-none text-white">Liên hệ hợp tác kinh doanh</a><br>
-                            <a href="#"class="text-decoration-none text-white">Tuyển dụng</a><br>
-                            <a href="#"class="text-decoration-none text-white">  Dịch vụ bảo hành điện thoại</a><br>
-                            <a href="#"class="text-decoration-none text-white"> Dịch vụ bảo hành mở rộng</a><br></div>
-                    </div>
+                <div style="width: 30%;" class="mr-5 mt-5 ft3"> 
+                    <div>
+                        <a href="#" class="text-decoration-none text-white"> Khách hàng doanh nghiệp (B2B) </a> <br>
+                        <a href="#"class="text-decoration-none text-white">Ưu đãi thanh toán</a><br>
+                        <a href="#"class="text-decoration-none text-white">Quy chế hoạt động</a><br>
+                        <a href="#"class="text-decoration-none text-white"> Chính sách Bảo hành</a><br>
+                        <a href="#"class="text-decoration-none text-white">Liên hệ hợp tác kinh doanh</a><br>
+                        <a href="#"class="text-decoration-none text-white">Tuyển dụng</a><br>
+                        <a href="#"class="text-decoration-none text-white">  Dịch vụ bảo hành điện thoại</a><br>
+                        <a href="#"class="text-decoration-none text-white"> Dịch vụ bảo hành mở rộng</a><br></div>
                 </div>
             </div>
         </div>
-    </body>
+    </div>
+</body>
 </html>
 
 </div>
