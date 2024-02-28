@@ -75,7 +75,7 @@ public class SendOtpServlet extends HttpServlet {
         if (feature.equals("SignUp")) {
             if (u.emailExists(email)) {
                 System.out.println("");
-                response.sendRedirect("SignUpPage.jsp?error=exited");
+                response.sendRedirect("signUp.jsp?error=exited");
             } else if (email != null && !email.isEmpty()) {
                 String otp = String.format("%06d", new Random().nextInt(1000000));
                 sendOtpByEmail(email, otp);
@@ -84,9 +84,9 @@ public class SendOtpServlet extends HttpServlet {
                 session.setAttribute("otp", GenSHA256(otp));
                 session.setAttribute("otpExpiry", System.currentTimeMillis() + 300000); // 5 phút sau
 
-                response.sendRedirect("SignUpPage.jsp?method=enter&email=" + email);
+                response.sendRedirect("signUp?method=enter&email=" + email);
             } else {
-                response.sendRedirect("SignUpPage.jsp?error=invalid");
+                response.sendRedirect("signUp?error=invalid");
             }
         } else if (feature.equals("FGPW")) {
             if (email != null && !email.isEmpty() && u.emailExists(email)) {
@@ -97,9 +97,9 @@ public class SendOtpServlet extends HttpServlet {
                 session.setAttribute("otp", GenSHA256(otp));
                 session.setAttribute("otpExpiry", System.currentTimeMillis() + 300000); // 5 phút sau
 
-                response.sendRedirect("ForgotPasswordPage.jsp?method=enter&email=" + email);
+                response.sendRedirect("forgotPassword?method=enter&email=" + email);
             } else {
-                response.sendRedirect("ForgotPasswordPage.jsp?error=emailNotExit");
+                response.sendRedirect("forgotPassword?error=emailNotExit");
             }
         } else {
             if (u.emailExists(email)) {
