@@ -50,7 +50,7 @@ String error = request.getParameter("error");%>
                 </div>
                 <div class="right-content">
                     <button class="btn-white btn white-space-nowrap no-mb">Tra cứu đơn hàng</button>
-                    <a href="/loginPage.jsp"><button class="btn-white btn white-space-nowrap">Đăng nhập</button></a>
+                    <a href="/login"><button class="btn-white btn white-space-nowrap">Đăng nhập</button></a>
                 </div>
             </div>
         </div>
@@ -68,7 +68,7 @@ String error = request.getParameter("error");%>
                     <input type="submit" value="Verify OTP" class="submit-btn"/>
                 </div>
                 <div class="wrap-link-sign-up">
-                    <a href="/loginPage.jsp" class="sign-up-link">Quay lại đăng nhập</a>
+                    <a href="/login" class="sign-up-link">Quay lại đăng nhập</a>
                 </div>
 
             </form>
