@@ -15,6 +15,13 @@
    // response.sendRedirect("LoginPage.jsp");
    // return;}
 //%>
+
+<%
+if(session.getAttribute("UserRole") == null){
+    response.sendRedirect("LoginPage.jsp");
+    return; 
+}
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -28,10 +35,14 @@
             <div class="left-content">
                 <h2 class="title-admin">EndureTale S</h2>
                 <ul class="list-controller">
+                    <% if(session.getAttribute("UserRole").equals("Admin")) { %>
                     <a href="#" class="none-decoration"><li class="item-controller">Bảng điều khiển</li></a>
+                    <%}%>
                     <li class="item-controller active">Quản lí đơn hàng</li>
                     <a href="#" class="none-decoration"><li class="item-controller">Quản lí sản phẩm</li></a>
+                    <% if(session.getAttribute("UserRole").equals("Admin")) { %>
                     <a href="#" class="none-decoration"><li class="item-controller">Quản lí người dùng</li></a>
+                    <%}%>
                 </ul>
             </div>
             <div class="right-content">
