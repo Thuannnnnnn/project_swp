@@ -74,8 +74,13 @@ String error = request.getParameter("error");%>
             %>
 
             <form action="VerifyOtpServlet" method="post">
-                Enter OTP: <input type="text" name="otp" required />
-                <input type="submit" value="Verify OTP" />
+                <div class="wrap-input-gmail">
+                    <input class="input-email" type="text" name="otp" required  placeholder="Enter your OTP Code"/>
+                </div>
+                <div class="wrap-submit-btn">
+                    <input type="submit" value="Verify OTP" class="submit-btn"/>
+                </div>
+
                 <input type="hidden" name="feature" value="FGPW"/>
                 <input type= hidden name="email" value="<%= email%>" required/>
             </form>
@@ -87,10 +92,16 @@ String error = request.getParameter("error");%>
             <%}
 if("enterPassword".equals(method)){%>
             <form action="FogotPassword" method="POST" id="enterPassword">
-                <input type="password" name="password" required/>
-                <input type="password" name="Repassword" required/>
+                <div class="wrap-input-gmail">
+                    <input type="password" name="password" required/>
+                </div>
+                <div class="wrap-input-gmail">
+                    <input type="password" name="Repassword" required/>
+                </div>
                 <input type="hidden" name="email" value="<%=email%>"required/>
-                <input type="submit" value="Change Password"/>
+                   <div class="wrap-submit-btn">
+                <input class="submit-btn" type="submit" value="Change Password"/>
+                </div>
             </form>
             <%}%> <% 
              if("emailNotExit".equals(error)){%>
