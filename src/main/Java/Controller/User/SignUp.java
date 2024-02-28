@@ -106,7 +106,7 @@ public class SignUp extends HttpServlet {
             birthdateUtil = dateFormat.parse(birthdateRaw);
         } catch (ParseException e) {
             e.printStackTrace();
-            response.sendRedirect("SignUpPage.jsp"); 
+            response.sendRedirect("loginPage.jsp"); 
             return; // Dừng việc xử lý nếu có lỗi
         }
 
@@ -118,10 +118,10 @@ public class SignUp extends HttpServlet {
 
         if (uD.insertUser(user)) {
             System.out.println("Đăng ký thành công");
-            response.sendRedirect("orderPage.jsp"); // Chuyển hướng tới trang thành công
+            response.sendRedirect("loginPage.jsp"); // Chuyển hướng tới trang thành công
         } else {
             System.out.println("Đăng ký thất bại");
-            response.sendRedirect("SignUp.jsp"); // Chuyển hướng trở lại form đăng ký
+            response.sendRedirect("loginPage.jsp"); // Chuyển hướng trở lại form đăng ký
         }
     }
 

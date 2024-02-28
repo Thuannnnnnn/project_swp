@@ -11,7 +11,6 @@ Controller\Order\CRUDOrderController.class
 Controller\User\ForgotPassword.class
 Controller\User\SignUp.class
 Controller\Cart\CRUDCart.class
-Controller\User\AddEditDeleteUser.class
 Controller\User\SendOtpServlet.class
 dao\UserDAO.class
 model\User.class

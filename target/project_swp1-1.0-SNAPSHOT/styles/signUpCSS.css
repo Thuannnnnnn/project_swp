@@ -1,0 +1,61 @@
+.title-sign-up{
+    text-align: center;
+    margin-top: 60px;
+}
+.wrap-input-email{
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+}
+.input-email{
+    padding-left: 20px;
+    background-color: #c3d4f5;
+    width: 500px;
+    border-radius: 20px;
+    height: 40px;
+    outline: none;
+    border: none;
+}
+.wrap-submit-btn{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;  
+}
+.btn-submit{
+     width: 500px;
+    border-radius: 20px;
+    background-color: black;
+    border: none;
+    color:white;
+    height: 30px;
+}
+.wrap-link-sign-up{
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+    margin-top: 20px;
+}
+.sign-up-link{
+    color:#ff1212;
+}
+.sign-up-link:hover{
+    color:#ff1212;
+}
+.wrap-btn{
+    display: flex;
+    justify-content: center;
+    margin: 12px;
+}
+.wrap-link-sign-up{
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.sign-up-link{
+    color:#ff1212;
+}
+.sign-up-link:hover{
+    color:#ff1212;
+}
