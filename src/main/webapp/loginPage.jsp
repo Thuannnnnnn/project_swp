@@ -3,6 +3,11 @@
 
 <!DOCTYPE html>
 <html>
+        <%if(session.getAttribute("UserRole") != null){
+    response.sendRedirect("/");
+    return; 
+}
+%>
     <head>
         <title>LogIn Store</title>
         <meta charset="UTF-8">
@@ -45,14 +50,13 @@
                 </div>
             </div>
         </div>
-        <c:set var="cookie" value="${pageContext.request.cookies}"/>
         <form action="login" method="post" class="container mt-10 form-login">
             <h2 class="title-login">Đăng nhập</h2>
             <div class="form-group wrap-input-login">
-                <input type="email" name="email" class="form-control input-email" id="exampleInputEmail1" aria-describedby="emailHelp" value="${cookie.Ce.value}" placeholder="Enter your email">
+                <input type="email" name="email" class="form-control input-email" id="exampleInputEmail1" aria-describedby="emailHelp" value="" placeholder="Enter your email">
             </div>
             <div class="form-group wrap-input-password">
-                <input type="password" name="password" class="form-control input-password" id="exampleInputPassword1" value="${cookie.Cp.value}" placeholder="Enter your password">
+                <input type="password" name="password" class="form-control input-password" id="exampleInputPassword1" value="" placeholder="Enter your password">
             </div>
             <div class="wrap-link-forgot-password">
                 <a href="/forgotPassword" class="forgot-password-link white-space-nowrap">Quên mật khẩu?<a/>

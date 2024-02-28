@@ -227,7 +227,7 @@
                 var phoneNumber = $("input[name='phoneNumber']").val();
                 var password = $("input[name='password']").val();
                 var phoneNumberRegex = /^\d{10}$/;
-                var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+                var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]*$/;
                 var errorMessage = '';
                 console.log(phoneNumber);
                 if (!phoneNumberRegex.test(phoneNumber)) {
@@ -250,7 +250,7 @@
                 var phoneNumber = $("#phoneNumber1").val();
                 var password = $("#password1").val();
                 var phoneNumberRegex = /^\d{10}$/;
-                var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+                var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]*$/;
                 var errorMessage = '';
                 console.log(phoneNumber);
                 if (!phoneNumberRegex.test(phoneNumber)) {

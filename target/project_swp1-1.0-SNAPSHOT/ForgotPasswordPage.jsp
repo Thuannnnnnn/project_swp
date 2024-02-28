@@ -1,17 +1,26 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
+<%String email = request.getParameter("email");%>
+<%String method = request.getParameter("method"); %>
+<%String emailExit = request.getParameter("emailExit"); 
+String error = request.getParameter("error");%>
 <html>
+    <%if(session.getAttribute("UserRole") != null){
+    response.sendRedirect("/");
+    return; 
+}
+    %>
     <head>
-        <title>LogIn Store</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Password Page</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css/style.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="./styles/loginPageCSS.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <link rel="stylesheet" href="./styles/headerCSS.css"/>
+        <link rel="stylesheet" href="./styles/forgotPasswordCSS.css"/>
     </head>
     <body>
         <div class="wrap-content">
@@ -45,49 +54,84 @@
                 </div>
             </div>
         </div>
-        <c:set var="cookie" value="${pageContext.request.cookies}"/>
-        <form action="login" method="post" class="container mt-10 form-login">
-            <h2 class="title-login">Đăng nhập</h2>
-            <div class="form-group wrap-input-login">
-                <input type="email" name="email" class="form-control input-email" id="exampleInputEmail1" aria-describedby="emailHelp" value="${cookie.Ce.value}" placeholder="Enter your email">
-            </div>
-            <div class="form-group wrap-input-password">
-                <input type="password" name="password" class="form-control input-password" id="exampleInputPassword1" value="${cookie.Cp.value}" placeholder="Enter your password">
-            </div>
-            <div class="wrap-link-forgot-password">
-                <a href="/ForgotPasswordPage.jsp" class="forgot-password-link white-space-nowrap">Quên mật khẩu?<a/>
-            </div>
-            
-            <input type="hidden" name="redirect" value="<%= request.getParameter("redirect") %>" />
-            <div class="wrap-submit-btn">
-                <button type="submit" value="LOGIN" class="btn btn-primary submit-btn">Đăng nhập</button>
-            </div>
-            <div class="wrap-link-sign-up">
-                <p class="sign-up-word">Bạn chưa có tài khoản?</p><a href="/SignUpPage.jsp" class="sign-up-link"> Đăng ký ngay</a>
-            </div>
-            
-            
-           
-        </form>
-        <h3 style="color:red; text-align: center;">${requestScope.error}</h3>
-        <%
-                   String error = request.getParameter("error");
-                   if ("invalid".equals(error)) {
-        %>
-        <p class="check-error " style="color: red; font-weight: 600;">Please,try again enter your email or password.</p>
-        <%
-            }
-        %>
+        <div class="container">
+            <h2 class="title-forgot-password">Fogot Password</h2>
+            <h3 id="errorMessages" class="text-danger"></h3>
+            <%if(!"enterPassword".equals(method)&& !"enter".equals(method)){%>
+            <form action="SendOtpServlet" method ="get">
+                <div class="wrap-input-gmail">
+                    <input class="input-email" type="text" name="email" placeholder="Enter your email" required/>
+                </div>
+
+                <input type="hidden" name="feature" value="FGPW" />
+                <div class="wrap-submit-btn">
+                    <input type="submit" value="Verify OTP" class="submit-btn"/>
+                </div>
+                <div class="wrap-link-sign-up">
+                    <a href="/loginPage.jsp" class="sign-up-link">Quay lại đăng nhập</a>
+                </div>
+
+            </form>
+            <%}%>
+            <%                
+                         if ("enter".equals(method)) {
+            %>
+
+            <form action="VerifyOtpServlet" method="post">
+                Enter OTP: <input type="text" name="otp" required />
+                <input type="submit" value="Verify OTP" />
+                <input type="hidden" name="feature" value="FGPW"/>
+                <input type= hidden name="email" value="<%= email%>" required/>
+            </form>
+
+            <% 
+                } 
+    if("invalidOTP".equals(error)){
+            %> <h3 class="text-danger">Otp Invalid</h3>
+            <%}
+if("enterPassword".equals(method)){%>
+            <form action="forgotPassword" method="POST" id="enterPassword">
+                <input type="password" name="password" required/>
+                <input type="password" name="Repassword" required/>
+                <input type="hidden" name="email" value="<%=email%>"required/>
+                <input type="submit" value="Change Password"/>
+            </form>
+            <%}%> <% 
+             if("emailNotExit".equals(error)){%>
+            <h3 class="text-danger">Email does not Exit</h3>
+            <%}%>
+        </div>
         <script>
-            // JavaScript code to toggle password visibility
-            document.getElementById("rememberMe").addEventListener("change", function () {
-                var passwordInput = document.getElementById("exampleInputPassword1");
-                if (this.checked) {
-                    passwordInput.type = "text";
-                } else {
-                    passwordInput.type = "password";
-                }
+            $(document).ready(function () {
+                $("#enterPassword").submit(function (event) {
+                    var password = $("input[name='password']").val();
+                    var repassword = $("input[name='Repassword']").val();
+                    var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]*$/;
+                    var errorMessages = '';
+                    console.log(password);
+                    console.log(repassword);
+                    if (!passwordRegex.test(password)) {
+                        console.log("Password must be at least 8 characters long, including uppercase, lowercase, and numbers. </br>");
+                        errorMessages += "Password must be at least 8 characters long, including uppercase, lowercase, and numbers. </br>";
+                        event.preventDefault();
+                    }
+                    if (password !== repassword) {
+                        console.log("Mật khẩu không khớp. Vui lòng nhập lại.");
+                        errorMessages += "Mật khẩu không khớp. Vui lòng nhập lại.";
+                        event.preventDefault(); // Ngăn chặn form được gửi nếu mật khẩu không khớp
+                    }
+
+
+                    if (errorMessages.length > 0) {
+                        $("#errorMessages").html(errorMessages);
+                        event.preventDefault(); // Prevent form submission
+                    } else {
+                        $("#errorMessages").html(''); // Clear error message
+                    }
+                });
             });
+
         </script>
+
     </body>
 </html>

@@ -7,6 +7,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+        <%if(session.getAttribute("UserRole") != null){
+    response.sendRedirect("/");
+    return; 
+}
+%>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
@@ -109,7 +114,7 @@
 
             <%-- Form to enter user information --%>
             <% if ("infomation".equals(method)) { %>
-            <form action="SignUp" method="post" class="container mt-10" id="userInformationForm">
+            <form action="signUp" method="post" class="container mt-10" id="userInformationForm">
                 <div class="wrap-input-email">
                     <input class="input-email" type="text" name="fullName" placeholder="Please Enter Full Name" required />
                 </div>
@@ -146,7 +151,7 @@
                     var phoneNumber = $("input[name='phoneNumber']").val();
                     var password = $("input[name='password']").val();
                     var phoneNumberRegex = /^\d{10}$/;
-                    var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+                    var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]*$/;
                     var errorMessage = '';
 
                     if (!phoneNumberRegex.test(phoneNumber)) {
