@@ -75,7 +75,7 @@ public class SendOtpServlet extends HttpServlet {
         if (feature.equals("SignUp")) {
             if (u.emailExists(email)) {
                 System.out.println("");
-                response.sendRedirect("signUp.jsp?error=exited");
+                response.sendRedirect("signUp?error=exited");
             } else if (email != null && !email.isEmpty()) {
                 String otp = String.format("%06d", new Random().nextInt(1000000));
                 sendOtpByEmail(email, otp);
