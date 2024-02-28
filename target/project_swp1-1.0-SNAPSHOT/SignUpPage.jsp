@@ -80,7 +80,7 @@
                     <input type="submit" value="Verify OTP" class="btn-submit"/>
                 </div>
                 <div class="wrap-link-sign-up">
-                    <a href="/loginPage.jsp" class="sign-up-link">Quay lại đăng nhập</a>
+                    <a href="/login" class="sign-up-link">Quay lại đăng nhập</a>
                 </div>
 
             </form>
