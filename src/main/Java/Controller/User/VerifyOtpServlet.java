@@ -99,16 +99,16 @@ public class VerifyOtpServlet extends HttpServlet {
         if (feature.equals("SignUp")) {
             if (sessionOtp != null && userOtp.equals(sessionOtp) && System.currentTimeMillis() <= otpExpiry) {
                 session.removeAttribute("otp"); // Xóa OTP sau khi xác thực thành công
-                response.sendRedirect("SignUpPage.jsp?method=infomation&email=" + email);
+                response.sendRedirect("signUp?method=infomation&email=" + email);
             } else {
-                response.sendRedirect("SignUpPage.jsp?method=enter&email=" + email + "&error=invalidOTP");
+                response.sendRedirect("signUp?method=enter&email=" + email + "&error=invalidOTP");
             }
         } else if (feature.equals("FGPW")) {
             if (sessionOtp != null && userOtp.equals(sessionOtp) && System.currentTimeMillis() <= otpExpiry) {
                 session.removeAttribute("otp"); // Xóa OTP sau khi xác thực thành công
-                response.sendRedirect("ForgotPasswordPage.jsp?method=enterPassword&email=" + email);
+                response.sendRedirect("forgotPassword?method=enterPassword&email=" + email);
             } else {
-                response.sendRedirect("ForgotPasswordPage.jsp?method=enter&error=invalidOTP&email=" + email);
+                response.sendRedirect("forgotPassword?method=enter&error=invalidOTP&email=" + email);
             }
 
         } else {

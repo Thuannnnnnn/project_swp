@@ -61,7 +61,7 @@
 
         <%-- Form to enter user information --%>
         <% if ("infomation".equals(method)) { %>
-            <form action="SignUp" method="post" class="container mt-10" id="userInformationForm">
+            <form action="signUp" method="post" class="container mt-10" id="userInformationForm">
                 <input type="text" name="fullName" placeholder="Please Enter Full Name" required />
                 <input type="date" name="birthdate" id="datePicker" placeholder="Please Enter Birthdate" max="" required />
                 <input type="text" name="address" required placeholder="Please Enter Address" />

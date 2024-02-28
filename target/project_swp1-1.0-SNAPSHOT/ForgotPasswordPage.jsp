@@ -43,7 +43,7 @@ if("invalidOTP".equals(error)){
         %> <h3 class="text-danger">Otp Invalid</h3>
         <%}
 if("enterPassword".equals(method)){%>
-        <form action="FogotPassword" method="POST" id="enterPassword">
+        <form action="forgotPassword" method="POST" id="enterPassword">
             <input type="password" name="password" required/>
             <input type="password" name="Repassword" required/>
             <input type="hidden" name="email" value="<%=email%>"required/>

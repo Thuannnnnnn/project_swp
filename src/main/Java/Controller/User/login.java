@@ -48,7 +48,7 @@ public class login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("loginPage.jsp").forward(request, response);
+        request.getRequestDispatcher("/LoginPage.jsp").forward(request, response);
     }
 
     public static boolean verifySHA256(String input, String hashedValueToCompare) {

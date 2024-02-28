@@ -85,9 +85,9 @@ public class ForgotPassword extends HttpServlet {
        String email = request.getParameter("email");
         UserDAO u = new UserDAO();
        if( !email.isEmpty() &&u.updatePassword(email, GenSHA256(password))){
-           response.sendRedirect("LoginPage.jsp");
+           response.sendRedirect("/login");
        }else{
-           response.sendRedirect("FogotPassword.jsp?error=invalid");
+           response.sendRedirect("forgotPasswordPage.jsp?error=invalid");
        }
     }
 
