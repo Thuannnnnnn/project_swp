@@ -46,7 +46,7 @@
                 </div>
                 <div class="right-content">
                     <button class="btn-white btn white-space-nowrap no-mb">Tra cứu đơn hàng</button>
-                    <a href="/loginPage.jsp"><button class="btn-white btn white-space-nowrap">Đăng nhập</button></a>
+                    <a href="/login"><button class="btn-white btn white-space-nowrap">Đăng nhập</button></a>
                 </div>
             </div>
         </div>

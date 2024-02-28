@@ -54,7 +54,12 @@
                 </div>
                 <div class="right-content">
                     <button class="btn-white btn white-space-nowrap no-mb">Tra cứu đơn hàng</button>
+                    <%
+if(session.getAttribute("UserRole") == null){
+                    %>
                     <a href="/login"><button class="btn-white btn white-space-nowrap">Đăng nhập</button></a>
+                    <% }
+                    %>
                     <%
 if(session.getAttribute("UserRole") != null){
                     %>
@@ -393,15 +398,15 @@ if(session.getAttribute("UserRole") != null){
             </div>
             <div>
                 <div class=" mt-5 py-3 footerr">
-                     <div class="ml-5 mt-5 ft1"> <h3 class="text-white">EndureTale S</h3>
-                            <h3 class="text-white">CÔNG TY TNHH ENDURETALES</h3>
-                            <p class="text-white">Mã số thuế : 92828823</p>
-                            <p class="text-white">Địa chỉ : tòa nhà số 5, đường Nguyễn Văn Cừ nối dài, phường An Khánh, quận Ninh Kiều, Cần Thơ.s</p>
-                            <h5 class="text-white">Kết nối với chúng tôi</h5>
-                            <div class="d-flex justify-content-between"><ion-icon name="mail-outline"></ion-icon> <input type="mail" placeholder="Nhập email của bạn..."> <button>Xac Nhan</button></div></div>
+                    <div class="ml-5 mt-5 ft1"> <h3 class="text-white">EndureTale S</h3>
+                        <h3 class="text-white">CÔNG TY TNHH ENDURETALES</h3>
+                        <p class="text-white">Mã số thuế : 92828823</p>
+                        <p class="text-white">Địa chỉ : tòa nhà số 5, đường Nguyễn Văn Cừ nối dài, phường An Khánh, quận Ninh Kiều, Cần Thơ.s</p>
+                        <h5 class="text-white">Kết nối với chúng tôi</h5>
+                        <div class="d-flex justify-content-between"><ion-icon name="mail-outline"></ion-icon> <input type="mail" placeholder="Nhập email của bạn..."> <button>Xac Nhan</button></div></div>
 
-                        <div style="width: 30%;" class="mt-5 ft2 items-center"> 
-                            <div> <a href="#" class="text-decoration-none text-white">Mua hàng và thanh toán Online </a> <br>
+                    <div style="width: 30%;" class="mt-5 ft2 items-center"> 
+                        <div> <a href="#" class="text-decoration-none text-white">Mua hàng và thanh toán Online </a> <br>
                             <a href="#"class="text-decoration-none text-white">Mua hàng trả góp Online</a><br>
                             <a href="#"class="text-decoration-none text-white">Chính sách giao hàng</a><br>
                             <a href="#"class="text-decoration-none text-white"> Tra điểm Smember</a><br>
@@ -411,10 +416,10 @@ if(session.getAttribute("UserRole") != null){
                             <a href="#"class="text-decoration-none text-white"> Thông tin hoá đơn mua hàng</a><br>
                             <a href="#"class="text-decoration-none text-white">Trung tâm bảo hành chính hãng</a><br>
                             <a href="#"class="text-decoration-none text-white">Quy định về việc sao lưu dữ liệu</a><br></div>
-                        </div>
+                    </div>
 
-                        <div style="width: 30%;" class="mr-5 mt-5 ft3"> 
-                              <div>
+                    <div style="width: 30%;" class="mr-5 mt-5 ft3"> 
+                        <div>
                             <a href="#" class="text-decoration-none text-white"> Khách hàng doanh nghiệp (B2B) </a> <br>
                             <a href="#"class="text-decoration-none text-white">Ưu đãi thanh toán</a><br>
                             <a href="#"class="text-decoration-none text-white">Quy chế hoạt động</a><br>
@@ -423,7 +428,7 @@ if(session.getAttribute("UserRole") != null){
                             <a href="#"class="text-decoration-none text-white">Tuyển dụng</a><br>
                             <a href="#"class="text-decoration-none text-white">  Dịch vụ bảo hành điện thoại</a><br>
                             <a href="#"class="text-decoration-none text-white"> Dịch vụ bảo hành mở rộng</a><br></div>
-                        </div>
+                    </div>
                 </div>
             </div>
         </div>
