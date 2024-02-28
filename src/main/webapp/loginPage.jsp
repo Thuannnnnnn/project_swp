@@ -55,7 +55,7 @@
                 <input type="password" name="password" class="form-control input-password" id="exampleInputPassword1" value="${cookie.Cp.value}" placeholder="Enter your password">
             </div>
             <div class="wrap-link-forgot-password">
-                <a href="/ForgotPasswordPage.jsp" class="forgot-password-link white-space-nowrap">Quên mật khẩu?<a/>
+                <a href="/forgotPassword" class="forgot-password-link white-space-nowrap">Quên mật khẩu?<a/>
             </div>
             
             <input type="hidden" name="redirect" value="<%= request.getParameter("redirect") %>" />
@@ -63,7 +63,7 @@
                 <button type="submit" value="LOGIN" class="btn btn-primary submit-btn">Đăng nhập</button>
             </div>
             <div class="wrap-link-sign-up">
-                <p class="sign-up-word">Bạn chưa có tài khoản?</p><a href="/SignUpPage.jsp" class="sign-up-link"> Đăng ký ngay</a>
+                <p class="sign-up-word">Bạn chưa có tài khoản?</p><a href="/signUp" class="sign-up-link"> Đăng ký ngay</a>
             </div>
             
             

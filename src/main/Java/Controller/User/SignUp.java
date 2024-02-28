@@ -65,7 +65,7 @@ public class SignUp extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       request.getRequestDispatcher("signUpPage.jsp").forward(request, response);
+       request.getRequestDispatcher("SignUpPage.jsp").forward(request, response);
     }
 
    
@@ -118,7 +118,7 @@ public class SignUp extends HttpServlet {
 
         if (uD.insertUser(user)) {
             System.out.println("Đăng ký thành công");
-            response.sendRedirect("signUpPage.jsp"); // Chuyển hướng tới trang thành công
+            response.sendRedirect("/login"); // Chuyển hướng tới trang thành công
         } else {
             System.out.println("Đăng ký thất bại");
             response.sendRedirect("signUpPage.jsp"); // Chuyển hướng trở lại form đăng ký

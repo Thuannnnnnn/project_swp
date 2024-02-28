@@ -45,7 +45,13 @@
                 </div>
                 <div class="right-content">
                     <button class="btn-white btn white-space-nowrap no-mb">Tra cứu đơn hàng</button>
-                    <a href="/loginPage.jsp"><button class="btn-white btn white-space-nowrap">Đăng nhập</button></a>
+                    <a href="/login"><button class="btn-white btn white-space-nowrap">Đăng nhập</button></a>
+                    <%
+if(session.getAttribute("UserRole") != null){
+                    %>
+                    <a href=" /logout"><button class="btn-danger btn white-space-nowrap">LogOut</button></a>
+                    <% }
+                    %>
                 </div>
             </div>
         </div>

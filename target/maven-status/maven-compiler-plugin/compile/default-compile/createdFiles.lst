@@ -25,3 +25,4 @@ dao\DBConnection.class
 model\Products.class
 model\productDescription.class
 Controller\Image\DeleteServlet.class
+Controller\User\logout.class

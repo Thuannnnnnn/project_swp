@@ -23,9 +23,8 @@ import org.apache.commons.codec.binary.Hex;
  *
  * @author tranq
  */
-@WebServlet(name="login", urlPatterns={"/login"})
+@WebServlet(name = "login", urlPatterns = {"/login"})
 public class login extends HttpServlet {
-
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -44,11 +43,10 @@ public class login extends HttpServlet {
         }
     }
 
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("loginPage.jsp").forward(request, response);
+        request.getRequestDispatcher("/LoginPage.jsp").forward(request, response);
     }
 
     public static boolean verifySHA256(String input, String hashedValueToCompare) {
@@ -64,26 +62,21 @@ public class login extends HttpServlet {
         }
     }
 
- 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        String rememberMe = request.getParameter("rememberMe");
+
         HttpSession session = request.getSession();
-        Cookie Ce = new Cookie("Ce", email);
-        Cookie Cp = new Cookie("Cp", password);
-        Cookie Cr = new Cookie("Cr", rememberMe);
-        System.out.println("remember " + rememberMe);
-        
+
         UserDAO uD = new UserDAO();
         try {
             User u = uD.getUserByEmail(email);
 
             if (verifySHA256(password, u.getPassword())) {
                 System.out.println("Login Success");
-               
+
                 session.setAttribute("fullName", u.getFullName());
                 session.setAttribute("userId", u.getUserId());
                 session.setAttribute("email", u.getEmail());
@@ -92,29 +85,15 @@ public class login extends HttpServlet {
                 session.setAttribute("PhoneNumber", u.getPhoneNumber());
                 session.setAttribute("UserRole", u.getUserRole());
                 session.setAttribute("Date_Added", u.getDateAdded());
-                if (rememberMe != null) {
-                    System.out.println("remember not null");
-                    Ce.setMaxAge(60 * 60 * 365);
-                    Cp.setMaxAge(60 * 60 * 365);
-                    Cr.setMaxAge(60 * 60 * 365);
-                } else {
-                    Ce.setMaxAge(0);
-                    Cp.setMaxAge(0);
-                    Cr.setMaxAge(0);
-                }
-
-                response.addCookie(Ce);
-                response.addCookie(Cp);
-                response.addCookie(Cr); 
-                response.sendRedirect("LoginPage.jsp?status=ss");
+                response.sendRedirect("/");
             } else {
                 System.out.println("Thông tin đăng nhập không chính xác");
-                response.sendRedirect("login.jsp?error=invalid");
+                response.sendRedirect("login?error=invalid");
             }
         } catch (NullPointerException e) {
             // Handle the NullPointerException here
             System.out.println("User with the given email not found or user's password is null.");
-            response.sendRedirect("login.jsp?error=invalid");
+            response.sendRedirect("login?error=invalid");
         }
     }
 

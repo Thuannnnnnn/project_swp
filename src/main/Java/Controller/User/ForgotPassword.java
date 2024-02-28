@@ -61,7 +61,7 @@ public class ForgotPassword extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-          request.getRequestDispatcher("forgotPasswordPage.jsp").forward(request, response);
+          request.getRequestDispatcher("ForgotPasswordPage.jsp").forward(request, response);
     }
 
    public String GenSHA256(String input) {
