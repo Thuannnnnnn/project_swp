@@ -97,14 +97,14 @@ String error = request.getParameter("error");%>
 if("enterPassword".equals(method)){%>
             <form action="forgotPassword" method="POST" id="enterPassword">
                 <div class="wrap-input-gmail">
-                    <input class="input-email" type="password" name="password" required/>
+                    <input class="input-email" type="password" name="password" placeholder="Enter Your Password" required/>
                 </div>
                 <div class="wrap-input-gmail">
-                    <input class="input-email" type="password" name="Repassword" required/>
+                    <input class="input-email" type="password" name="Repassword" placeholder="Re-enter your password" required/>
                 </div>
                 <input type="hidden" name="email" value="<%=email%>"required/>
                 <div class="wrap-submit-btn">
-                    <input type="submit" value="Change Password"/>
+                    <input class="submit-btn" type="submit" value="Change Password"/>
                 </div>
             </form>
             <%}%> <% 
