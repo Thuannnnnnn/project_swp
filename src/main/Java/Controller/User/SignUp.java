@@ -24,7 +24,7 @@ import org.apache.commons.codec.binary.Hex;
  *
  * @author tranq
  */
-@WebServlet(name="SignUp", urlPatterns={"/SignUp"})
+@WebServlet(name="SignUp", urlPatterns={"/signUp"})
 public class SignUp extends HttpServlet {
 
     /**
@@ -65,7 +65,7 @@ public class SignUp extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+       request.getRequestDispatcher("signUpPage.jsp").forward(request, response);
     }
 
    

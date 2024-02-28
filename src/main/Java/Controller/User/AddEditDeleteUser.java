@@ -99,8 +99,7 @@ public class AddEditDeleteUser extends HttpServlet {
         String method = request.getParameter("method");
         int id = 0;
 
-        try {
-            // Cố gắng chuyển đổi chuỗi sang int
+        try {          
             id = Integer.parseInt(idStr);
         } catch (NumberFormatException e) {
 
@@ -135,7 +134,7 @@ public class AddEditDeleteUser extends HttpServlet {
                 response.sendRedirect("AdminUser");
             }
         } else {
-            System.out.println("Id la` "+id);
+           
             if (!ud.deleteUser(id)) {
                 response.sendRedirect("AdminUser?e=DError");
             } else {

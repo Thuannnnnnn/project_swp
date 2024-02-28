@@ -4,6 +4,7 @@
  */
 package Controller.User;
 
+import com.mysql.cj.conf.PropertyKey;
 import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -66,7 +67,9 @@ public class VerifyOtpServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+
     }
+    
 
     public String GenSHA256(String input) {
         String hashedValue = null;
@@ -129,16 +132,16 @@ public class VerifyOtpServlet extends HttpServlet {
                 }
 
                 java.sql.Date birthdateSql = new java.sql.Date(birthdateUtil.getTime());
-                
+
                 String Role = "Customer";
                 User u = new User(fullName, birthdateSql, phoneNumber, email1, password, address, Role);
                 UserDAO ud = new UserDAO();
                 if (!ud.insertUser(u)) {
                     response.sendRedirect("AdminUser?e=Add");
-                    
+
                 } else {
                     response.sendRedirect("AdminUser");
-                  
+
                 }
             }
         }

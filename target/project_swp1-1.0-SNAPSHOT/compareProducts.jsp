@@ -11,7 +11,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
 if(session.getAttribute("UserRole") == null){
-    response.sendRedirect("LoginPage.jsp");
+    response.sendRedirect("login");
     return; 
 }
 %>

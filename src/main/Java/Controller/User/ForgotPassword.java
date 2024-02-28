@@ -20,7 +20,7 @@ import org.apache.commons.codec.binary.Hex;
  *
  * @author tranq
  */
-@WebServlet(name="ForgotPassword", urlPatterns={"/ForgotPassword"})
+@WebServlet(name="ForgotPassword", urlPatterns={"/forgotPassword"})
 public class ForgotPassword extends HttpServlet {
 
     /**
@@ -61,7 +61,7 @@ public class ForgotPassword extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+          request.getRequestDispatcher("forgotPasswordPage.jsp").forward(request, response);
     }
 
    public String GenSHA256(String input) {
