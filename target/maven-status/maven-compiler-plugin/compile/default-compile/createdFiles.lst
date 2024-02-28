@@ -17,7 +17,6 @@ dao\UserDAO.class
 model\User.class
 Controller\User\login.class
 Controller\Compare\compareProductServlet.class
-Controller\User\NewServlet.class
 Controller\Order\createOrder.class
 dao\orderDAO.class
 model\Order.class

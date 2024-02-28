@@ -1,120 +1,155 @@
-/*
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
-*/
-/* 
-    Created on : Feb 28, 2024, 5:59:00 PM
-    Author     : tranq
-*/
-
 .navbar-vertical {
-  background-color: #ffffff;
+    background-color: #ffffff;
 }
 
 .navbar-vertical .navbar-nav {
-  flex-direction: column;
+    flex-direction: column;
 }
 
 .navbar-vertical .navbar-nav .nav-item {
-  position: relative;
+    position: relative;
 }
 
 .navbar-vertical .navbar-nav .nav-item .nav-link {
-  padding: 0.5rem 1rem;
+    padding: 0.5rem 1rem;
 }
 
 .navbar-vertical .navbar-nav .nav-item:hover > .nav-link {
-  background-color: #d8d8d8;
+    background-color: #d8d8d8;
 }
 
 .navbar-vertical .navbar-nav .nav-item .dropdown-menu {
-  position: absolute;
-  top: 0;
-  left: 100%;
-  margin-top: 0;
-  display: none;
-  min-width: 200px;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    margin-top: 0;
+    display: none;
+    min-width: 200px;
 }
 
 .navbar-vertical .navbar-nav .nav-item:hover > .dropdown-menu {
-  display: block;
+    display: block;
 }
 
 .navbar-vertical .navbar-nav .nav-item .dropdown-menu .dropdown-item {
-  white-space: nowrap;
+    white-space: nowrap;
 }
 .menu {
-  width: 20%;
-  margin: 30px 10px 30px 100px;
-  box-shadow: #c5c5c5 10px 10px 10px 10px;
+    width: 20%;
+    margin: 30px 10px 30px 100px;
+    box-shadow: #c5c5c5 10px 10px 10px 10px;
 }
 .iconMenu {
-  margin-top: 5px;
+    margin-top: 5px;
 }
 #carouselExample {
-  height: 25vh;
+    height: 25vh;
 }
 #carouselExample .carousel-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 .card-text {
-  background-color: #cbcbcb;
+    background-color: #cbcbcb;
 }
 .card-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px; /* Adjust the gap between cards */
-  justify-content: space-between;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px; /* Adjust the gap between cards */
+    justify-content: start;
 }
 
 .card {
-  width: calc(25% - 15px); /* 4 cards per row on PC */
-  box-sizing: border-box;
+    width: calc(25% - 15px); /* 4 cards per row on PC */
+    box-sizing: border-box;
 }
-.theA{
-    text-decoration: none;
+.ft1{
+    width: 35%;
+}
+.footerr{
+    background-color: #4A90E2;
+    display: flex;
+    justify-content: space-between;
 }
 @media (max-width: 992px) {
-  .card {
-    width: calc(33.33% - 15px);
-  }
+    .card {
+        width: calc(33.33% - 15px);
+    }
+    .footerr{
+        background-color: #4A90E2;
+    }
+        .ft2{
+            display: none;
+        }
+        .ft3{
+            display: none;
+        }
+        .ft1{
+            width: 75%;
+            align-items: center;
+        }
 }
 
-/* Responsive adjustments for mobile */
 @media (max-width: 768px) {
-  .card {
-    width: calc(50% - 15px);
-  }
-  .menu {
-    display: none;
-  }
-  .card-title {
-    font-size: 10px;
-  }
-  .oldPrice {
-    font-size: 10px;
-  }
-  .newPrice {
-    font-size: 10px;
-  }
-  .card-text {
-    font-size: 10px;
-  }
+    .card {
+        width: calc(50% - 15px);
+    }
+    .menu {
+        display: none;
+    }
+    .card-title {
+        font-size: 10px;
+    }
+    .oldPrice {
+        font-size: 10px;
+    }
+    .newPrice {
+        font-size: 10px;
+    }
+    .card-text {
+        font-size: 10px;
+    }
+    .footerr{
+        display:none;
+    }
+    .ft2{
+        display: none;
+    }
+    .ft3{
+        display: none;
+    }
+    .ft1{
+        display: none;
+    }
+
+
+}
+@media (max-width: 424px) {
+    .footerr{
+        display:none;
+    }
+    .ft2{
+        display: none;
+    }
+    .ft3{
+        display: none;
+    }
+    .ft1{
+        display: none;
+    }
+
+
 }
 .discount-label {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  background-color: #ff0000;
-  color: #ffffff;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: #ff0000;
+    color: #ffffff;
 
-  border-radius: 5px;
+    border-radius: 5px;
 }
 .page-link{
     border-radius: 15%;
-}
-.footer{
-    background-color: #4A90E2;
 }

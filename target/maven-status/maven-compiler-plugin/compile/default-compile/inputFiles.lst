@@ -22,7 +22,6 @@ D:\Workspace\SP24\SWP\SWP_backend\src\main\java\dao\productDescriptionDAO.java
 D:\Workspace\SP24\SWP\SWP_backend\src\main\java\Controller\User\SignUp.java
 D:\Workspace\SP24\SWP\SWP_backend\src\main\java\dao\DBConnection.java
 D:\Workspace\SP24\SWP\SWP_backend\src\main\java\model\Cart.java
-D:\Workspace\SP24\SWP\SWP_backend\src\main\java\Controller\User\NewServlet.java
 D:\Workspace\SP24\SWP\SWP_backend\src\main\java\model\productDescription.java
 D:\Workspace\SP24\SWP\SWP_backend\src\main\java\model\Products.java
 D:\Workspace\SP24\SWP\SWP_backend\src\main\java\Controller\Order\CRUDOrderController.java

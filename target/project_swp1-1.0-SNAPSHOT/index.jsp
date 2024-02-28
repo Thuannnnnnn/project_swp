@@ -25,9 +25,7 @@
             nomodule
             src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
         ></script>
-        <style>
-            
-        </style>
+
     </head>
     <body>
         <div class="wrap-content">
@@ -267,8 +265,8 @@
                                     </li>
                                 </ul>
                             </li>
-                                </ul>
-                            </li>
+                        </ul>
+                        </li>
                         </ul>
                     </nav>
                 </div>
@@ -355,7 +353,26 @@
                             <p class="card-text">Cô gái đẹp nhất mã DX118C 600W600W</p>
                         </div>
                     </div>
-
+                    <div class="card">
+                        <div class="discount-label px-4">-30%</div>
+                        <img
+                            class="m-4 rounded-top"
+                            src="https://www.cnet.com/a/img/resize/1384697f88b6dbfc36a36389d6dc9b4c5a84d8fb/hub/2022/06/17/2df844de-de8b-4aff-9c46-a2c25e151631/apple-macbook-pro-m2-laptop-2022-0572.jpg?auto=webp&fit=crop&height=675&width=1200"
+                            class="card-img-top"
+                            alt="..."
+                            />
+                        <div class="card-body">
+                            <h5 class="card-title">Cô gái đẹp nhất mã DX118C 600W600W</h5>
+                            <h5 class="card-title">
+                                <span class="newPrice mr-4 text-danger">300.000.000</span>
+                                <span
+                                    class="oldPrice fs-6 text-secondary text-decoration-line-through"
+                                    >200.000.000</span
+                                >
+                            </h5>
+                            <p class="card-text">Cô gái đẹp nhất mã DX118C 600W600W</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="mt-5">
                     <nav aria-label="" class="d-flex justify-content-center">
@@ -370,15 +387,15 @@
                 </div>
             </div>
             <div>
-                <div class="container mt-5 py-3 footer d-flex justify-content-between">
-                    <div style="width: 35%;" class="ml-5 mt-5"> <h3 class="text-white">EndureTale S</h3>
+               <div class="container mt-5 py-3 footerr">
+                    <div class="ml-5 mt-5 ft1"> <h3 class="text-white">EndureTale S</h3>
                         <h3 class="text-white">CÔNG TY TNHH ENDURETALES</h3>
                         <p class="text-white">Mã số thuế : 92828823</p>
                         <p class="text-white">Địa chỉ : tòa nhà số 5, đường Nguyễn Văn Cừ nối dài, phường An Khánh, quận Ninh Kiều, Cần Thơ.s</p>
                         <h5 class="text-white">Kết nối với chúng tôi</h5>
                         <div class="d-flex justify-content-between"><ion-icon name="mail-outline"></ion-icon> <input type="mail" placeholder="Nhập email của bạn..."> <button>Xac Nhan</button></div></div>
 
-                    <div style="width: 30%;" class="mt-5"> 
+                    <div style="width: 30%;" class="mt-5 ft2"> 
                         <a href="#" class="text-decoration-none text-white">Mua hàng và thanh toán Online </a> <br>
                         <a href="#"class="text-decoration-none text-white">Mua hàng trả góp Online</a><br>
                         <a href="#"class="text-decoration-none text-white">Chính sách giao hàng</a><br>
@@ -391,7 +408,7 @@
                         <a href="#"class="text-decoration-none text-white">Quy định về việc sao lưu dữ liệu</a><br>
                     </div>
 
-                    <div style="width: 30%;" class="mr-5 mt-5"> 
+                    <div style="width: 30%;" class="mr-5 mt-5 ft3"> 
                         <a href="#" class="text-decoration-none text-white"> Khách hàng doanh nghiệp (B2B) </a> <br>
                         <a href="#"class="text-decoration-none text-white">Ưu đãi thanh toán</a><br>
                         <a href="#"class="text-decoration-none text-white">Quy chế hoạt động</a><br>
@@ -400,11 +417,7 @@
                         <a href="#"class="text-decoration-none text-white">Tuyển dụng</a><br>
                         <a href="#"class="text-decoration-none text-white">  Dịch vụ bảo hành điện thoại</a><br>
                         <a href="#"class="text-decoration-none text-white"> Dịch vụ bảo hành mở rộng</a><br>
-                        </h3>
                     </div>
-                </div>
-                <div>
-
                 </div>
             </div>
         </div>
