@@ -20,7 +20,7 @@ public class imageDAO {
         List<image> list = new ArrayList<>();
         try (Connection connection = DBConnection.getConnection(); Statement statement = connection.createStatement(); ResultSet rs = statement.executeQuery(sql)) {
             while (rs.next()) {
-                image img = new image(rs.getInt("image_id"), rs.getString("product_id"), rs.getString("image_url"));
+                image img = new image(rs.getInt("image_id"), rs.getInt("product_id"), rs.getString("image_url"));
                 list.add(img);
             }
         } catch (SQLException e) {

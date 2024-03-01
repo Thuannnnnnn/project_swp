@@ -1,36 +1,34 @@
-<%-- 
-    Document   : product
-    Created on : Jan 31, 2024, 3:54:07 PM
-    Author     : THANHVINH
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="model.Products"%>  
-<%@page import="java.sql.ResultSet"%>
-<%@page import="dao.productDescriptionDAO"%>  
-<%@page import="java.util.List"%> 
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page import="model.product" %>
+<%@ page import="java.util.List" %>
+<%@ page import="dao.productDescriptionDAO" %>
 
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <div>
-            <%
-                productDescriptionDAO pdModel = new productDescriptionDAO();
+<head>
+    <meta charset="UTF-8">
+    <title>JSP Page</title>
+</head>
+<body>
+    <div>
+        <%
+            productDescriptionDAO pdModel = new productDescriptionDAO();
+            List<product> p = pdModel.getProduct();
+            for (product product : p) {
+        %>
+        <form action="dataToHomeFromDetail"  id="hiddenForm">
+            <input type="hidden" name="productId" value="<%= product.getProduct_id()%>">
+            <input type="image" src="<%= product.getImage_url()%>" style="width: 50%; height: 100%;" onclick="submitForm()">
+        </form>
+        <%
+            }
+        %>
+    </div>
 
-          
-                List<Products> p = pdModel.getProduct();
-                for (Products product : p) {
-            %>
-            <a href="productDetail.jsp?id=<%= product.getProductId()%>">
-                <img  src="<%= product.getImageUrl()%>" style="width: 50%; height: 100%  ;">
-            </a>
-            <%
-                  
-                }%>
-        </div>
-    </body>
+    <script>
+        function submitForm() {
+            document.getElementById("hiddenForm").submit();
+        }
+    </script>
+</body>
 </html>

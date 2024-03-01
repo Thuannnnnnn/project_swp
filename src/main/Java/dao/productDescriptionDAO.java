@@ -1,6 +1,6 @@
 package dao;
 
-import dao.DBConnection;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,25 +8,24 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import model.Products;
+import model.image;
+import model.product;
 import model.productDescription;
 
 public class productDescriptionDAO {
 
-    private Connection connection;
+   private Connection connection;
     private Statement statement;
     private ResultSet rs;
 
-    public productDescriptionDAO() throws SQLException {
-        this.connection = DBConnection.getConnection();
-    }
+
 
     public List<productDescription> getAllProductDescription() {
         List<productDescription> pDescriptions = new ArrayList<>();
         String sql = "select * from productdescription";
         try {
             PreparedStatement pstmt = connection.prepareStatement(sql);
-            ResultSet rs = pstmt.executeQuery();
+            rs = pstmt.executeQuery();
             while (rs.next()) {
                 productDescription description = new productDescription();
                 description.setDescriptionId(rs.getInt("description_id"));
@@ -35,7 +34,7 @@ public class productDescriptionDAO {
                 description.setBattery(rs.getString("battery"));
                 description.setOsystem(rs.getString("osystem"));
                 description.setCamera(rs.getString("camera"));
-                description.setProductId(rs.getString("product_id"));
+                description.setProductId(rs.getInt("product_id"));
                 description.setSim(rs.getString("sim"));
                 pDescriptions.add(description);
             }
@@ -44,101 +43,100 @@ public class productDescriptionDAO {
         return pDescriptions;
     }
 
-    public List<Products> getProduct() {
-        List<Products> list = new ArrayList<>();
+    public List<product> getProduct() {
+        List<product> listU = new ArrayList<>();
         String sql = "select * from products";
         try {
-            PreparedStatement st = connection.prepareStatement(sql); // Use PreparedStatement instead of Statement
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                Products p = new Products(
-                        rs.getString("product_id"),
-                        rs.getString("product_name"),
-                        rs.getDouble("product_price"),
-                        rs.getString("image_url"),
-                        rs.getInt("stock_quantity"),
-                        rs.getInt("category_id"),
-                        rs.getString("product_branch"), // Corrected column name
-                        rs.getDate("date_added")); // Corrected column name
-                list.add(p);
-            }
-        } catch (SQLException e) {
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close(); // Close connection inside finally block
-                }
-            } catch (SQLException e) {
-            }
-        }
-        return list;
-    }
-
-    public List<Products> getIMG(String id1, String id2, String id3) {
-        List<Products> list = new ArrayList<>();
-        String sql = "SELECT * from products WHERE product_id IN (?, ?, ?);";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql); // Use PreparedStatement instead of Statement
-            st.setString(1, id1);
-            st.setString(2, id2);
-            st.setString(3, id3);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                Products p = new Products(
-                        rs.getString("product_id"),
-                        rs.getString("product_name"),
-                        rs.getDouble("product_price"),
-                        rs.getString("image_url"),
-                        rs.getInt("stock_quantity"),
-                        rs.getInt("category_id"),
-                        rs.getString("product_branch"), // Corrected column name
-                        rs.getDate("date_added")); // Corrected column name
-                list.add(p);
+            PreparedStatement sta = connection.prepareStatement(sql); // Use PreparedStatement instead of Statement
+            ResultSet rsu = sta.executeQuery();
+            while (rsu.next()) {
+                product p = new product(
+                        rsu.getInt("product_id"),
+                        rsu.getString("product_name"),
+                        rsu.getDouble("product_price"),
+                        rsu.getString("image_url"),
+                        rsu.getInt("stock_quantity"),
+                        rsu.getInt("category_id"),
+                        rsu.getString("product_branch"), // Corrected column name
+                        rsu.getDate("date_added")); // Corrected column name
+                listU.add(p);
             }
         } catch (SQLException e) {
         } 
-        return list;
+        return listU;
     }
 
-    public List<productDescription> getProductDescription(String id1, String id2, String id3) {
-        List<productDescription> ProductDescription = new ArrayList<>();
-        String sql = "select * from productdescription WHERE product_id IN (?, ?, ?);";
+    public List<product> getIMG(String id1, String id2) {
+        List<product> list = new ArrayList<>();
+        String sql = "SELECT * from products WHERE product_id IN (?, ?);";
         try {
             PreparedStatement st = connection.prepareStatement(sql); // Use PreparedStatement instead of Statement
             st.setString(1, id1);
             st.setString(2, id2);
-            st.setString(3, id3);
-            ResultSet rs = st.executeQuery();
+            rs = st.executeQuery();
+            while (rs.next()) {
+                product p = new product(
+                        rs.getInt("product_id"),
+                        rs.getString("product_name"),
+                        rs.getDouble("product_price"),
+                        rs.getString("image_url"),
+                        rs.getInt("stock_quantity"),
+                        rs.getInt("category_id"),
+                        rs.getString("product_branch"), // Corrected column name
+                        rs.getDate("date_added")); // Corrected column name
+                list.add(p);
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+
+    public List<productDescription> getProductDescription() {
+        List<productDescription> ProductDescription = new ArrayList<>();
+        String sql = "select * from productdescription";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql); // Use PreparedStatement instead of Statement
+            rs = st.executeQuery();
             while (rs.next()) {
                 productDescription description = new productDescription(
                         rs.getInt("description_id"), rs.getString("size_display"), rs.getString("chipset"),
-                        rs.getString("battery"), rs.getString("osystem"), rs.getString("camera"), rs.getString("sim"), rs.getString("product_id"));
+                        rs.getString("battery"), rs.getString("osystem"), rs.getString("camera"), rs.getString("sim"), rs.getInt("product_id"));
                 ProductDescription.add(description);
             }
         } catch (SQLException e) {
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close(); // Close connection inside finally block
-                }
-            } catch (SQLException e) {
-            }
-        }
+        } 
         return ProductDescription;
+    }
+
+    public List<image> getImagesByProductId(int productId) {
+        List<image> images = new ArrayList<>();
+        String sql = "SELECT * FROM images WHERE product_id = ?";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, productId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int imageId = resultSet.getInt("image_id");
+                String imageUrl = resultSet.getString("image_url");
+                image image = new image(imageId, productId, imageUrl);
+                images.add(image);
+            }
+        } catch (SQLException e) {
+
+        } 
+        return images;
     }
 
     public static void main(String[] args) throws SQLException {
         productDescriptionDAO pdModel = new productDescriptionDAO();
-
-        List<productDescription> pd = pdModel.getAllProductDescription();
+//        List<product> pOutId = pdModel.getProduct();
+//        for (product object : pOutId) {
+//            System.out.println(object.getImage_url() + " pOutId");
+//
+        List<productDescription> pd = pdModel.getProductDescription();
+    
         for (productDescription description : pd) {
-            System.out.println("anh " + description.getProductId());
+            System.out.println(description.getCamera());
         }
-//        List<product> p = pdModel.getProduct();
-        List<Products> p1 = pdModel.getIMG("PROD1", "PROD2", "PROD3");
-        List<productDescription> p2 = pdModel.getProductDescription("PROD1", "PROD2", "PROD3");
-        System.out.println(p2.size());
- 
-
     }
 }
