@@ -19,6 +19,7 @@ import org.apache.commons.io.IOUtils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.Base64;
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -29,7 +30,7 @@ import java.util.stream.Collectors;
  *
  * @author Asus
  */
-@WebServlet("/upload")
+
 @MultipartConfig
 public class UploadServlet extends HttpServlet {
    
@@ -73,19 +74,25 @@ public class UploadServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        String productId = request.getParameter("product_id");
-        if (productId == null || productId.trim().isEmpty()) {
+         String productIdStr = request.getParameter("product_id");
+        if (productIdStr == null || productIdStr.trim().isEmpty()) {
             handleMissingParameter(response, "Product ID is missing");
             return;
         }
 
+        int productId;
+        try {
+            productId = Integer.parseInt(productIdStr);
+        } catch (NumberFormatException e) {
+            handleInvalidParameter(response, "Invalid Product ID format");
+            return;
+        }
+
         Collection<Part> imageParts = request.getParts().stream()
-            .filter(part -> "images[]".equals(part.getName()) && part.getSize() > 0)
-            .collect(Collectors.toList());
+                .filter(part -> "images[]".equals(part.getName()) && part.getSize() > 0)
+                .collect(Collectors.toList());
 
         if (imageParts.isEmpty()) {
             handleMissingParameter(response, "No images provided");
@@ -95,25 +102,23 @@ public class UploadServlet extends HttpServlet {
         imageDAO dao = new imageDAO();
 
         for (Part imagePart : imageParts) {
-        try {
-            String contentType = imagePart.getContentType();
-            System.out.println("Content Type: " + contentType);
-            if (!isValidImageType(contentType)) {
-                handleInvalidImageType(response);
-                return;
-            }
+            try (InputStream inputStream = imagePart.getInputStream()) {
+                String contentType = imagePart.getContentType();
+                if (!isValidImageType(contentType)) {
+                    handleInvalidImageType(response);
+                    return;
+                }
 
                 if (imagePart.getSize() > 10485760) { // 10 MB limit
                     throw new ServletException("File size exceeds maximum limit (10 MB)");
                 }
 
-                String imageBase64 = convertImageToBase64(imagePart);
+                String imageBase64 = convertImageToBase64(inputStream);
 
                 image img = new image();
                 img.setProduct_id(productId);
                 img.setImage_url(imageBase64);
                 dao.addImage(img);
-
             } catch (Exception e) {
                 handleError(response, e.getMessage());
                 return;
@@ -123,51 +128,35 @@ public class UploadServlet extends HttpServlet {
         response.sendRedirect("success.jsp");
     }
 
-    private String convertImageToBase64(Part imagePart) throws IOException {
-    String contentType = imagePart.getContentType();
-
-    // Only allow PNG and JPG images
-    if (!isValidImageType(contentType)) {
-        throw new IOException("Invalid image type: " + contentType);
+    private String convertImageToBase64(InputStream inputStream) throws IOException {
+        byte[] imageBytes = IOUtils.toByteArray(inputStream);
+        return Base64.getEncoder().encodeToString(imageBytes);
     }
 
-    // Proceed with conversion if image type is valid
-    InputStream inputStream = imagePart.getInputStream();
-    byte[] imageBytes = IOUtils.toByteArray(inputStream);
-    return Base64.getEncoder().encodeToString(imageBytes);
-}
+    private void handleInvalidParameter(HttpServletResponse response, String message) throws IOException {
+        appendErrorMessage(response, message);
+    }
 
     private void handleMissingParameter(HttpServletResponse response, String message) throws IOException {
-        response.setContentType("text/plain");
-        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        response.getWriter().println("Error: " + message);
+        appendErrorMessage(response, message);
     }
 
     private void handleInvalidImageType(HttpServletResponse response) throws IOException {
-        response.setContentType("text/plain");
-        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        response.getWriter().println("Error: Only PNG and JPG image types are accepted.");
+        appendErrorMessage(response, "Only PNG and JPG image types are accepted.");
     }
 
     private void handleError(HttpServletResponse response, String errorMessage) throws IOException {
-        response.setContentType("text/plain");
-        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        response.getWriter().println("Error processing the image upload: " + errorMessage);
+        appendErrorMessage(response, "Error processing the image upload: " + errorMessage);
     }
-    
+
+    private void appendErrorMessage(HttpServletResponse response, String errorMessage) throws IOException {
+        response.setContentType("text/html");
+        response.getWriter().println("<script>document.getElementById('error-message').innerHTML += '<p style=\"color: red;\">"+ errorMessage +"</p>';</script>");
+    }
+
+
     private boolean isValidImageType(String contentType) {
-    return contentType.equals("image/jpeg") || contentType.equals("image/png");
-}
-
-
-
-    /** 
-     * Returns a short description of the servlet.
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Image Upload Servlet";
+        return contentType.equals("image/jpeg") || contentType.equals("image/png");
     }
 
 }

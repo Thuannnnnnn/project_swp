@@ -12,6 +12,18 @@
         <servlet-name>DeleteServlet</servlet-name>
         <servlet-class>Controller.Image.DeleteServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>deleteSliderServlet</servlet-name>
+        <servlet-class>Controller.Image.deleteSliderServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>editSliderServlet</servlet-name>
+        <servlet-class>Controller.Image.editSliderServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>addSliderServlet</servlet-name>
+        <servlet-class>Controller.Image.addSliderServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UploadServlet</servlet-name>
         <url-pattern>/UploadServlet</url-pattern>
@@ -20,7 +32,19 @@
         <servlet-name>DeleteServlet</servlet-name>
         <url-pattern>/DeleteServlet</url-pattern>
     </servlet-mapping>
-     <session-config>
+    <servlet-mapping>
+        <servlet-name>deleteSliderServlet</servlet-name>
+        <url-pattern>/deleteSliderServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>editSliderServlet</servlet-name>
+        <url-pattern>/editSliderServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addSliderServlet</servlet-name>
+        <url-pattern>/addSliderServlet</url-pattern>
+    </servlet-mapping>
+    <session-config>
         <session-timeout>
             30
         </session-timeout>
