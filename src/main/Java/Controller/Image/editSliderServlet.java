@@ -84,7 +84,7 @@ public class editSliderServlet extends HttpServlet {
 
         try {
             dao.updateImage(img);
-            response.sendRedirect("EditSlider.jsp"); 
+            response.sendRedirect("CRUDSlider.jsp"); 
         } catch (SQLException e) {
             throw new ServletException("SQL error occurred: " + e.getMessage(), e);
         }
