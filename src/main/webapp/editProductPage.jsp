@@ -135,7 +135,7 @@
 
                 <button type="submit" class="btn btn-primary">Update Product</button> <br>
 
-                <a href="showProducts.jsp" class="btn btn-primary mb-3">Back to list products</a>
+                <a href="CrudProduct" class="btn btn-primary mb-3">Back to list products</a>
             </form>
             <% 
                 } else {

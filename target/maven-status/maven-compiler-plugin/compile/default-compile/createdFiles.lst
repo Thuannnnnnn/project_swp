@@ -1,4 +1,6 @@
+dao\productDescriptionDAO.class
 Controller\Order\orderController.class
+Controller\index.class
 model\Cart.class
 Controller\User\AdminUser.class
 dao\imageDAO.class
@@ -7,6 +9,7 @@ Controller\Order\editOrder.class
 Controller\Product\CrudProduct.class
 dao\CategoryDAO.class
 Controller\Image\UploadServlet.class
+controllerCompareProduct\update.class
 Controller\Order\CRUDOrderController.class
 Controller\User\ForgotPassword.class
 Controller\Product\editProduct.class
@@ -18,6 +21,7 @@ dao\UserDAO.class
 model\ProductImage.class
 model\User.class
 Controller\User\login.class
+controllerCompareProduct\compareProductServlet.class
 Controller\Category\CrudCategory.class
 Controller\Order\createOrder.class
 Controller\Product\deleteImage.class
@@ -28,6 +32,7 @@ Controller\Image\addSliderServlet.class
 Controller\User\VerifyOtpServlet.class
 dao\DBConnection.class
 model\productDescription.class
+controllerCompareProduct\dataToHomeFromDetail.class
 model\Category.class
 Controller\Image\editSliderServlet.class
 Controller\Image\DeleteServlet.class

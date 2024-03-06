@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ page import="model.product" %>
+<%@ page import="model.Product" %>
 <%@ page import="java.util.List" %>
 <%@ page import="dao.productDescriptionDAO" %>
 
@@ -13,8 +13,8 @@
     <div>
         <%
             productDescriptionDAO pdModel = new productDescriptionDAO();
-            List<product> p = pdModel.getProduct();
-            for (product product : p) {
+            List<Product> p = pdModel.getProduct();
+            for (Product product : p) {
         %>
         <form action="dataToHomeFromDetail"  id="hiddenForm">
             <input type="hidden" name="productId" value="<%= product.getProduct_id()%>">

@@ -5,6 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,7 +19,7 @@
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
         <link href="./styles/headerCSS.css" rel="stylesheet"/>
-        <link href="./styles/home1.css" rel="stylesheet"/>
+        <link href="./styles/home2.css" rel="stylesheet"/>
         <script
             type="module"
             src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
@@ -63,7 +66,7 @@ if(session.getAttribute("UserRole") == null){
                     <%
 if(session.getAttribute("UserRole") != null){
                     %>
-                    <a href=" /logout"><button class="btn-danger btn white-space-nowrap">LogOut</button></a>
+                    <a href="/logout"><button class="btn-danger btn white-space-nowrap">LogOut</button></a>
                     <% }
                     %>
                 </div>
@@ -280,160 +283,100 @@ if(session.getAttribute("UserRole") != null){
                         </ul>
                     </nav>
                 </div>
+                <div>
+
+                </div>
             </div>
             <div class="container mt-5">
                 <div class="card-container">
-                    <div class="card">
-                        <div class="discount-label px-4">-30%</div>
-                        <img
-                            class="m-4 rounded-top"
-                            src="https://www.cnet.com/a/img/resize/1384697f88b6dbfc36a36389d6dc9b4c5a84d8fb/hub/2022/06/17/2df844de-de8b-4aff-9c46-a2c25e151631/apple-macbook-pro-m2-laptop-2022-0572.jpg?auto=webp&fit=crop&height=675&width=1200"
-                            class="card-img-top"
-                            alt="..."
-                            />
-                        <div class="card-body">
-                            <h5 class="card-title">MacBook Pro M2</h5>
-                            <h5 class="card-title">
-                                <span class="newPrice mr-4 text-danger">300.000.000</span>
-                                <span
-                                    class="oldPrice fs-6 text-secondary text-decoration-line-through"
-                                    >200.000.000</span
-                                >
-                            </h5>
-                            <p class="card-text">1 Siêu Phẩm Đến Từ Nhà Quả Táo Căn Dỡ</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="discount-label px-4">-30%</div>
-                        <img
-                            class="m-4 rounded-top"
-                            src="https://www.cnet.com/a/img/resize/1384697f88b6dbfc36a36389d6dc9b4c5a84d8fb/hub/2022/06/17/2df844de-de8b-4aff-9c46-a2c25e151631/apple-macbook-pro-m2-laptop-2022-0572.jpg?auto=webp&fit=crop&height=675&width=1200"
-                            class="card-img-top"
-                            alt="..."
-                            />
-                        <div class="card-body">
-                            <h5 class="card-title">MacBook Pro M2</h5>
-                            <h5 class="card-title">
-                                <span class="newPrice mr-4 text-danger">300.000.000</span>
-                                <span
-                                    class="oldPrice fs-6 text-secondary text-decoration-line-through"
-                                    >200.000.000</span
-                                >
-                            </h5>
-                            <p class="card-text">1 Siêu Phẩm Đến Từ Nhà Quả Táo Căn Dỡ</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="discount-label px-4">-30%</div>
-                        <img
-                            class="m-4 rounded-top"
-                            src="https://www.cnet.com/a/img/resize/1384697f88b6dbfc36a36389d6dc9b4c5a84d8fb/hub/2022/06/17/2df844de-de8b-4aff-9c46-a2c25e151631/apple-macbook-pro-m2-laptop-2022-0572.jpg?auto=webp&fit=crop&height=675&width=1200"
-                            class="card-img-top"
-                            alt="..."
-                            />
-                        <div class="card-body">
-                            <h5 class="card-title">MacBook Pro M2</h5>
-                            <h5 class="card-title">
-                                <span class="newPrice mr-4 text-danger">300.000.000</span>
-                                <span
-                                    class="oldPrice fs-6 text-secondary text-decoration-line-through"
-                                    >200.000.000</span
-                                >
-                            </h5>
-                            <p class="card-text">1 Siêu Phẩm Đến Từ Nhà Quả Táo Căn Dỡ</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="discount-label px-4">-30%</div>
-                        <img
-                            class="m-4 rounded-top"
-                            src="https://www.cnet.com/a/img/resize/1384697f88b6dbfc36a36389d6dc9b4c5a84d8fb/hub/2022/06/17/2df844de-de8b-4aff-9c46-a2c25e151631/apple-macbook-pro-m2-laptop-2022-0572.jpg?auto=webp&fit=crop&height=675&width=1200"
-                            class="card-img-top"
-                            alt="..."
-                            />
-                        <div class="card-body">
-                            <h5 class="card-title">MacBook Pro M2</h5>
-                            <h5 class="card-title">
-                                <span class="newPrice mr-4 text-danger">300.000.000</span>
-                                <span
-                                    class="oldPrice fs-6 text-secondary text-decoration-line-through"
-                                    >200.000.000</span
-                                >
-                            </h5>
-                            <p class="card-text">1 Siêu Phẩm Đến Từ Nhà Quả Táo Căn Dỡ</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="discount-label px-4">-30%</div>
-                        <img
-                            class="m-4 rounded-top"
-                            src="https://www.cnet.com/a/img/resize/1384697f88b6dbfc36a36389d6dc9b4c5a84d8fb/hub/2022/06/17/2df844de-de8b-4aff-9c46-a2c25e151631/apple-macbook-pro-m2-laptop-2022-0572.jpg?auto=webp&fit=crop&height=675&width=1200"
-                            class="card-img-top"
-                            alt="..."
-                            />
-                        <div class="card-body">
-                            <h5 class="card-title">MacBook Pro M2</h5>
-                            <h5 class="card-title">
-                                <span class="newPrice mr-4 text-danger">300.000.000</span>
-                                <span
-                                    class="oldPrice fs-6 text-secondary text-decoration-line-through"
-                                    >200.000.000</span
-                                >
-                            </h5>
-                            <p class="card-text">1 Siêu Phẩm Đến Từ Nhà Quả Táo Căn Dỡ</p>
-                        </div>
-                    </div>
+                    <c:forEach var="product" items="${listProduct}" varStatus="status">
+                        <form action="dataToHomeFromDetail" class="link-detail" >
+                            <input type="hidden" name="productId" value="${product.product_id}">
+                            <button class="text-decoration-none text-dark" href="#">
+                                <div class="card">
+                                    <div class="discount-label px-4">-30%</div>
+                                    <img
+                                        class="m-4 rounded-top"
+                                        src="data:image/png;base64,${product.image_url}" alt="Product Image"
+                                        class="card-img-top"
+                                        alt="..."
+                                        />
+                                    <div class="card-body">
+                                        <h5 class="card-title">${product.product_name}</h5>
+                                        <h5 class="card-title">
+                                            <span class="newPrice mr-4 text-danger"><fmt:formatNumber value="${product.product_price}"/> VNĐ</span>
+
+                                        </h5>
+                                    </div>
+                                </div>  
+                            <button/>
+                        </form>
+                    </c:forEach>
                 </div>
-           
-            <div class="mt-5">
-                <nav aria-label="" class="d-flex justify-content-center">
-                    <ul class="pagination gap-3">
-                        <li class="page-item"><a class="page-link bg-primary"  style="padding:6px" href="#"><ion-icon name="arrow-back-circle-outline" style="width:16px; height:16px; margin-top:4px; color:white;"></ion-icon></a></li>
-                        <li class="page-item"><a class="page-link bg-primary text-white" style="font-size: 17px;" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link bg-primary text-white" style="font-size: 17px;" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link bg-primary text-white" style="font-size: 17px;" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link bg-primary" style="padding:6px" href="#"><ion-icon name="arrow-forward-circle-outline" style="width:16px; height:16px; margin-top:4px; color:white;"></ion-icon></a></li>
-                    </ul>
-                </nav>
+                <div class="mt-5">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center gap-3">
+                            <c:if test="${currentPage > 1}">
+                                <li class="page-item">
+                                    <a class="page-link bg-primary text-white" href="?page=${currentPage - 1}" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                            </c:if>
+                            <c:forEach begin="1" end="${noOfPages}" var="i">
+                                <li class="page-item ${i == currentPage ? 'active' : ''}">
+                                    <a class="page-link bg-primary text-white" href="?page=${i}">${i}</a>
+                                </li>
+                            </c:forEach>
+                            <c:if test="${currentPage < noOfPages}">
+                                <li class="page-item">
+                                    <a class="page-link bg-primary text-white" href="?page=${currentPage + 1}" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </c:if>
+                        </ul>
+                    </nav>
+                </div>
+
             </div>
-        </div>
-        <div>
-            <div class=" mt-5 py-3 footerr">
-                <div class="ml-5 mt-5 ft1"> <h3 class="text-white">EndureTale S</h3>
-                    <h3 class="text-white">CÔNG TY TNHH ENDURETALES</h3>
-                    <p class="text-white">Mã số thuế : 92828823</p>
-                    <p class="text-white">Địa chỉ : tòa nhà số 5, đường Nguyễn Văn Cừ nối dài, phường An Khánh, quận Ninh Kiều, Cần Thơ.s</p>
-                    <h5 class="text-white">Kết nối với chúng tôi</h5>
-                    <div class="d-flex justify-content-between"><ion-icon name="mail-outline"></ion-icon> <input type="mail" placeholder="Nhập email của bạn..."> <button>Xac Nhan</button></div></div>
+            <div>
+                <div class=" mt-5 py-3 footerr">
+                    <div class="ml-5 mt-5 ft1"> <h3 class="text-white">EndureTale S</h3>
+                        <h3 class="text-white">CÔNG TY TNHH ENDURETALES</h3>
+                        <p class="text-white">Mã số thuế : 92828823</p>
+                        <p class="text-white">Địa chỉ : tòa nhà số 5, đường Nguyễn Văn Cừ nối dài, phường An Khánh, quận Ninh Kiều, Cần Thơ.s</p>
+                        <h5 class="text-white">Kết nối với chúng tôi</h5>
+                        <div class="d-flex justify-content-between"><ion-icon name="mail-outline"></ion-icon> <input type="mail" placeholder="Nhập email của bạn..."> <button>Xac Nhan</button></div></div>
 
-                <div style="width: 30%;" class="mt-5 ft2 items-center"> 
-                    <div> <a href="#" class="text-decoration-none text-white">Mua hàng và thanh toán Online </a> <br>
-                        <a href="#"class="text-decoration-none text-white">Mua hàng trả góp Online</a><br>
-                        <a href="#"class="text-decoration-none text-white">Chính sách giao hàng</a><br>
-                        <a href="#"class="text-decoration-none text-white"> Tra điểm Smember</a><br>
-                        <a href="#"class="text-decoration-none text-white">Xem ưu đãi Smember</a><br>
-                        <a href="#"class="text-decoration-none text-white">Tra thông tin bảo hành</a><br>
-                        <a href="#"class="text-decoration-none text-white">Tra cứu hoá đơn điện tử</a><br>
-                        <a href="#"class="text-decoration-none text-white"> Thông tin hoá đơn mua hàng</a><br>
-                        <a href="#"class="text-decoration-none text-white">Trung tâm bảo hành chính hãng</a><br>
-                        <a href="#"class="text-decoration-none text-white">Quy định về việc sao lưu dữ liệu</a><br></div>
-                </div>
+                    <div style="width: 30%;" class="mt-5 ft2 items-center"> 
+                        <div> <a href="#" class="text-decoration-none text-white">Mua hàng và thanh toán Online </a> <br>
+                            <a href="#"class="text-decoration-none text-white">Mua hàng trả góp Online</a><br>
+                            <a href="#"class="text-decoration-none text-white">Chính sách giao hàng</a><br>
+                            <a href="#"class="text-decoration-none text-white"> Tra điểm Smember</a><br>
+                            <a href="#"class="text-decoration-none text-white">Xem ưu đãi Smember</a><br>
+                            <a href="#"class="text-decoration-none text-white">Tra thông tin bảo hành</a><br>
+                            <a href="#"class="text-decoration-none text-white">Tra cứu hoá đơn điện tử</a><br>
+                            <a href="#"class="text-decoration-none text-white"> Thông tin hoá đơn mua hàng</a><br>
+                            <a href="#"class="text-decoration-none text-white">Trung tâm bảo hành chính hãng</a><br>
+                            <a href="#"class="text-decoration-none text-white">Quy định về việc sao lưu dữ liệu</a><br></div>
+                    </div>
 
-                <div style="width: 30%;" class="mr-5 mt-5 ft3"> 
-                    <div>
-                        <a href="#" class="text-decoration-none text-white"> Khách hàng doanh nghiệp (B2B) </a> <br>
-                        <a href="#"class="text-decoration-none text-white">Ưu đãi thanh toán</a><br>
-                        <a href="#"class="text-decoration-none text-white">Quy chế hoạt động</a><br>
-                        <a href="#"class="text-decoration-none text-white"> Chính sách Bảo hành</a><br>
-                        <a href="#"class="text-decoration-none text-white">Liên hệ hợp tác kinh doanh</a><br>
-                        <a href="#"class="text-decoration-none text-white">Tuyển dụng</a><br>
-                        <a href="#"class="text-decoration-none text-white">  Dịch vụ bảo hành điện thoại</a><br>
-                        <a href="#"class="text-decoration-none text-white"> Dịch vụ bảo hành mở rộng</a><br></div>
+                    <div style="width: 30%;" class="mr-5 mt-5 ft3"> 
+                        <div>
+                            <a href="#" class="text-decoration-none text-white"> Khách hàng doanh nghiệp (B2B) </a> <br>
+                            <a href="#"class="text-decoration-none text-white">Ưu đãi thanh toán</a><br>
+                            <a href="#"class="text-decoration-none text-white">Quy chế hoạt động</a><br>
+                            <a href="#"class="text-decoration-none text-white"> Chính sách Bảo hành</a><br>
+                            <a href="#"class="text-decoration-none text-white">Liên hệ hợp tác kinh doanh</a><br>
+                            <a href="#"class="text-decoration-none text-white">Tuyển dụng</a><br>
+                            <a href="#"class="text-decoration-none text-white">  Dịch vụ bảo hành điện thoại</a><br>
+                            <a href="#"class="text-decoration-none text-white"> Dịch vụ bảo hành mở rộng</a><br></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</body>
+    </body>
 </html>
 
 </div>

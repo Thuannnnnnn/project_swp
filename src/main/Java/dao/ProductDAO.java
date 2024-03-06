@@ -34,7 +34,7 @@ public class ProductDAO {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Product p = new Product(
-                        rs.getString("product_id"),
+                        rs.getInt("product_id"),
                         rs.getString("product_name"),
                         rs.getDouble("product_price"),
                         rs.getString("image_url"),
@@ -56,6 +56,69 @@ public class ProductDAO {
             }
         }
         return list;
+    }
+
+    public List<Product> getAll(int page, int pageSize) {
+        List<Product> list = new ArrayList<>();
+
+        int startRow = (page - 1) * pageSize;
+        String sql = "SELECT * FROM products LIMIT ?, ?";
+
+        try {
+            connection = DBConnection.getConnection();
+            PreparedStatement st = connection.prepareStatement(sql);
+            // Set parameters for pagination
+            st.setInt(1, startRow);
+            st.setInt(2, pageSize);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Product p = new Product(
+                        rs.getInt("product_id"),
+                        rs.getString("product_name"),
+                        rs.getDouble("product_price"),
+                        rs.getString("image_url"),
+                        rs.getInt("stock_quantity"),
+                        rs.getInt("category_id"),
+                        rs.getString("product_branch"),
+                        rs.getTimestamp("date_added")); // Assuming date_added is of TIMESTAMP type for more precision
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return list;
+    }
+
+    public int getTotalProductsCount() {
+        int totalProducts = 0;
+        String sql = "SELECT COUNT(*) AS total FROM products";
+        try {
+            connection = DBConnection.getConnection();
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                totalProducts = rs.getInt("total");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return totalProducts;
     }
 
     public int createProduct(String productName, double productPrice, String imageUrl, int stockQuantity, int categoryId, String productBranch) {
@@ -107,6 +170,7 @@ public class ProductDAO {
         }
     }
 // Trong lớp ProductDAO
+
     public List<image> getAdditionalImages(String productId) {
         List<image> additionalImages = new ArrayList<>();
         String sql = "SELECT * FROM images WHERE product_id = ?";
@@ -140,7 +204,7 @@ public class ProductDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 product = new Product();
-                product.setProduct_id(resultSet.getString("product_id"));
+                product.setProduct_id(resultSet.getInt("product_id"));
                 product.setProduct_name(resultSet.getString("product_name"));
                 product.setProduct_price(resultSet.getDouble("product_price"));
                 product.setImage_url(resultSet.getString("image_url"));
@@ -217,7 +281,7 @@ public class ProductDAO {
 
             while (rs.next()) {
                 Product p = new Product(
-                        rs.getString("product_id"),
+                        rs.getInt("product_id"),
                         rs.getString("product_name"),
                         rs.getDouble("product_price"),
                         rs.getString("image_url"),
