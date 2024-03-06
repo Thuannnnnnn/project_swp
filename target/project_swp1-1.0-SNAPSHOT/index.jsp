@@ -290,29 +290,27 @@ if(session.getAttribute("UserRole") != null){
             <div class="container mt-5">
                 <div class="card-container">
                     <c:forEach var="product" items="${listProduct}" varStatus="status">
-                        <form action="dataToHomeFromDetail" class="link-detail" >
-                            <input type="hidden" name="productId" value="${product.product_id}">
-                            <button class="text-decoration-none text-dark" href="#">
-                                <div class="card">
-                                    <div class="discount-label px-4">-30%</div>
-                                    <img
-                                        class="m-4 rounded-top"
-                                        src="data:image/png;base64,${product.image_url}" alt="Product Image"
-                                        class="card-img-top"
-                                        alt="..."
-                                        />
-                                    <div class="card-body">
-                                        <h5 class="card-title">${product.product_name}</h5>
-                                        <h5 class="card-title">
-                                            <span class="newPrice mr-4 text-danger"><fmt:formatNumber value="${product.product_price}"/> VNĐ</span>
+                        <a class="link-detail text-decoration-none text-dark" href="#">
+                            <div class="card">
+                                <div class="discount-label px-4">-30%</div>
+                                <img
+                                    class="m-4 rounded-top"
+                                    src="data:image/png;base64,${product.image_url}" alt="Product Image"
+                                    class="card-img-top"
+                                    alt="..."
+                                    />
+                                <div class="card-body">
+                                    <h5 class="card-title">${product.product_name}</h5>
+                                    <h5 class="card-title">
+                                        <span class="newPrice mr-4 text-danger"><fmt:formatNumber value="${product.product_price}"/> VNĐ</span>
 
-                                        </h5>
-                                    </div>
-                                </div>  
-                            <button/>
-                        </form>
+                                    </h5>
+                                </div>
+                            </div>  
+                        </a>
                     </c:forEach>
                 </div>
+
                 <div class="mt-5">
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-center gap-3">
