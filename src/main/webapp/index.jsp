@@ -289,25 +289,25 @@ if(session.getAttribute("UserRole") != null){
             </div>
             <div class="container mt-5">
                 <div class="card-container">
-                    <c:forEach var="product" items="${listProduct}" varStatus="status">
-                        <div class="card link-detail text-decoration-none text-dark">
-                            <form  action="dataToHomeFromDetail" id="hiddenForm">
+                   <c:forEach var="product" items="${listProduct}" varStatus="status">
+                        <a class="link-detail text-decoration-none text-dark" href="/dataToHomeFromDetail?productId=${product.product_id}">
+                            <div class="card">
                                 <div class="discount-label px-4">-30%</div>
-                                <input type="hidden" name="productId" value="${product.product_id}">
                                 <img
                                     class="m-4 rounded-top"
                                     src="data:image/png;base64,${product.image_url}" alt="Product Image"
                                     class="card-img-top"
-                                    onclick="submitForm()"
+                                    alt="..."
                                     />
                                 <div class="card-body">
                                     <h5 class="card-title">${product.product_name}</h5>
                                     <h5 class="card-title">
                                         <span class="newPrice mr-4 text-danger"><fmt:formatNumber value="${product.product_price}"/> VNĐ</span>
+
                                     </h5>
                                 </div>
-                            </form>
-                        </div>
+                            </div>  
+                        </a>
                     </c:forEach>
                 </div>
 

@@ -62,7 +62,7 @@ public class ProductDAO {
         List<Product> list = new ArrayList<>();
 
         int startRow = (page - 1) * pageSize;
-        String sql = "SELECT * FROM products LIMIT ?, ?";
+        String sql = "SELECT * FROM products WHERE product_id >= 3 ORDER BY product_id LIMIT ?, ?";
 
         try {
             connection = DBConnection.getConnection();
