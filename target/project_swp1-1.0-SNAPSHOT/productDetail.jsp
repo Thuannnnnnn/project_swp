@@ -63,7 +63,7 @@
                             <div class="row" style="margin-bottom: 5px">
                                 <c:forEach items="${listPout}" var="o">
                                     <div class="col-md-4 card" style="background-color: white" >
-                                        <img src="${o.image_url}" alt="Product Image" class="img-fluid card-img-top" style="width: 100%; height: 70%">
+                                        <img src="data:image/png;base64,${o.image_url}" alt="Product Image" class="img-fluid card-img-top" style="width: 100%; height: 70%">
                                         <p class="card-title" ">${o.product_name}</p>
                                         <button  data-dismiss="modal" aria-label="Close" class="btn btn-primary selectProductButton" id="${o.product_id}%>" >So sánh</button>
                                     </div>
@@ -87,7 +87,7 @@
                         <div class="row" style="object-fit: cover;">
                             <c:forEach items="${listWhId}" var="i">
                                 <div class="col-4" >
-                                    <img class="card-img-top img-fluid"src="${i.image_url}" alt="Product Image 1" style="width:100%; height: 50%;"/>
+                                    <img class="card-img-top img-fluid" src="data:image/png;base64,${i.image_url}" alt="Product Image 1" style="width:100%; height: 50%;"/>
                                     <p class="card-title">${i.product_name}</p>
                                 </div>
                             </c:forEach>
@@ -175,12 +175,12 @@
                         <div class="preview col-md-6">
                             <div class="preview-pic tab-content">
                                 <div class="tab-pane active" id="pic-1">
-                                    <img src="${imgWhereId[0].image_url}">
+                                    <img src="data:image/png;base64,${imgWhereId[0].image_url}">
                                 </div>
                                 <c:forEach items="${imgWhereId}" var="i" varStatus="loop">
                                     <c:if test="${loop.index > 0}">
                                         <div class="tab-pane" id="pic-${loop.index + 1}">
-                                            <img src="${i.image_url}">
+                                            <img src="data:image/png;base64,${i.image_url}">
                                         </div>
                                     </c:if>
                                 </c:forEach>
@@ -190,7 +190,7 @@
                                 <c:forEach items="${imgWhereId}" var="i" varStatus="loop">
                                     <li class="active">
                                         <a data-target="#pic-${loop.index + 1}" data-toggle="tab" class="">
-                                            <img src="${i.image_url}">
+                                            <img src="data:image/png;base64,${i.image_url}">
                                         </a>
                                     </li>
                                 </c:forEach>
@@ -205,7 +205,6 @@
                                     <button id="open-modal"  class="btn btn-sm" style="margin-left: 5px; font-size: 12px;background-color: #eee; color: black;  border: 1px solid red;  ">+ So Sánh</button>
                                 </div>
 
-                                <p class="product-description">Màn hình 10.1 inch cảm ứng đa điểm</p>
 
                                 <h4 class="price">Giá hiện tại: <span>${priceId} vnđ</span></h4>                               
                                 <div class="form-group">

@@ -296,7 +296,7 @@ if(session.getAttribute("UserRole") != null){
                                 <input type="hidden" name="productId" value="${product.product_id}">
                                 <img
                                     class="m-4 rounded-top"
-                                    src="${product.image_url}" alt="Product Image"
+                                    src="data:image/png;base64,${product.image_url}" alt="Product Image"
                                     class="card-img-top"
                                     onclick="submitForm()"
                                     />
