@@ -311,7 +311,9 @@ public class ProductDAO {
         }
         return false;
     }
-
+    
+    
+    
     public static void main(String[] args) {
         ProductDAO p = new ProductDAO();
         List<Product> lp = p.getAll();
