@@ -12,6 +12,7 @@ D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\Controller\Cart\CRUDCart.java
 D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\Controller\Image\DeleteServlet.java
 D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\Controller\Image\UploadServlet.java
 D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\model\ProductImage.java
+D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\controllerCompareProduct\sortPriceServlet.java
 D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\dao\imageDAO.java
 D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\Controller\Order\editOrder.java
 D:\HocTrenLop\Ky5\SWP\project_swp\src\main\java\controllerCompareProduct\compareProductServlet.java

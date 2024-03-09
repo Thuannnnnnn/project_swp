@@ -30,7 +30,7 @@
         ></script>
     </head>
     <body>
-        <div class="wrap-content">
+        <div class="wrap-content" style="   min-height:100%">
             <div class="container content">
                 <div class="left-content">
                     <a href="/" class="logo-link"> 
@@ -47,7 +47,7 @@
                     </div>
                     <div class="search">
                         <form action="catalogsearchServlet">
-                            <input name="search" class="search-input" placeholder="Tìm kiếm..."/>
+                            <input name="search" class="search-input" placeholder="Tìm kiếm...">
                             <input name="page" value="1" type="hidden"/>
                             <button class="search-btn">
                                 <svg height="20px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="20px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M344.5,298c15-23.6,23.8-51.6,23.8-81.7c0-84.1-68.1-152.3-152.1-152.3C132.1,64,64,132.2,64,216.3  c0,84.1,68.1,152.3,152.1,152.3c30.5,0,58.9-9,82.7-24.4l6.9-4.8L414.3,448l33.7-34.3L339.5,305.1L344.5,298z M301.4,131.2  c22.7,22.7,35.2,52.9,35.2,85c0,32.1-12.5,62.3-35.2,85c-22.7,22.7-52.9,35.2-85,35.2c-32.1,0-62.3-12.5-85-35.2  c-22.7-22.7-35.2-52.9-35.2-85c0-32.1,12.5-62.3,35.2-85c22.7-22.7,52.9-35.2,85-35.2C248.5,96,278.7,108.5,301.4,131.2z"/></svg>
@@ -73,58 +73,89 @@ if(session.getAttribute("UserRole") != null){
                     %>
                 </div>
             </div>
-
-            <div class="container mt-5">
-                <div class="card-container">
-                    <c:forEach var="product" items="${products}" varStatus="status">
-                        <a class="link-detail text-decoration-none text-dark" href="/dataToHomeFromDetail?productId=${product.product_id}">
-                            <div class="card">
-                                <div class="discount-label px-4">-30%</div>
-                                <img
-                                    class="m-4 rounded-top"
-                                    src="data:image/png;base64,${product.image_url}" alt="Product Image"
-                                    class="card-img-top"
-                                    alt="..."
-                                    />
-                                <div class="card-body">
-                                    <h5 class="card-title">${product.product_name}</h5>
-                                    <h5 class="card-title">
-                                        <span class="newPrice mr-4 text-danger"><fmt:formatNumber value="${product.product_price}"/> VNĐ</span>
-
-                                    </h5>
+            <c:choose>
+                <c:when test="${quantity > 0}">
+                    <div class="container">
+                        <div  style="margin-top: 20px; display: flex">
+                            <form action="catalogsearchServlet" id="PriceForm" style="display: flex">
+                                <button type="submit" class="btn btn-primary" name="sort" value="ASC" style="margin-right: 10px">Tăng dần</button>
+                                <button type="submit"  class="btn btn-primary" name="sort" value="DESC">Giảm dần</button>
+                                <input name="search" type="hidden" value="${result}"/>
+                                <input name="page" value="${page}" type="hidden"/>
+                                <div style="right: 8.2%;position: fixed; display: flex">
+                                    <div style="margin-right: 10px; margin-top:  5px ">Chọn giá:</div>
+                                    <div style="display: flex">
+                                        <select class="form-select" id="priceSelect" name="price">
+                                            <option selected disabled>-- Chọn giá --</option>
+                                            <option value="1000000-5000000">1tr - 5tr</option>
+                                            <option value="5000000-10000000">5tr - 10</option>
+                                            <option value="10000000-20000000">10 - 20tr</option>
+                                            <option value="20000000-30000000">20 - 30tr</option>
+                                            <option value="30000000-50000000">30 - 50tr</option>
+                                            <option value="50000000-00000000">50tr -100tr</option>
+                                        </select>
+                                    </div> 
                                 </div>
-                            </div>  
-                        </a>
-                    </c:forEach>
-                </div>
+                            </form>
+                        </div>
+                    </div>  
+                    <div class="container mt-5">
+                        <div class="card-container">
+                            <c:forEach var="product" items="${products}" varStatus="status">
+                                <a class="link-detail text-decoration-none text-dark" href="/dataToHomeFromDetail?productId=${product.product_id}">
+                                    <div class="card">
+                                        <div class="discount-label px-4">-30%</div>
+                                        <img
+                                            class="m-4 rounded-top"
+                                            src="data:image/png;base64,${product.image_url}" alt="Product Image"
+                                            class="card-img-top"
+                                            alt="..."
+                                            />
+                                        <div class="card-body">
+                                            <h5 class="card-title">${product.product_name}</h5>
+                                            <h5 class="card-title">
+                                                <span class="newPrice mr-4 text-danger"><fmt:formatNumber value="${product.product_price}"/> VNĐ</span>
 
-                <div class="mt-5">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center gap-3">
-                            <c:if test="${currentPage > 1}">
-                                <li class="page-item">
-                                    <a class="page-link bg-primary text-white" href="?page=${currentPage - 1}" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                            </c:if>
-                            <c:forEach begin="1" end="${noOfPages}" var="i">
-                                <li class="page-item ${i == currentPage ? 'active' : ''}">
-                                    <a class="page-link bg-primary text-white" href="?search=${resutl}&page=${i}">${i}</a>
-                                </li>
+                                            </h5>
+                                        </div>
+                                    </div>  
+                                </a>
                             </c:forEach>
-                            <c:if test="${currentPage < noOfPages}">
-                                <li class="page-item">
-                                    <a class="page-link bg-primary text-white" href="?page=${currentPage + 1}" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            </c:if>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-            <div>
+                        </div>
+                        <div class="mt-5">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-center gap-3">
+                                    <c:if test="${quantity > 12}">
+                                        <c:if test="${currentPage > 1}">
+                                            <li class="page-item">
+                                                <a class="page-link bg-primary text-white" href="?page=${currentPage - 1}" aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
+                                            </li>
+                                        </c:if>
+                                        <c:forEach begin="1" end="${noOfPages}" var="i">
+                                            <li class="page-item ${i == currentPage ? 'active' : ''}">
+                                                <a class="page-link bg-primary text-white" href="?search=${resutl}&page=${i}">${i}</a>
+                                            </li>
+                                        </c:forEach>
+                                        <c:if test="${currentPage < noOfPages}">
+                                            <li class="page-item">
+                                                <a class="page-link bg-primary text-white" href="?page=${currentPage + 1}" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+                                        </c:if>
+                                    </c:if>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <h4 style="text-align: center;">Không tìm thấy sản phẩm có kí tự '${result}'</h4>
+                </c:otherwise>
+            </c:choose>
+            <div <c:if test="${quantity == 0}">style="bottom: 0; position: absolute; width: 100%"</c:if>>
                 <div class=" mt-5 py-3 footerr">
                     <div class="ml-5 mt-5 ft1"> <h3 class="text-white">EndureTale S</h3>
                         <h3 class="text-white">CÔNG TY TNHH ENDURETALES</h3>
@@ -164,6 +195,40 @@ if(session.getAttribute("UserRole") != null){
 </html>
 
 </div>
+<script>
+    document.getElementById("priceSelect").addEventListener("change", function () {
+        document.getElementById("PriceForm").submit();
+    });
 
+    // Hàm để lấy giá trị của tham số từ URL
+    function getUrlParameter(name) {
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(window.location.href);
+        if (!results)
+            return null;
+        if (!results[2])
+            return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // Lấy giá trị của tham số "price" từ URL
+        var selectedPrice = getUrlParameter("price");
+
+        // Lấy thẻ select
+        var priceSelect = document.getElementById("priceSelect");
+
+        // Nếu có giá trị được chọn từ URL, thiết lập giá trị của select bằng giá trị này
+        if (selectedPrice) {
+            priceSelect.value = selectedPrice;
+        }
+
+        // Xử lý sự kiện onchange để tự động gửi biểu mẫu khi người dùng chọn một giá trị khác
+        priceSelect.addEventListener("change", function () {
+            document.getElementById("PriceForm").submit();
+        });
+    });
+</script>
 </body>
 </html>

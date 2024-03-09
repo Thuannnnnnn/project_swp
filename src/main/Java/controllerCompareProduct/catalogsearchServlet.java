@@ -11,6 +11,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 import model.Product;
 
@@ -20,36 +21,49 @@ import model.Product;
  */
 @WebServlet(name = "catalogsearchServlet", urlPatterns = {"/catalogsearchServlet"})
 public class catalogsearchServlet extends HttpServlet {
-   
-    
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-      String resutl = request.getParameter("search");
-      String pageString = request.getParameter("page");
-      productDescriptionDAO pdModel = new productDescriptionDAO();
-      int page = 1;
-      if(pageString != null) {
-          page = Integer.parseInt(pageString);
-      }
-      int quantity = pdModel.coutSearch(resutl);
-      int pageSize = 12;
-      int endPage =  0;
-      endPage = (quantity / pageSize);
-      if(quantity % pageSize != 0) {
-          endPage ++;
-      }
-      List<Product> p = pdModel.getTop12(resutl, page, pageSize);
-      request.setAttribute("result", resutl);
-      request.setAttribute("noOfPages", endPage);
-      request.setAttribute("products", p);
-      request.setAttribute("quantity", quantity);
-      request.getRequestDispatcher("catalogsearch.jsp").forward(request, response);
+        String resutl = request.getParameter("search");
+        String pageString = request.getParameter("page");
+        String sortString = request.getParameter("sort");
+        String price = request.getParameter("price");
+        List<Product> p = new ArrayList<>();
+        String sort = "";
+
+        if (sortString == null) {
+            sort = "ASC";
+        } else {
+            sort = sortString;
+        }
+
+        productDescriptionDAO pdModel = new productDescriptionDAO();
+        int page = 1;
+        if (pageString != null) {
+            page = Integer.parseInt(pageString);
+        }
+        int quantity = pdModel.coutSearch(resutl);
+        int pageSize = 12;
+        int endPage = 0;
+        endPage = (quantity / pageSize);
+        if (quantity % pageSize != 0) {
+            endPage++;
+        }
+        if (price == null) {
+            p = pdModel.getTop12(resutl, page, pageSize, sort);
+        } else {
+            String[] priceToFrom = price.split("-");
+            p = pdModel.getTop12FromPrice(resutl, page, pageSize, sort, priceToFrom[0], priceToFrom[1]);
+            request.setAttribute("price", price);
+        }
+
+        request.setAttribute("page", page);
+        request.setAttribute("result", resutl);
+        request.setAttribute("noOfPages", endPage);
+        request.setAttribute("products", p);
+        request.setAttribute("quantity", quantity);
+        request.getRequestDispatcher("catalogsearch.jsp").forward(request, response);
     }
 
-    
-   
-
-  
 }
