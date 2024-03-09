@@ -7,6 +7,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" >
+             <meta content="width=device-width, initial-scale=1" name="viewport" />
         <title>Accordion</title>
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -65,7 +66,7 @@
                                     <div class="col-md-4 card" style="background-color: white" >
                                         <img src="data:image/png;base64,${o.image_url}" alt="Product Image" class="img-fluid card-img-top" style="width: 100%; height: 70%">
                                         <p class="card-title" ">${o.product_name}</p>
-                                        <button  data-dismiss="modal" aria-label="Close" class="btn btn-primary selectProductButton" id="${o.product_id}%>" >So sánh</button>
+                                        <button  data-dismiss="modal" aria-label="Close" class="btn btn-primary selectProductButton" id="${o.product_id}" >So sánh</button>
                                     </div>
                                 </c:forEach>
                             </div>
@@ -86,19 +87,19 @@
                     <div class="compare-content">
                         <div class="row" style="object-fit: cover;">
                             <c:forEach items="${listWhId}" var="i">
-                                <div class="col-4" >
-                                    <img class="card-img-top img-fluid" src="data:image/png;base64,${i.image_url}" alt="Product Image 1" style="width:100%; height: 50%;"/>
+                                <div class="col-4" style="text-align: center">
+                                    <img class="img-fluid" src="data:image/png;base64,${i.image_url}" alt="Product Image 1" style="height: 40%; object-fit: cover"/>
                                     <p class="card-title">${i.product_name}</p>
                                 </div>
                             </c:forEach>
                             <% if (productId2 != null) {%>
-                            <div class="col-4" data-toggle="modal" data-target="#productListModal">
-                                <img class="card-img-top img-fluid" src="<%= imageUrl2 %>" alt="Product Image 2" id="productImage" style="width:100%; height: 50%;">                               
+                            <div class="col-4" data-toggle="modal" data-target="#productListModal" style="text-align: center">
+                                <img class="mg-fluid" src="data:image/png;base64,<%= imageUrl2 %>" alt="Product Image 2" id="productImage" style="height: 40%; object-fit: cover">                               
                                 <p id="productName" lass="card-title"><%= productName2 %></p>
                             </div>
                             <% } else { %>
-                            <div class="col-4" data-toggle="modal" data-target="#productListModal">
-                                <img class="card-img-top img-fluid" src="https://cdn2.cellphones.com.vn/insecure/rs:fill:31:31/q:90/plain/https://cellphones.com.vn/media/icon/add-to-compare-icon.png" alt="Product Image 2" id="productImage" style="width:100%; height: 70%;"/>
+                            <div class="col-4" data-toggle="modal" data-target="#productListModal" style="text-align: center">
+                                <img class="img-fluid" src="https://cdn2.cellphones.com.vn/insecure/rs:fill:31:31/q:90/plain/https://cellphones.com.vn/media/icon/add-to-compare-icon.png" alt="Product Image 2" id="productImage" style="height: 40%; object-fit: cover"/>
                                 <p id="productName" lass="card-title">Chọn Sản Phẩm 2</p>
                             </div>
                             <% }%>
@@ -106,7 +107,7 @@
                             <div class="col-4" id="placeholderForProduct2">
                                 <form id="compareForm" action="compareProductServlet" >
                                     <input type="hidden"  name="productId" value="${productId}">
-                                    <input type="hidden"  name="productId2" id="productId2" value="<%=productId2%>">
+                                    <input type="hidden"  name="productId2" id="productId2" value="<%= productId2 %>">
                                     <button type="submit" class="btn btn-primary"  >
                                         So sánh sản phẩm
                                     </button>
@@ -174,8 +175,8 @@
                     <div class="wrapper row">
                         <div class="preview col-md-6">
                             <div class="preview-pic tab-content">
-                                <div class="tab-pane active" id="pic-1">
-                                    <img src="data:image/png;base64,${imgWhereId[0].image_url}">
+                                <div class="tab-pane active" id="pic-1" style="width: 100%; height: 100%">
+                                    <img src="data:image/png;base64,${imgWhereId[0].image_url}" >
                                 </div>
                                 <c:forEach items="${imgWhereId}" var="i" varStatus="loop">
                                     <c:if test="${loop.index > 0}">
@@ -204,9 +205,7 @@
                                     <h3  >${i.product_name}</h3>
                                     <button id="open-modal"  class="btn btn-sm" style="margin-left: 5px; font-size: 12px;background-color: #eee; color: black;  border: 1px solid red;  ">+ So Sánh</button>
                                 </div>
-
-
-                                <h4 class="price">Giá hiện tại: <span>${priceId} vnđ</span></h4>                               
+                                <h4 class="price">Giá hiện tại: <span>${priceId}</span></h4>                               
                                 <div class="form-group">
                                     <label for="soluong">Số lượng đặt mua:</label>
                                     <input type="number" class="form-control" id="soluong" name="soluong" min="0">
@@ -267,6 +266,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
+    console.log(<%= productId2 %>);
     function updateProductInfo(productId2) {
         $.ajax({
             type: "POST",
@@ -277,12 +277,10 @@
                 // Giả sử server trả về một mảng các sản phẩm và bạn muốn xử lý sản phẩm đầu tiên
                 if (products.length > 0) {
                     var product = products[0]; // Lấy sản phẩm đầu tiên từ mảng
-                    $("#productImage").attr("src", product.image_url);
+                    $("#productImage").attr("src", "data:image/png;base64,"+product.image_url);
                     $("#productName").text(product.product_name);
                     $("#productId2").val(product.product_id);
-                    console.log(products);
-                    console.log(product.image_url);
-                    console.log(product.product_name);
+                   
                     console.log(product.product_id);
                 }
             },

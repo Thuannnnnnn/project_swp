@@ -46,82 +46,88 @@
                             <thead>
                                 <tr>
                                     <th width="240px">Hình ảnh</th>
-                                    <th><img src="${url1}" alt="alt" style="width: 100%"/>
+                                    <th><img src="data:image/png;base64,${url1}" alt="alt" style="width: 100%"/>
                                     </th>
-                                    <th> <img src="${url2}" alt="alt" style="width: 100%"/>
+                                    <th> <img src="data:image/png;base64,${url2}" alt="alt" style="width: 100%"/>
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                            <c:forEach var="item1" items="${pd1}" varStatus="status">
-                                <c:set var="item2" value="${pd2[status.index]}" />
-                                <!-- Sử dụng item1 và item2 tại đây -->
+                                <c:forEach var="item1" items="${pd1}" varStatus="status">
+                                    <c:set var="item2" value="${pd2[status.index]}" />
+                                    <!-- Sử dụng item1 và item2 tại đây -->
 
+                                    <tr>
+                                        <td>Name</td>
+                                        <td>${name1}</td>
+                                        <td>${name2}</td>
+
+                                    </tr>
+                                    <tr>            
+                                        <td>size display</td>
+
+                                        <td>${item1.sizeDisplay}</td>
+                                        <td>${item2.sizeDisplay}</td>
+
+                                    </tr>
+
+                                    <tr>
+                                        <td>Chip set</td>
+                                        <td>${item1.chipset}</td>
+                                        <td>${item2.chipset}</td>
+
+                                    </tr>
+
+                                    <tr>
+                                        <td>Battery</td>
+                                        <td>${item1.battery}</td>
+                                        <td>${item2.battery}</td>
+
+                                    </tr>
+
+                                    <tr>
+                                        <td>Osystem</td>
+                                        <td>${item1.osystem}</td>
+                                        <td>${item2.osystem}</td>
+
+                                    </tr>
+
+                                    <tr>
+                                        <td>Camera</td>
+                                        <td>${item1.camera}</td>
+                                        <td>${item2.camera}</td>
+
+                                    </tr>
+
+                                    <tr>
+                                        <td>Sim</td>
+                                        <td>${item1.sim}</td>
+                                        <td>${item2.sim}</td>
+
+                                    </tr>
+
+                                </c:forEach>
                                 <tr>
-                                    <td>Name</td>
-                                    <td>${name1}</td>
-                                    <td>${name2}</td>
+                                    <td>Total Prices</td>
+                                    <td>${price1} VND<br />
+                                        <button class="btn btn-warning">Mua ngay</button>
+                                    </td>
+                                    <td>${price2} VND<br />
+                                        <button class="btn btn-warning">Mua ngay</button>
+                                    </td>
 
                                 </tr>
-                                <tr>            
-                                    <td>size display</td>
-
-                                    <td>${item1.sizeDisplay}</td>
-                                    <td>${item2.sizeDisplay}</td>
-
-                                </tr>
-
-                                <tr>
-                                    <td>Chip set</td>
-                                    <td>${item1.chipset}</td>
-                                    <td>${item2.chipset}</td>
-
-                                </tr>
-
-                                <tr>
-                                    <td>Battery</td>
-                                    <td>${item1.battery}</td>
-                                    <td>${item2.battery}</td>
-
-                                </tr>
-
-                                <tr>
-                                    <td>Osystem</td>
-                                    <td>${item1.osystem}</td>
-                                    <td>${item2.osystem}</td>
-
-                                </tr>
-
-                                <tr>
-                                    <td>Camera</td>
-                                    <td>${item1.camera}</td>
-                                    <td>${item2.camera}</td>
-
-                                </tr>
-
-                                <tr>
-                                    <td>Sim</td>
-                                    <td>${item1.sim}</td>
-                                    <td>${item2.sim}</td>
-
-                                </tr>
-
-                            </c:forEach>
-                            <tr>
-                                <td>Total Prices</td>
-                                <td>${price1} VND<br />
-                                    <button class="btn btn-warning">Mua ngay</button>
-                                </td>
-                                <td>${price2} VND<br />
-                                    <button class="btn btn-warning">Continue</button>
-                                </td>
-
-                            </tr>
                             </tbody>
                         </table>
                     </div>
+
+                    <form action="dataToHomeFromDetail">
+                         <input type="hidden" name="productId" value="${productId}">
+                        <button class="btn btn-primary" >Back</button>
+                    </form>
                 </div>
             </div>
+
         </div>
 
         <!-- Bootstrap JS -->

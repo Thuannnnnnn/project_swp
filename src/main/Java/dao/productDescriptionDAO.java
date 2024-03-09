@@ -131,6 +131,43 @@ public class productDescriptionDAO {
         return images;
     }
 
+     public int coutSearch(String result ) {
+        String sql = "SELECT count(*) FROM products WHERE product_name like '%"+result+"%'";
+        try {
+             connection = DBConnection.getConnection();
+            PreparedStatement st = connection.prepareStatement(sql); // Use PreparedStatement instead of Statement
+            rs = st.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+        }
+        return 0;
+    }
+    
+    public List<Product> getTop12(String result, int index, int size) {
+        List<Product> listU = new ArrayList<>();
+        String sql = "with x as (SELECT ROW_NUMBER() OVER (ORDER BY date_added desc) as rowNumber, products.* FROM  products WHERE product_id >= 3 AND product_name LIKE '%"+result+"%') select * from x where rowNumber between "+(index*size - (size -1))+" and "+(index * size)+"";
+        try {
+            connection = DBConnection.getConnection();
+            PreparedStatement sta = connection.prepareStatement(sql); // Use PreparedStatement instead of Statement
+            ResultSet rsu = sta.executeQuery();
+            while (rsu.next()) {
+                Product p = new Product(
+                        rsu.getInt("product_id"),
+                        rsu.getString("product_name"),
+                        rsu.getDouble("product_price"),
+                        rsu.getString("image_url"),
+                        rsu.getInt("stock_quantity"),
+                        rsu.getInt("category_id"),
+                        rsu.getString("product_branch"), // Corrected column name
+                        rsu.getDate("date_added")); // Corrected column name
+                listU.add(p);
+            }
+        } catch (SQLException e) {
+        }
+        return listU;
+    }
     public static void main(String[] args) throws SQLException {
         productDescriptionDAO pdModel = new productDescriptionDAO();
         List<image> l = pdModel.getImagesByProductId(2);

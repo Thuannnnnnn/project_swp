@@ -19,6 +19,7 @@ Controller\Product\createProduct.class
 Controller\User\AddEditDeleteUser.class
 Controller\User\SendOtpServlet.class
 model\Product.class
+controllerCompareProduct\catalogsearchServlet.class
 dao\UserDAO.class
 model\ProductImage.class
 model\User.class
