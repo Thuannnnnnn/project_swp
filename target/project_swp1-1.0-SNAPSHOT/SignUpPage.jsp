@@ -7,11 +7,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-        <%if(session.getAttribute("UserRole") != null){
-    response.sendRedirect("/");
-    return; 
+    <%if(session.getAttribute("UserRole") != null){
+response.sendRedirect("/");
+return; 
 }
-%>
+    %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
@@ -72,7 +72,7 @@
             <form action="SendOtpServlet" method="get">
                 <div class="wrap-input-email">
                     <input type="text" name="email" required placeholder="Enter your email" class="input-email"/>
-                    
+
                 </div>
 
                 <input type="hidden" name="feature" value="SignUp"/>
@@ -133,6 +133,9 @@
                     <input class="input-email" type="password" name="password" required placeholder="Please Enter Password" />
                 </div>
                 <div class="wrap-input-email">
+                    <input class="input-email" type="password" name="Repassword" required placeholder="Please Enter Password" />
+                </div>
+                <div class="wrap-input-email">
                     <input class="input-email"v type="hidden" name="email" value="<%= email %>" />
                 </div>
                 <div >
@@ -152,16 +155,20 @@
                 $("#userInformationForm").submit(function (event) {
                     var phoneNumber = $("input[name='phoneNumber']").val();
                     var password = $("input[name='password']").val();
+                    var Repassword = $("input[name='Repassword']").val();
                     var phoneNumberRegex = /^\d{10}$/;
-                    var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]*$/;
+                    var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]{8,}$/;
                     var errorMessage = '';
 
                     if (!phoneNumberRegex.test(phoneNumber)) {
                         errorMessage += "Phone number must be 10 digits and start by 0.<br>";
                     }
+                    if (password !== Repassword) {
+                        errorMessage += "Password and Repassword not equals<br>";
 
+                    }
                     if (!passwordRegex.test(password)) {
-                        errorMessage += "Password must be at least 8 characters long, including uppercase, lowercase, and numbers.";
+                        errorMessage += "Password must be at least 8 characters long, including uppercase, lowercase, and numbers.<br>";
                     }
 
                     if (errorMessage.length > 0) {

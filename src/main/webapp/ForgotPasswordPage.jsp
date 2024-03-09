@@ -117,7 +117,7 @@ if("enterPassword".equals(method)){%>
                 $("#enterPassword").submit(function (event) {
                     var password = $("input[name='password']").val();
                     var repassword = $("input[name='Repassword']").val();
-                    var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]*$/;
+                    var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]{8,}$/;
                     var errorMessages = '';
                     console.log(password);
                     console.log(repassword);

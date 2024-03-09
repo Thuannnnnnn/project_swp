@@ -41,6 +41,29 @@ public class UserDAO {
         return users;
     }
 
+    public boolean comparePassword(String email, String oldpassword) {
+        String password = null;
+        String sql = "SELECT password FROM users WHERE email = ?";
+
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement statement = conn.prepareStatement(sql);) {
+            statement.setString(1, email);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    password = resultSet.getString("password");
+                    System.out.println("p "+ password);
+                    System.out.println("oldp "+ oldpassword);
+                    if(password.equals(oldpassword)){
+                        return true;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+          
+        }
+
+        return false;
+    }
+
     public User getUserByEmail(String email) {
         User user = null;
         String sql = "SELECT * FROM users WHERE email = ?";
@@ -80,6 +103,23 @@ public class UserDAO {
             statement.setString(5, user.getAddress());
             statement.setString(6, user.getPassword());
             statement.setInt(7, user.getUserId());
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.err.println("Error occurred during the update User operation: " + e.getMessage());
+            return false;
+        }
+
+    }
+
+    public boolean editInfo(User user, String email) {
+        String sql = "UPDATE Users SET full_name = ?, birth_date = ?, phone_number = ?, address = ? WHERE email = ?;";
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement statement = conn.prepareStatement(sql);) {
+            statement.setString(1, user.getFullName());
+            statement.setDate(2, user.getBirthDate());
+            statement.setString(3, user.getPhoneNumber());
+            statement.setString(4, user.getAddress());
+            statement.setString(5, email);
             statement.executeUpdate();
             return true;
         } catch (SQLException e) {

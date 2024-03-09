@@ -50,6 +50,14 @@ public class User {
         this.password = password;
     }
 
+    public User(String fullName, Date birthDate, String phoneNumber, String address) {
+        this.fullName = fullName;
+        this.birthDate = birthDate;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+    }
+    
+
     public int getUserId() {
         return userId;
     }
