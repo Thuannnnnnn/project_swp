@@ -15,12 +15,21 @@ public class Order {
     private String paymentMethod;
     private float totalPrice;
     private int statusOrderID;
+    private String statusOrderName;
+
+    public String getStatusOrderName() {
+        return statusOrderName;
+    }
+
+    public void setStatusOrderName(String statusOrderName) {
+        this.statusOrderName = statusOrderName;
+    }
     private Date timeBuy;
 
     public Order() {
     }
 
-    public Order(int orderID, int userID, String deliveryAddress, String phoneNumber, String recipientName, String paymentMethod, float totalPrice, int statusOrderID, Date timeBuy) {
+    public Order(int orderID, int userID, String deliveryAddress, String phoneNumber, String recipientName, String paymentMethod, float totalPrice, int statusOrderID, String statusOrderName, Date timeBuy) {
         this.orderID = orderID;
         this.userID = userID;
         this.deliveryAddress = deliveryAddress;
@@ -29,6 +38,7 @@ public class Order {
         this.paymentMethod = paymentMethod;
         this.totalPrice = totalPrice;
         this.statusOrderID = statusOrderID;
+        this.statusOrderName = statusOrderName;
         this.timeBuy = timeBuy;
     }
 

@@ -1,0 +1,155 @@
+body{
+    background-color: #29b7dd;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    padding: 50px 100px; /* Lùi vào trái và phải 150px */
+}
+
+.box {
+    height: 250px;
+    background-color: white;
+    border: none;
+    margin: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content:  space-around;
+    align-items: center;
+    text-align: center;
+}
+
+.box span,
+.box h5,
+.box p {
+    margin: 0;
+    padding: 0;
+}
+.u-icon-circle {
+    fill: #29b7dd;
+}
+
+.u-input {
+    background-color: #29b7dd;
+    color: white;
+}
+
+.u-input {
+    border: none;
+    border-bottom: 2px solid white;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.u-input::placeholder {
+    color: rgba(255, 255, 255, 0.7); /* Màu chữ trắng mờ đi */
+}
+
+.u-label{
+    font-size: 22px;
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .box{
+        justify-content: space-evenly;
+    }
+
+    .in-form{
+        width: 50%;
+    }
+
+    .u-border-2{
+        width: 382px;
+        margin-right: 50px;
+    }
+
+    .u-align-left{
+        width: 88%;
+    }
+
+    .left{
+        width: 335px;
+    }
+}
+
+@media screen and (max-width: 532px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .box{
+        justify-content: center;
+        width: 250px;
+        height: 200px;
+    }
+
+    .in-form{
+        width: 100%;
+    }
+
+    .u-border-2{
+        width: 202px;
+    }
+
+    .u-align-left{
+        width: 100%;
+    }
+    
+    .u-border-2{
+        width: 382px;
+        margin-right: 50px;
+    }
+
+    .left{
+        width: 250px;
+    }
+    .right{
+        margin-left: 30px;
+    }
+    
+}
+
+
+@media screen and (max-width: 420px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .box{
+        margin-left: 70px;
+    }
+    
+    
+    .in-form{
+        width: 100%;
+    }
+
+    .u-border-2{
+        width: 202px;
+    }
+
+    .u-align-left{
+        width: 80%;
+    }
+
+}

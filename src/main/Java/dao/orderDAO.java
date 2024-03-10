@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Order;
 
+
 public class orderDAO {
 
     private Connection connection;
@@ -24,7 +25,32 @@ public class orderDAO {
             statement = connection.createStatement();
             rs = statement.executeQuery(sql);
             while (rs.next()) {
-                Order o = new Order(rs.getInt("order_id"), rs.getInt("user_id"), rs.getString("delivery_address"), rs.getString("phone_number"), rs.getString("recipient_name"), rs.getString("payment_method"), rs.getFloat("total_price"), rs.getInt("status_order_id"), rs.getDate("time_buy"));
+                Order o = new Order(rs.getInt("order_id"), rs.getInt("user_id"), rs.getString("delivery_address"), rs.getString("phone_number"), rs.getString("recipient_name"), rs.getString("payment_method"), rs.getFloat("total_price"), rs.getInt("status_order_id"),rs.getString("status_order_name"), rs.getDate("time_buy"));
+                list.add(o);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            try {
+                connection.close();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    public List<Order> getOrderByUserID(int id) {
+        String sql = "SELECT o.*, os.status_order_name FROM Orders o JOIN order_status os ON o.status_order_id = os.status_order_id WHERE user_id = ?";
+        List<Order> list = new ArrayList<>();
+        try {
+            connection = DBConnection.getConnection();
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                Order o = new Order(rs.getInt("order_id"), rs.getInt("user_id"), rs.getString("delivery_address"), rs.getString("phone_number"), rs.getString("recipient_name"), rs.getString("payment_method"), rs.getFloat("total_price"), rs.getInt("status_order_id"),rs.getString("status_order_name"), rs.getDate("time_buy"));
                 list.add(o);
             }
             connection.close();
@@ -49,7 +75,7 @@ public class orderDAO {
             st.setInt(1, orderId);
             rs = st.executeQuery();
             if (rs.next()) {
-                order = new Order(rs.getInt("order_id"), rs.getInt("user_id"), rs.getString("delivery_address"), rs.getString("phone_number"), rs.getString("recipient_name"), rs.getString("payment_method"), rs.getFloat("total_price"), rs.getInt("status_order_id"), rs.getDate("time_buy"));
+Order o = new Order(rs.getInt("order_id"), rs.getInt("user_id"), rs.getString("delivery_address"), rs.getString("phone_number"), rs.getString("recipient_name"), rs.getString("payment_method"), rs.getFloat("total_price"), rs.getInt("status_order_id"),rs.getString("status_order_name"), rs.getDate("time_buy"));
             }
         } catch (SQLException e) {
             System.out.println("SQL Error: " + e.getMessage());
@@ -92,6 +118,7 @@ public class orderDAO {
         }
         return orderUpdated;
     }
+
     public boolean createOrder(int userId, String address, String phoneNumber, String receiver, String paymentMethod, float price, Date createOrderDay) throws SQLException {
         boolean orderCreated = false;
         String sql = "INSERT INTO Orders (userId, address, phoneNumber, receiver, paymentMethod, price, createOrderDay) VALUES (?, ?, ?, ?, ?, ?, ?);";
@@ -113,9 +140,8 @@ public class orderDAO {
         }
         return orderCreated;
     }
-
-    public boolean deleteOrder(int orderId) throws SQLException {
-        boolean orderDeleted = false;
+public boolean deleteOrder(int orderId) throws SQLException {
+boolean orderDeleted = false;
         String sql = "DELETE FROM Orders WHERE order_id = ?;";
         connection = DBConnection.getConnection();
         try {

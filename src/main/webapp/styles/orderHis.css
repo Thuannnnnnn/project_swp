@@ -1,0 +1,131 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Feb 28, 2024, 10:47:29 PM
+    Author     : TU ANH
+*/
+
+
+table.table.table-hover {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table.table.table-hover th,
+table.table.table-hover td {
+    border: 1px solid #ddd; /* Đường viền cho các ô */
+    padding: 8px;
+    text-align: left;
+}
+
+table.table.table-hover th {
+    background-color: #f2f2f2;
+}
+
+.cancel{
+    background-color: #d91d2f;
+    color: white;
+}
+.processing {
+    background-color: #0c8bd3;
+    color: white;
+}
+
+.shipped {
+    background-color: orange;
+    color: white;
+
+}
+
+.delivered {
+    background-color: green;
+    color: white;
+}
+
+@media only screen and (min-width: 1440px) {
+    body {
+        padding-left: 70px; /* Lùi vào bên trái */
+        padding-right: 70px; /* Lùi vào bên phải */
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+    body {
+        padding-left: 30px; /* Lùi vào bên trái */
+        padding-right: 30px; /* Lùi vào bên phải */
+    }
+    table.table.table-hover tr {
+        font-size: 15px;
+        letter-spacing: -1px;
+    }
+
+    .details-row {
+        display: none;
+    }
+
+    .details-row.show-details {
+        display: none;
+    }
+    .but-show{
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 769px) {
+    body {
+        padding-left: 30px; /* Lùi vào bên trái */
+        padding-right: 30px; /* Lùi vào bên phải */
+    }
+    table.table.table-hover tr {
+        font-size: 15px;
+        letter-spacing: -1px;
+    }
+    span.header-details{
+        display: none;
+        
+    }
+    .details-row {
+        display: none;
+    }
+
+    .details-row.show-details {
+        display: none;
+    }
+    .but-show{
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 769px) {
+    .tablet-none {
+        display: none;
+    }
+    
+    .details-row {
+        display: none;
+    }
+    
+    p.details-row{
+        display: none;
+    }
+    .details-row.show-details {
+        display: inline-grid;
+    }
+    
+    table.table.table-hover td.but-show{
+        border: none;
+        background-color: white;
+    }
+   
+   span.header-details{
+        font-weight: bolder;
+    }
+    
+     .recipient-name,
+    .status-name {
+        width: 50%;
+    }
+    
+}
