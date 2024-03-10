@@ -20,6 +20,10 @@
         <servlet-name>addSliderServlet</servlet-name>
         <servlet-class>Controller.Image.addSliderServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>sortPriceServlet</servlet-name>
+        <servlet-class>controllerCompareProduct.sortPriceServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UploadServlet</servlet-name>
         <url-pattern>/UploadServlet</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>addSliderServlet</servlet-name>
         <url-pattern>/addSliderServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>sortPriceServlet</servlet-name>
+        <url-pattern>/sortPriceServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
