@@ -205,21 +205,20 @@
                                     <h3  >${i.product_name}</h3>
                                     <button id="open-modal"  class="btn btn-sm" style="margin-left: 5px; font-size: 12px;background-color: #eee; color: black;  border: 1px solid red;  ">+ So Sánh</button>
                                 </div>
-                                <h4 class="price">Giá hiện tại: <span>${priceId}</span></h4>                               
+                                <h4 class="price">Giá hiện tại: <span>${priceId}</span></h4>   
+                                <form action="addCart" name="frmsanphamchitiet" id="frmsanphamchitiet" method="post">
                                 <div class="form-group">
                                     <label for="soluong">Số lượng đặt mua:</label>
-                                    <input type="number" class="form-control" id="soluong" name="soluong" min="0">
+                                    <input type="number" class="form-control" id="quantity" name="quantity" min="0">
                                 </div>
-                                <form name="frmsanphamchitiet" id="frmsanphamchitiet" method="post">
-                                    <input type="hidden" name="sp_ma" id="sp_ma" value="5">
-                                    <input type="hidden" name="sp_ten" id="sp_ten" value="Samsung Galaxy Tab 10.1 3G 16G">
-                                    <input type="hidden" name="sp_gia" id="sp_gia" value="10990000.00">
-                                    <input type="hidden" name="hinhdaidien" id="hinhdaidien" value="samsung-galaxy-tab-10.jpg">
+                                    <input type="hidden" name="userId" id="userId" value="1">
+                                    <input type="hidden" name="productId" id="productId" value="${productId}">
                                     <div class="action">
-                                        <a class="add-to-cart btn btn-default" id="btnThemVaoGioHang" style="margin-bottom: 5px">Thêm vào giỏ hàng</a>
-                                        <a class="like btn btn-default" style="margin-bottom: 5px" >Mua Ngay</a>
+                                        <button class="add-to-cart btn btn-default" id="btnThemVaoGioHang" style="margin-bottom: 5px">Thêm vào giỏ hàng</button>
+                                        
                                     </div>
                                 </form>
+                                <a class="like btn btn-default" style="margin-bottom: 5px" >Mua Ngay</a>
                             </div>
                         </c:forEach>
 

@@ -18,7 +18,7 @@
 
 <%
 if(session.getAttribute("UserRole") == null){
-    response.sendRedirect("LoginPage.jsp");
+    response.sendRedirect("loginPage.jsp");
     return; 
 }
 %>
