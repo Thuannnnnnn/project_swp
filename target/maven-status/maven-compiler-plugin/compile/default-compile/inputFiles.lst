@@ -1,4 +1,5 @@
 D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\dao\ProductDAO.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\dao\DashboardDAO.java
 D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\Order\orderController.java
 D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\User\ForgotPassword.java
 D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\User\SendOtpServlet.java
@@ -12,6 +13,7 @@ D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controlle
 D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\Product\CrudProduct.java
 D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\Product\editProduct.java
 D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\model\ProductImage.java
+D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\Dashboard\dashboardController.java
 D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\dao\CategoryDAO.java
 D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\Controller\User\VerifyOtpServlet.java
 D:\Workspace\FPT University\Session 5\SWP391\swp_project\src\main\java\dao\imageDAO.java

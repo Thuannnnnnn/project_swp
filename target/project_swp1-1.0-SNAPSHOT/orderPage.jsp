@@ -10,18 +10,12 @@
 <%@page import="model.Order"%>
 <%@page import="dao.orderDAO"%>
 <%
-//String role = (String) session.getAttribute("UserRole");
-//if(role == null || !role.trim().equals("Admin")){
-   // response.sendRedirect("LoginPage.jsp");
-   // return;}
-//%>
-
-<%
-if(session.getAttribute("UserRole") == null){
-    response.sendRedirect("LoginPage.jsp");
-    return; 
-}
+String role = (String) session.getAttribute("UserRole");
+if(role == null || !role.trim().equals("admin")){
+    response.sendRedirect("loginPage.jsp");
+    return;}    
 %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -29,19 +23,20 @@ if(session.getAttribute("UserRole") == null){
         <title>JSP Page</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link href="./styles/orderPageCSS.css" rel="stylesheet"/>
+        <link href="./styles/toolbarAdmin.css" rel="stylesheet"/>
     </head>
     <body>
         <div class="wrap-content">
             <div class="left-content">
                 <h2 class="title-admin">EndureTale S</h2>
                 <ul class="list-controller">
-                    <% if(session.getAttribute("UserRole").equals("Admin")) { %>
+                    <% if(session.getAttribute("UserRole").equals("admin")) { %>
                     <a href="#" class="none-decoration"><li class="item-controller">Bảng điều khiển</li></a>
                     <%}%>
                     <li class="item-controller active">Quản lí đơn hàng</li>
-                    <a href="#" class="none-decoration"><li class="item-controller">Quản lí sản phẩm</li></a>
-                    <% if(session.getAttribute("UserRole").equals("Admin")) { %>
-                    <a href="#" class="none-decoration"><li class="item-controller">Quản lí người dùng</li></a>
+                    <a href="/CrudProduct" class="none-decoration"><li class="item-controller">Quản lí sản phẩm</li></a>
+                    <% if(session.getAttribute("UserRole").equals("admin")) { %>
+                    <a href="/AdminUser" class="none-decoration"><li class="item-controller">Quản lí người dùng</li></a>
                     <%}%>
                 </ul>
             </div>

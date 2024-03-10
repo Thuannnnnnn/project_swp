@@ -1,0 +1,43 @@
+html, body {
+    height: 100%;
+}
+.none-decoration{
+    text-decoration: none!important;
+}
+.active{
+    opacity: 1!important;
+    cursor: default;
+}
+.wrap-content{
+    display: flex;
+    height: 100%;
+}
+.left-content{
+    
+    position: fixed;
+    top: 32px;
+    left: 20px;
+    width: 300px;
+    background-color: #1c9ef4;
+    height: 90%;
+    border-radius: 12px;
+
+}
+.title-admin{
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    color: white;
+}
+.list-controller{
+    list-style-type: none;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    margin-top: 20px;
+}
+.item-controller{
+    color: white;
+    opacity: 0.8;
+    font-size: 20px;
+}

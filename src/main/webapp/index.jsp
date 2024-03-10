@@ -45,27 +45,25 @@
                             <li><a class="dropdown-item" href="#">PC</a></li>
                         </ul>
                     </div>
-                     <div class="search">
-                        <form action="catalogsearchServlet">
-                            <input name="search" class="search-input" placeholder="Tìm kiếm..."/>
-                            <input name="page" value="1" type="hidden"/>
-                            <button class="search-btn">
-                                <svg height="20px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="20px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M344.5,298c15-23.6,23.8-51.6,23.8-81.7c0-84.1-68.1-152.3-152.1-152.3C132.1,64,64,132.2,64,216.3  c0,84.1,68.1,152.3,152.1,152.3c30.5,0,58.9-9,82.7-24.4l6.9-4.8L414.3,448l33.7-34.3L339.5,305.1L344.5,298z M301.4,131.2  c22.7,22.7,35.2,52.9,35.2,85c0,32.1-12.5,62.3-35.2,85c-22.7,22.7-52.9,35.2-85,35.2c-32.1,0-62.3-12.5-85-35.2  c-22.7-22.7-35.2-52.9-35.2-85c0-32.1,12.5-62.3,35.2-85c22.7-22.7,52.9-35.2,85-35.2C248.5,96,278.7,108.5,301.4,131.2z"/></svg>
-                            </button>
-                        </form>
+                    <div class="search">
+                        <input class="search-input" placeholder="Tìm kiếm..."/>
+                        <button class="search-btn">
+                            <svg height="20px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="20px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M344.5,298c15-23.6,23.8-51.6,23.8-81.7c0-84.1-68.1-152.3-152.1-152.3C132.1,64,64,132.2,64,216.3  c0,84.1,68.1,152.3,152.1,152.3c30.5,0,58.9-9,82.7-24.4l6.9-4.8L414.3,448l33.7-34.3L339.5,305.1L344.5,298z M301.4,131.2  c22.7,22.7,35.2,52.9,35.2,85c0,32.1-12.5,62.3-35.2,85c-22.7,22.7-52.9,35.2-85,35.2c-32.1,0-62.3-12.5-85-35.2  c-22.7-22.7-35.2-52.9-35.2-85c0-32.1,12.5-62.3,35.2-85c22.7-22.7,52.9-35.2,85-35.2C248.5,96,278.7,108.5,301.4,131.2z"/></svg>
+                        </button>
                     </div>
-
-
                 </div>
                 <div class="right-content">
                     <button class="btn-white btn white-space-nowrap no-mb">Tra cứu đơn hàng</button>
                     <%
+            if(session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("admin")){
+                    %>
+                    <a href="/dashboard"><button class="btn-danger btn white-space-nowrap">Management</button></a>
+                    <% }
 if(session.getAttribute("UserRole") == null){
                     %>
                     <a href="/login"><button class="btn-white btn white-space-nowrap">Đăng nhập</button></a>
                     <% }
-                    %>
-                    <%
+                    
 if(session.getAttribute("UserRole") != null){
                     %>
                     <a href="/logout"><button class="btn-danger btn white-space-nowrap">LogOut</button></a>
@@ -291,25 +289,25 @@ if(session.getAttribute("UserRole") != null){
             </div>
             <div class="container mt-5">
                 <div class="card-container">
-                   <c:forEach var="product" items="${listProduct}" varStatus="status">
-                        <a class="link-detail text-decoration-none text-dark" href="/dataToHomeFromDetail?productId=${product.product_id}">
-                            <div class="card">
+                    <c:forEach var="product" items="${listProduct}" varStatus="status">
+                        <div class="card link-detail text-decoration-none text-dark">
+                            <form  action="dataToHomeFromDetail" id="hiddenForm">
                                 <div class="discount-label px-4">-30%</div>
+                                <input type="hidden" name="productId" value="${product.product_id}">
                                 <img
                                     class="m-4 rounded-top"
                                     src="data:image/png;base64,${product.image_url}" alt="Product Image"
                                     class="card-img-top"
-                                    alt="..."
+                                    onclick="submitForm()"
                                     />
                                 <div class="card-body">
                                     <h5 class="card-title">${product.product_name}</h5>
                                     <h5 class="card-title">
                                         <span class="newPrice mr-4 text-danger"><fmt:formatNumber value="${product.product_price}"/> VNĐ</span>
-
                                     </h5>
                                 </div>
-                            </div>  
-                        </a>
+                            </form>
+                        </div>
                     </c:forEach>
                 </div>
 

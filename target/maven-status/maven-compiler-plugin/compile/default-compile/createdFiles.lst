@@ -1,5 +1,6 @@
 dao\productDescriptionDAO.class
 Controller\Order\orderController.class
+Controller\Dashboard\dashboardController.class
 Controller\index.class
 model\Cart.class
 Controller\User\AdminUser.class
@@ -26,6 +27,7 @@ controllerCompareProduct\compareProductServlet.class
 Controller\Category\CrudCategory.class
 Controller\Order\createOrder.class
 Controller\Product\deleteImage.class
+dao\DashboardDAO.class
 dao\orderDAO.class
 model\Order.class
 Controller\User\SendOtpServlet$1.class
