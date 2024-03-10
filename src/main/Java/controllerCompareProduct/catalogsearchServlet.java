@@ -43,19 +43,20 @@ public class catalogsearchServlet extends HttpServlet {
         if (pageString != null) {
             page = Integer.parseInt(pageString);
         }
-        int quantity = pdModel.coutSearch(resutl);
         int pageSize = 12;
-        int endPage = 0;
-        endPage = (quantity / pageSize);
-        if (quantity % pageSize != 0) {
-            endPage++;
-        }
         if (price == null) {
             p = pdModel.getTop12(resutl, page, pageSize, sort);
         } else {
             String[] priceToFrom = price.split("-");
             p = pdModel.getTop12FromPrice(resutl, page, pageSize, sort, priceToFrom[0], priceToFrom[1]);
             request.setAttribute("price", price);
+        }
+        int quantity = p.size();
+
+        int endPage = 0;
+        endPage = (quantity / pageSize);
+        if (quantity % pageSize != 0) {
+            endPage++;
         }
 
         request.setAttribute("page", page);

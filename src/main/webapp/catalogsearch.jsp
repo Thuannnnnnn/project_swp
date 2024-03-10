@@ -73,32 +73,34 @@ if(session.getAttribute("UserRole") != null){
                     %>
                 </div>
             </div>
+            <div class="container">
+                <div  style="margin-top: 20px; display: flex">
+                    <form action="catalogsearchServlet" id="PriceForm" style="display: flex">
+                        <c:if test="${quality > 0}">
+                            <button type="submit" class="btn btn-primary" name="sort" value="ASC" style="margin-right: 10px">Tăng dần</button>
+                            <button type="submit"  class="btn btn-primary" name="sort" value="DESC">Giảm dần</button>
+                        </c:if>
+                        <input name="search" type="hidden" value="${result}"/>
+                        <input name="page" value="${page}" type="hidden"/>
+                        <div style="right: 8.2%;position: fixed; display: flex">
+                            <div style="margin-right: 10px; margin-top:  5px ">Chọn giá:</div>
+                            <div style="display: flex">
+                                <select class="form-select" id="priceSelect" name="price">
+                                    <option selected disabled>-- Chọn giá --</option>
+                                    <option value="1000000-5000000">1 triệu - 5 triệu </option>
+                                    <option value="5000000-10000000">5 triệu  - 10 triệu </option>
+                                    <option value="10000000-20000000">10 triệu - 20 triệu </option>
+                                    <option value="20000000-30000000">20 triệu - 30 triệu </option>
+                                    <option value="30000000-50000000">30 triệu - 50 triệu </option>
+                                    <option value="50000000-00000000">50 triệu  -100 triệu </option>
+                                </select>
+                            </div> 
+                        </div>
+                    </form>
+                </div>
+            </div>  
             <c:choose>
                 <c:when test="${quantity > 0}">
-                    <div class="container">
-                        <div  style="margin-top: 20px; display: flex">
-                            <form action="catalogsearchServlet" id="PriceForm" style="display: flex">
-                                <button type="submit" class="btn btn-primary" name="sort" value="ASC" style="margin-right: 10px">Tăng dần</button>
-                                <button type="submit"  class="btn btn-primary" name="sort" value="DESC">Giảm dần</button>
-                                <input name="search" type="hidden" value="${result}"/>
-                                <input name="page" value="${page}" type="hidden"/>
-                                <div style="right: 8.2%;position: fixed; display: flex">
-                                    <div style="margin-right: 10px; margin-top:  5px ">Chọn giá:</div>
-                                    <div style="display: flex">
-                                        <select class="form-select" id="priceSelect" name="price">
-                                            <option selected disabled>-- Chọn giá --</option>
-                                            <option value="1000000-5000000">1tr - 5tr</option>
-                                            <option value="5000000-10000000">5tr - 10</option>
-                                            <option value="10000000-20000000">10 - 20tr</option>
-                                            <option value="20000000-30000000">20 - 30tr</option>
-                                            <option value="30000000-50000000">30 - 50tr</option>
-                                            <option value="50000000-00000000">50tr -100tr</option>
-                                        </select>
-                                    </div> 
-                                </div>
-                            </form>
-                        </div>
-                    </div>  
                     <div class="container mt-5">
                         <div class="card-container">
                             <c:forEach var="product" items="${products}" varStatus="status">
