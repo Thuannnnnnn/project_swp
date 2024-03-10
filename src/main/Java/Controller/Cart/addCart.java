@@ -28,6 +28,17 @@ import model.Product;
  */
 @WebServlet(name = "addCart", urlPatterns = {"/addCart"})
 public class addCart extends HttpServlet {
+    
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession(false); // Lấy session hiện tại nếu có
+        boolean isLoggedIn = (session != null && session.getAttribute("UserRole") != null);
+        
+        response.setContentType("text/plain");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(String.valueOf(isLoggedIn)); // Trả về "true" nếu đã đăng nhập, ngược lại "false"
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

@@ -265,6 +265,22 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
+    
+    $(document).ready(function() {
+    $('#btnThemVaoGioHang').click(function(e) {
+        // Gửi yêu cầu AJAX đến server để kiểm tra trạng thái đăng nhập
+        $.get('/addCart', function(isLoggedIn) {
+            if (isLoggedIn !== "true") {
+                // Nếu người dùng chưa đăng nhập, chuyển hướng đến trang đăng nhập
+                window.location.href = '/login'; // Thay đổi đường dẫn nếu cần
+            } else {
+                window.location.href = '/cart';
+                alert("Tiến hành thêm vào giỏ hàng");
+            }
+        });
+    });
+});
+    
     console.log(<%= productId2 %>);
     function updateProductInfo(productId2) {
         $.ajax({
