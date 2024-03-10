@@ -58,6 +58,28 @@ public class cartDAO {
         return cart;
     }
 
+    public List<Cart> getCartItemsByUserId(int userId) {
+        List<Cart> cartItems = new ArrayList<>();
+        String sql = "SELECT * FROM cart WHERE user_id = ?";
+         try {
+            connection = DBConnection.getConnection();
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, userId);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                Cart cart = new Cart(
+                        rs.getInt("user_id"),
+                        rs.getInt("product_id"),
+                        rs.getInt("quantity")
+                );
+                cartItems.add(cart);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return cartItems;
+    }
+
     public Cart findCartByUserIdAndProductId(int userId, int productId) {
         String sql = "SELECT * FROM Cart WHERE user_id = ? AND product_id = ?";
         Connection connection = null;

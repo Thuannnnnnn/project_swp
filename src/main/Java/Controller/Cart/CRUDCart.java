@@ -8,10 +8,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.Cart;
 import model.Product;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/cart")
@@ -20,9 +22,22 @@ public class CRUDCart extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+         HttpSession session = request.getSession();
+        int userId = (int) session.getAttribute("userId");
         cartDAO cartDAO = new cartDAO();
-        List<Cart> cartList = cartDAO.getCartList();
+        List<Cart> cartList = cartDAO.getCartItemsByUserId(userId);
+       
+         List<Product> ProductList = new ArrayList<>();
+        ProductDAO p = new ProductDAO();
+        for (Cart item : cartList) {
+            Product product = p.getProductById(item.getProduct_id());
+            ProductList.add(product);
+        }
+        for(int i = 0; i<ProductList.size(); i++){
+            System.out.println(ProductList.get(i).getProduct_name());
+        }
         request.setAttribute("cartList", cartList);
+        request.setAttribute("ProductList", ProductList);
         request.getRequestDispatcher("cartPage.jsp").forward(request, response);
     }
 

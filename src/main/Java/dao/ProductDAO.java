@@ -221,6 +221,34 @@ public class ProductDAO {
         return product;
     }
 
+    public Product getProductById(int productId) {
+        Product product = null;
+        String sql = "SELECT * FROM products WHERE product_id = ?";
+
+        try (Connection connection = DBConnection.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setInt(1, productId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                product = new Product();
+                product.setProduct_id(resultSet.getInt("product_id"));
+                product.setProduct_name(resultSet.getString("product_name"));
+                product.setProduct_price(resultSet.getDouble("product_price"));
+                product.setImage_url(resultSet.getString("image_url"));
+                product.setStock_quantity(resultSet.getInt("stock_quantity"));
+                product.setCategory_id(resultSet.getInt("category_id"));
+                product.setProduct_branch(resultSet.getString("product_branch"));
+                // Assuming you have a date_added field in your table
+                product.setDateAdded(resultSet.getDate("date_added"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return product;
+    }
+
     // Delete a product
     public boolean deleteProduct(String productId) {
         // These tables have foreign key references to the products table
@@ -311,9 +339,7 @@ public class ProductDAO {
         }
         return false;
     }
-    
-    
-    
+
     public static void main(String[] args) {
         ProductDAO p = new ProductDAO();
         List<Product> lp = p.getAll();

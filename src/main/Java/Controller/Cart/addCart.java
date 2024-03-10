@@ -29,17 +29,15 @@ import model.Product;
 @WebServlet(name = "addCart", urlPatterns = {"/addCart"})
 public class addCart extends HttpServlet {
 
-   
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String productId = request.getParameter("productId");
         String quantityStr = request.getParameter("quantity");
-        
+
         System.out.println(quantityStr);
-      
+
         int quantity = 0;
         try {
             quantity = Integer.parseInt(quantityStr);
@@ -50,18 +48,27 @@ public class addCart extends HttpServlet {
         }
 
         cartDAO cart = new cartDAO();
-        
+
         HttpSession session = request.getSession();
         int userId = (int) session.getAttribute("userId");
         System.out.println(userId);
-       
-        
+
         Cart existingCart = cart.findCartByUserIdAndProductId(userId, Integer.parseInt(productId));
 
         if (existingCart != null) {
 
             int newQuantity = existingCart.getQuantity() + quantity;
             existingCart.setQuantity(newQuantity);
+            Cart cart1 = cart.findCartByUserIdAndProductId(userId, Integer.parseInt(productId));
+            int cartId = cart1.getCart_id();
+            try {
+                cart.updateCartQuantity(cartId, newQuantity);
+                response.sendRedirect("cart"); 
+            } catch (SQLException ex) {
+
+                Logger.getLogger(addCart.class.getName()).log(Level.SEVERE, null, ex);
+                response.sendRedirect("cart?e=erorr");
+            }
 
         } else {
             // Product is not in the cart, add a new entry
@@ -70,8 +77,7 @@ public class addCart extends HttpServlet {
             try {
                 if (cart.insertCart(newCart)) {
                     response.sendRedirect("cart");
-                }else
-                {
+                } else {
                     System.out.println("errorr");
                     response.sendRedirect("cart?e=erorr");
                 }

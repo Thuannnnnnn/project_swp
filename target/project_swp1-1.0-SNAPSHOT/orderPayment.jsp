@@ -3,8 +3,10 @@
     Created on : Mar 10, 2024, 7:48:17 PM
     Author     : Asus
 --%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page import="java.lang.Boolean" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -84,6 +86,20 @@
             </div>
 
         </form>
+        <c:forEach var="product" items="${ProductList}" varStatus="status">
+            <form action="creatOrder">
+                <h1>${product.product_id}</h1>
+                <img src="data:image/png;base64,${product.image_url}"/>
+                <span><fmt:formatNumber value="${product.product_price}"/> VNĐ</span>
+
+                <c:forEach var="cartItem" items="${cartItems}" varStatus="status2">
+                    <c:if test="${cartItem.product_id == product.product_id}">
+
+                        <h4>Số lượng: ${cartItem.quantity}</h4>
+                    </c:if>
+                </c:forEach>
+            </form>
+        </c:forEach>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>

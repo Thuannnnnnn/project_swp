@@ -43,6 +43,7 @@ controllerCompareProduct\update.class
 Controller\User\SignUp.class
 Controller\Product\createProduct.class
 Controller\Cart\CRUDCart.class
+Controller\Order\orderPayment.class
 model\Order.class
 Controller\User\SendOtpServlet$1.class
 dao\ProductImageDAO.class
