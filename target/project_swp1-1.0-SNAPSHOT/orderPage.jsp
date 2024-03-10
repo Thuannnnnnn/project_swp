@@ -31,7 +31,7 @@ if(role == null || !role.trim().equals("admin")){
                 <h2 class="title-admin">EndureTale S</h2>
                 <ul class="list-controller">
                     <% if(session.getAttribute("UserRole").equals("admin")) { %>
-                    <a href="#" class="none-decoration"><li class="item-controller">Bảng điều khiển</li></a>
+                    <a href="/dashboard" class="none-decoration"><li class="item-controller">Bảng điều khiển</li></a>
                     <%}%>
                     <li class="item-controller active">Quản lí đơn hàng</li>
                     <a href="/CrudProduct" class="none-decoration"><li class="item-controller">Quản lí sản phẩm</li></a>
