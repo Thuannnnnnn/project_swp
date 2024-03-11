@@ -53,6 +53,7 @@ public class productDescriptionDAO {
             while (rsu.next()) {
                 Product p = new Product(
                         rsu.getInt("product_id"),
+                         rsu.getInt("user_id"),
                         rsu.getString("product_name"),
                         rsu.getDouble("product_price"),
                         rsu.getString("image_url"),
@@ -79,6 +80,7 @@ public class productDescriptionDAO {
             while (rs.next()) {
                 Product p = new Product(
                         rs.getInt("product_id"),
+                        rs.getInt("user_id"),
                         rs.getString("product_name"),
                         rs.getDouble("product_price"),
                         rs.getString("image_url"),
@@ -155,6 +157,7 @@ public class productDescriptionDAO {
             while (rsu.next()) {
                 Product p = new Product(
                         rsu.getInt("product_id"),
+                         rsu.getInt("user_id"),
                         rsu.getString("product_name"),
                         rsu.getDouble("product_price"),
                         rsu.getString("image_url"),
@@ -179,6 +182,7 @@ public class productDescriptionDAO {
             while (rsu.next()) {
                 Product p = new Product(
                         rsu.getInt("product_id"),
+                        rsu.getInt("user_id"),
                         rsu.getString("product_name"),
                         rsu.getDouble("product_price"),
                         rsu.getString("image_url"),

@@ -35,6 +35,7 @@ public class ProductDAO {
             while (rs.next()) {
                 Product p = new Product(
                         rs.getInt("product_id"),
+                        rs.getInt("user_id"),
                         rs.getString("product_name"),
                         rs.getDouble("product_price"),
                         rs.getString("image_url"),
@@ -74,6 +75,7 @@ public class ProductDAO {
             while (rs.next()) {
                 Product p = new Product(
                         rs.getInt("product_id"),
+                        rs.getInt("user_id"),
                         rs.getString("product_name"),
                         rs.getDouble("product_price"),
                         rs.getString("image_url"),
@@ -121,17 +123,18 @@ public class ProductDAO {
         return totalProducts;
     }
 
-    public int createProduct(String productName, double productPrice, String imageUrl, int stockQuantity, int categoryId, String productBranch) {
-        String sql = "INSERT INTO products (product_name, product_price, image_url, stock_quantity, category_id, product_branch) VALUES (?, ?, ?, ?, ?, ?)";
+    public int createProduct(String productName,int userId, double productPrice, String imageUrl, int stockQuantity, int categoryId, String productBranch) {
+        String sql = "INSERT INTO products (product_name,user_id, product_price, image_url, stock_quantity, category_id, product_branch) VALUES (?,?, ?, ?, ?, ?, ?)";
         int productId = -1;
-
+        System.out.println(userId);
         try (Connection connection = DBConnection.getConnection(); PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             st.setString(1, productName);
-            st.setDouble(2, productPrice);
-            st.setString(3, imageUrl);
-            st.setInt(4, stockQuantity);
-            st.setInt(5, categoryId);
-            st.setString(6, productBranch);
+            st.setInt(2, userId);
+            st.setDouble(3, productPrice);
+            st.setString(4, imageUrl);
+            st.setInt(5, stockQuantity);
+            st.setInt(6, categoryId);
+            st.setString(7, productBranch);
 
             int affectedRows = st.executeUpdate();
 
@@ -143,6 +146,7 @@ public class ProductDAO {
                 }
             }
         } catch (SQLException e) {
+            System.out.println(e);
             e.printStackTrace();
         }
         return productId;
@@ -282,6 +286,7 @@ public class ProductDAO {
             while (rs.next()) {
                 Product p = new Product(
                         rs.getInt("product_id"),
+                        rs.getInt("user_id"),
                         rs.getString("product_name"),
                         rs.getDouble("product_price"),
                         rs.getString("image_url"),
@@ -318,7 +323,7 @@ public class ProductDAO {
         ProductDAO p = new ProductDAO();
         List<Product> lp = p.getAll();
         System.out.println(lp.get(0).getProduct_branch());
-        p.createProduct("Iphone", 9, "ok", 7, 6, "Samsusng");
+        p.createProduct("Iphone",1, 9, "ok", 7, 6, "Samsusng");
     }
 
 }

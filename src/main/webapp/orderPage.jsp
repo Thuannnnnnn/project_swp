@@ -1,9 +1,3 @@
-<%-- 
-    Document   : orderPage
-    Created on : Feb 1, 2024, 5:26:37 PM
-    Author     : khaye
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.*"%>
@@ -11,9 +5,11 @@
 <%@page import="dao.orderDAO"%>
 <%
 String role = (String) session.getAttribute("UserRole");
-if(role == null || !role.trim().equals("admin")){
+
+if(role == null || !role.trim().equals("admin") && !role.trim().equals("seller")){
     response.sendRedirect("loginPage.jsp");
-    return;}    
+    return;
+   }    
 %>
 
 <!DOCTYPE html>
@@ -32,12 +28,12 @@ if(role == null || !role.trim().equals("admin")){
                 <ul class="list-controller">
                     <% if(session.getAttribute("UserRole").equals("admin")) { %>
                     <a href="/dashboard" class="none-decoration"><li class="item-controller">Bảng điều khiển</li></a>
-                    <%}%>
+                            <%}%>
                     <li class="item-controller active">Quản lí đơn hàng</li>
                     <a href="/CrudProduct" class="none-decoration"><li class="item-controller">Quản lí sản phẩm</li></a>
-                    <% if(session.getAttribute("UserRole").equals("admin")) { %>
+                            <% if(session.getAttribute("UserRole").equals("admin")) { %>
                     <a href="/AdminUser" class="none-decoration"><li class="item-controller">Quản lí người dùng</li></a>
-                    <%}%>
+                            <%}%>
                 </ul>
             </div>
             <div class="right-content">

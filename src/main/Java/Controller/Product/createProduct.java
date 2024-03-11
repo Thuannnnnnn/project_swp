@@ -33,7 +33,7 @@ public class createProduct extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         LOGGER.info("Processing product upload request");
-
+        String userIdString = request.getParameter("userId");
         String productName = request.getParameter("productName");
         String productPriceStr = request.getParameter("productPrice");
         String stockQuantityStr = request.getParameter("stockQuantity");
@@ -49,11 +49,13 @@ public class createProduct extends HttpServlet {
         double productPrice;
         int stockQuantity;
         int categoryId;
+        int userId;
 
         try {
             productPrice = Double.parseDouble(productPriceStr.trim());
             stockQuantity = Integer.parseInt(stockQuantityStr.trim());
             categoryId = Integer.parseInt(categoryIdStr.trim());
+            userId = Integer.parseInt(userIdString.trim());
         } catch (NumberFormatException e) {
             // Handle the case where the string cannot be parsed to a number
             response.sendRedirect("error.jsp"); // Redirect to an error page
@@ -63,24 +65,18 @@ public class createProduct extends HttpServlet {
         // Xử lý hình ảnh chính
         Part mainImagePart = request.getPart("image");
         String mainImageBase64 = convertImageToBase64(mainImagePart.getInputStream());
-
         // Tạo sản phẩm mới và lấy product_id
         ProductDAO productDAO = new ProductDAO();
-        int productId = productDAO.createProduct(productName, productPrice, mainImageBase64, stockQuantity, categoryId, productBranch);
-
+        int productId = productDAO.createProduct(productName, userId, productPrice, mainImageBase64, stockQuantity, categoryId, productBranch);
         if (productId == -1) {
             LOGGER.warning("Failed to create product");
             response.sendRedirect("error.jsp");
             return;
         }
-
         LOGGER.info("Product created with ID: " + productId);
-
-        // Xử lý và lưu hình ảnh phụ
         Collection<Part> additionalImageParts = request.getParts().stream()
                 .filter(part -> "additionalImages".equals(part.getName()) && part.getSize() > 0)
                 .collect(Collectors.toList());
-
         imageDAO imageDAO = new imageDAO();
         
         for (Part imagePart : additionalImageParts) {

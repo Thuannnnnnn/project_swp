@@ -58,6 +58,10 @@
             if(session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("admin")){
                     %>
                     <a href="/dashboard"><button class="btn-danger btn white-space-nowrap">Management</button></a>
+                     <% }
+            if(session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("seller")){
+                    %>
+                    <a href="/order"><button class="btn-danger btn white-space-nowrap">Management</button></a>
                     <% }
 if(session.getAttribute("UserRole") == null){
                     %>
