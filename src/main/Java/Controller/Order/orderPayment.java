@@ -79,7 +79,7 @@ public class orderPayment extends HttpServlet {
             Product product = p.getProductById(item.getProduct_id());
             ProductList.add(product);
         }
-        for(int i = 0; i<ProductList.size(); i++){
+        for (int i = 0; i < ProductList.size(); i++) {
             System.out.println(ProductList.get(i).getProduct_name());
         }
         request.setAttribute("cartItems", cartItems);
@@ -96,9 +96,26 @@ public class orderPayment extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Lấy giá trị từ checkbox
+        String[] selectedProducts = request.getParameterValues("selectedProducts");
+        List<Product> ProductList = new ArrayList<>();
+        ProductDAO p = new ProductDAO();
+        if (selectedProducts != null) {
+            System.out.println("Selected Product IDs:");
+            for (String productId : selectedProducts) {
+                Product product = p.getProductById(productId);
+                ProductList.add(product);
+                System.out.println(productId);
+
+            }
+            request.setAttribute("ProductList", ProductList);
+            request.getRequestDispatcher("/orderPayment.jsp").forward(request, response);
+        } else {
+            // Không có sản phẩm nào được chọn, chuyển hướng trở lại trang giỏ hàng với thông báo lỗi hoặc thông tin
+            response.sendRedirect("cart.jsp?error=noProductSelected");
+        }
+
     }
 
     /**

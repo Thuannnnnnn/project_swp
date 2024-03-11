@@ -90,14 +90,12 @@ public class CRUDCart extends HttpServlet {
 
             if (result) {
                 request.setAttribute("resultDelete", "Xóa sản phẩm khỏi giỏ hàng thành công");
+                response.sendRedirect("/cart");
             } else {
                 request.setAttribute("resultDelete", "Lỗi khi xóa sản phẩm khỏi giỏ hàng");
+                response.sendRedirect("/cart?e=e");
             }
-
-            // Reload the cart page after deletion
-            List<Cart> cartList = cDAO.getCartList();
-            request.setAttribute("cartList", cartList);
-            request.getRequestDispatcher("/cartPage.jsp").forward(request, response);
+            
         }
     }
 }

@@ -1,7 +1,6 @@
 dao\imageDAO.class
 model\image.class
 dao\CategoryDAO.class
-Controller\Image\UploadServlet.class
 dao\cartDAO.class
 Controller\Order\CRUDOrderController.class
 Controller\User\ForgotPassword.class
@@ -29,7 +28,6 @@ Controller\Image\editSliderServlet.class
 Controller\Image\DeleteServlet.class
 Controller\User\logout.class
 dao\ProductDAO.class
-Controller\Image\deleteSliderServlet.class
 dao\productDescriptionDAO.class
 Controller\Order\orderController.class
 Controller\index.class
