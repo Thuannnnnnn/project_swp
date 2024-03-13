@@ -1,5 +1,6 @@
 package Controller.Product;
 
+import dao.CategoryDAO;
 import dao.ProductDAO;
 import dao.imageDAO;
 import jakarta.servlet.ServletException;
@@ -14,9 +15,11 @@ import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.Base64;
 import java.util.Collection;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import model.Category;
 import model.Product;
 import model.image;
 import org.apache.commons.io.IOUtils;
@@ -27,12 +30,31 @@ public class editProduct extends HttpServlet {
 
     private static final Logger LOGGER = Logger.getLogger(editProduct.class.getName());
 
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String productIdStr = request.getParameter("productId");
+        ProductDAO productDAO = new ProductDAO();
+        CategoryDAO categoryDAO = new CategoryDAO();
+        if (productIdStr != null && !productIdStr.isEmpty()) {
+            int productId = Integer.parseInt(productIdStr);
+            Product product = productDAO.getProductById(productId);
+            List<Category> categories = categoryDAO.getAllCategories();
+            List<image> additionalImages = productDAO.getAdditionalImages(productId);
+
+            request.setAttribute("product", product);
+            request.setAttribute("categories", categories);
+            request.setAttribute("additionalImages", additionalImages);
+        } else {
+            request.setAttribute("errorID", "Product ID is missing or invalid.");
+        }
+        request.getRequestDispatcher("editProductPage.jsp").forward(request, response);
+    }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         LOGGER.info("Processing product edit request");
 
-        String productIdStr = request.getParameter("productId");
+        String productId = request.getParameter("productId");
         String productName = request.getParameter("productName");
         String productPriceStr = request.getParameter("productPrice");
         String stockQuantityStr = request.getParameter("stockQuantity");
@@ -41,10 +63,9 @@ public class editProduct extends HttpServlet {
         Part imagePart = request.getPart("image");
 
         double productPrice;
-        int stockQuantity, categoryId,productId;
+        int stockQuantity, categoryId;
 
         try {
-            productId  = Integer.parseInt(productIdStr);
             productPrice = Double.parseDouble(productPriceStr);
             stockQuantity = Integer.parseInt(stockQuantityStr);
             categoryId = Integer.parseInt(categoryIdStr);
@@ -60,7 +81,7 @@ public class editProduct extends HttpServlet {
             imageUrl = convertImageToBase64(imageInputStream); // Convert new image to base64
         } else {
             ProductDAO productDAO = new ProductDAO();
-            Product existingProduct = productDAO.getProductById(productId);
+            Product existingProduct = productDAO.getProductById(Integer.parseInt(productId));
             if (existingProduct != null) {
                 imageUrl = existingProduct.getImage_url(); // Keep existing image
             }
@@ -83,25 +104,27 @@ public class editProduct extends HttpServlet {
         imageDAO imageDao = new imageDAO();
         int existingImageCount = 0;
         try {
-            existingImageCount = imageDao.getImageCountByProductId(productId);
+            existingImageCount = imageDao.getImageCountByProductId(Integer.parseInt(productId));
         } catch (SQLException ex) {
             Logger.getLogger(editProduct.class.getName()).log(Level.SEVERE, null, ex);
         }
         int newImagesCount = additionalImageParts.size();
 
         if (existingImageCount + newImagesCount > 5) {
-            // Redirect or forward request to JSP with error message
-            request.setAttribute("error", "Cannot add more than 5 images. Please remove some images to proceed.");
-            request.getRequestDispatcher("editProductPage.jsp?productId=" + productId).forward(request, response);
-            return; // Stop further execution
+            // Set an error message in the session scope
+            request.getSession().setAttribute("imageError", "Cannot add more than 5 images. Please remove some images to proceed.");
+            // Redirect back to the form
+            response.sendRedirect("editProduct?productId=" + request.getParameter("productId"));
+            return;
         }
+
         // Xử lý hình ảnh phụ, giả sử bạn có một phương thức trong imageDAO để cập nhật hình ảnh
         Part[] additionalImages = request.getParts().toArray(new Part[0]);
         for (Part part : request.getParts()) {
             if ("additionalImages".equals(part.getName()) && part.getSize() > 0) {
                 String imageBase64 = convertImageToBase64(part.getInputStream());
                 image img = new image();
-                img.setProduct_id(productId);
+                img.setProduct_id(Integer.parseInt(productId));
                 img.setImage_url(imageBase64);
                 try {
                     imageDao.addImage(img);
@@ -111,7 +134,7 @@ public class editProduct extends HttpServlet {
             }
         }
 
-        response.sendRedirect("editProductPage.jsp?productId=" + productId); // Redirect to a product details page
+        response.sendRedirect("editProduct?productId=" + productId); // Redirect to a product details page
     }
 
     private String convertImageToBase64(InputStream inputStream) throws IOException {

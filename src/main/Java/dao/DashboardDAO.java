@@ -71,4 +71,18 @@ public class DashboardDAO {
         return totalStockQuantity;
     }
 
+    public int getTotalCountOfAllProducts() {
+        int totalCount = 0;
+        String sql = "SELECT SUM(product_count) AS total_product_count FROM products";
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
+
+            if (rs.next()) {
+                totalCount = rs.getInt("total_product_count");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return totalCount;
+    }
+
 }

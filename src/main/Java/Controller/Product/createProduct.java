@@ -22,18 +22,27 @@ import model.ProductImage;
 import model.image;
 import model.Category;
 import dao.CategoryDAO;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import model.User;
 
 @WebServlet(name = "createProduct", urlPatterns = {"/createProduct"})
 @MultipartConfig
 public class createProduct extends HttpServlet {
+
     private static final Logger LOGGER = Logger.getLogger(createProduct.class.getName());
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         LOGGER.info("Processing product upload request");
-        String userIdString = request.getParameter("userId");
+        HttpSession session = request.getSession(false);
+        Integer userId = (Integer) session.getAttribute("userId");
+
+        if (userId == null) {
+            response.sendRedirect("loginPage.jsp");
+            return;
+        }
         String productName = request.getParameter("productName");
         String productPriceStr = request.getParameter("productPrice");
         String stockQuantityStr = request.getParameter("stockQuantity");
@@ -49,13 +58,11 @@ public class createProduct extends HttpServlet {
         double productPrice;
         int stockQuantity;
         int categoryId;
-        int userId;
 
         try {
             productPrice = Double.parseDouble(productPriceStr.trim());
             stockQuantity = Integer.parseInt(stockQuantityStr.trim());
             categoryId = Integer.parseInt(categoryIdStr.trim());
-            userId = Integer.parseInt(userIdString.trim());
         } catch (NumberFormatException e) {
             // Handle the case where the string cannot be parsed to a number
             response.sendRedirect("error.jsp"); // Redirect to an error page
@@ -65,20 +72,26 @@ public class createProduct extends HttpServlet {
         // Xử lý hình ảnh chính
         Part mainImagePart = request.getPart("image");
         String mainImageBase64 = convertImageToBase64(mainImagePart.getInputStream());
+
         // Tạo sản phẩm mới và lấy product_id
         ProductDAO productDAO = new ProductDAO();
-        int productId = productDAO.createProduct(productName, userId, productPrice, mainImageBase64, stockQuantity, categoryId, productBranch);
+         int productId = productDAO.createProduct(productName, userId, productPrice, mainImageBase64, stockQuantity, categoryId, productBranch);
+
         if (productId == -1) {
             LOGGER.warning("Failed to create product");
             response.sendRedirect("error.jsp");
             return;
         }
+
         LOGGER.info("Product created with ID: " + productId);
+
+        // Xử lý và lưu hình ảnh phụ
         Collection<Part> additionalImageParts = request.getParts().stream()
                 .filter(part -> "additionalImages".equals(part.getName()) && part.getSize() > 0)
                 .collect(Collectors.toList());
+
         imageDAO imageDAO = new imageDAO();
-        
+
         for (Part imagePart : additionalImageParts) {
             String imageBase64 = convertImageToBase64(imagePart.getInputStream());
             image img = new image();

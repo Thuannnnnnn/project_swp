@@ -1,6 +1,5 @@
 package dao;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,11 +13,9 @@ import model.productDescription;
 
 public class productDescriptionDAO {
 
-   private Connection connection;
+    private Connection connection;
     private Statement statement;
     private ResultSet rs;
-
-
 
     public List<productDescription> getAllProductDescription() {
         List<productDescription> pDescriptions = new ArrayList<>();
@@ -47,24 +44,25 @@ public class productDescriptionDAO {
         List<Product> listU = new ArrayList<>();
         String sql = "select * from products";
         try {
-             connection = DBConnection.getConnection();
+            connection = DBConnection.getConnection();
             PreparedStatement sta = connection.prepareStatement(sql); // Use PreparedStatement instead of Statement
             ResultSet rsu = sta.executeQuery();
             while (rsu.next()) {
                 Product p = new Product(
                         rsu.getInt("product_id"),
-                         rsu.getInt("user_id"),
+                        rsu.getInt("user_id"),
                         rsu.getString("product_name"),
                         rsu.getDouble("product_price"),
                         rsu.getString("image_url"),
                         rsu.getInt("stock_quantity"),
                         rsu.getInt("category_id"),
                         rsu.getString("product_branch"), // Corrected column name
-                        rsu.getDate("date_added")); // Corrected column name
+                        rsu.getDate("date_added"),
+                        rsu.getInt("product_count")); // Corrected column name
                 listU.add(p);
             }
         } catch (SQLException e) {
-        } 
+        }
         return listU;
     }
 
@@ -72,7 +70,7 @@ public class productDescriptionDAO {
         List<Product> list = new ArrayList<>();
         String sql = "SELECT * from products WHERE product_id IN (?, ?);";
         try {
-             connection = DBConnection.getConnection();
+            connection = DBConnection.getConnection();
             PreparedStatement st = connection.prepareStatement(sql); // Use PreparedStatement instead of Statement
             st.setString(1, id1);
             st.setString(2, id2);
@@ -87,7 +85,8 @@ public class productDescriptionDAO {
                         rs.getInt("stock_quantity"),
                         rs.getInt("category_id"),
                         rs.getString("product_branch"), // Corrected column name
-                        rs.getDate("date_added")); // Corrected column name
+                        rs.getDate("date_added"),
+                        rs.getInt("product_count")); // Corrected column name
                 list.add(p);
             }
         } catch (SQLException e) {
@@ -99,7 +98,7 @@ public class productDescriptionDAO {
         List<productDescription> ProductDescription = new ArrayList<>();
         String sql = "select * from productdescription";
         try {
-             connection = DBConnection.getConnection();
+            connection = DBConnection.getConnection();
             PreparedStatement st = connection.prepareStatement(sql); // Use PreparedStatement instead of Statement
             rs = st.executeQuery();
             while (rs.next()) {
@@ -109,7 +108,7 @@ public class productDescriptionDAO {
                 ProductDescription.add(description);
             }
         } catch (SQLException e) {
-        } 
+        }
         return ProductDescription;
     }
 
@@ -117,7 +116,7 @@ public class productDescriptionDAO {
         List<image> images = new ArrayList<>();
         String sql = "SELECT * FROM images WHERE product_id = ?";
         try {
-             connection = DBConnection.getConnection();
+            connection = DBConnection.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, productId);
             ResultSet resultSet = statement.executeQuery();
@@ -129,14 +128,14 @@ public class productDescriptionDAO {
             }
         } catch (SQLException e) {
 
-        } 
+        }
         return images;
     }
 
-     public int coutSearch(String result ) {
-        String sql = "SELECT count(*) FROM products WHERE product_name like '%"+result+"%'";
+    public int coutSearch(String result) {
+        String sql = "SELECT count(*) FROM products WHERE product_name like '%" + result + "%'";
         try {
-             connection = DBConnection.getConnection();
+            connection = DBConnection.getConnection();
             PreparedStatement st = connection.prepareStatement(sql); // Use PreparedStatement instead of Statement
             rs = st.executeQuery();
             while (rs.next()) {
@@ -146,35 +145,10 @@ public class productDescriptionDAO {
         }
         return 0;
     }
-    
-    public List<Product> getTop12(String result, int index, int size,String sort) {
+
+    public List<Product> getTop12(String result, int index, int size, String sort) {
         List<Product> listU = new ArrayList<>();
-        String sql = "with x as (SELECT ROW_NUMBER() OVER (ORDER BY product_price "+sort+") as rowNumber, products.* FROM  products WHERE product_id >= 3 AND product_name LIKE '%"+result+"%') select * from x where rowNumber between "+(index*size - (size -1))+" and "+(index * size)+"";
-        try {
-            connection = DBConnection.getConnection();
-            PreparedStatement sta = connection.prepareStatement(sql); // Use PreparedStatement instead of Statement
-            ResultSet rsu = sta.executeQuery();
-            while (rsu.next()) {
-                Product p = new Product(
-                        rsu.getInt("product_id"),
-                         rsu.getInt("user_id"),
-                        rsu.getString("product_name"),
-                        rsu.getDouble("product_price"),
-                        rsu.getString("image_url"),
-                        rsu.getInt("stock_quantity"),
-                        rsu.getInt("category_id"),
-                        rsu.getString("product_branch"), // Corrected column name
-                        rsu.getDate("date_added")); // Corrected column name
-                listU.add(p);
-            }
-        } catch (SQLException e) {
-        }
-        return listU;
-    }
-    
-    public List<Product> getTop12FromPrice(String result, int index, int size,String sort, String priceBegin, String priceEnd) {
-        List<Product> listU = new ArrayList<>();
-        String sql = "with x as (SELECT ROW_NUMBER() OVER (ORDER BY product_price "+sort+") as rowNumber, products.* FROM  products WHERE product_id >= 3 AND product_name LIKE '%"+result+"%' AND  product_price BETWEEN "+priceBegin+"  AND "+priceEnd+") select * from x where rowNumber between "+(index*size - (size -1))+" and "+(index * size)+"";
+        String sql = "with x as (SELECT ROW_NUMBER() OVER (ORDER BY product_price " + sort + ") as rowNumber, products.* FROM  products WHERE product_id >= 3 AND product_name LIKE '%" + result + "%') select * from x where rowNumber between " + (index * size - (size - 1)) + " and " + (index * size) + "";
         try {
             connection = DBConnection.getConnection();
             PreparedStatement sta = connection.prepareStatement(sql); // Use PreparedStatement instead of Statement
@@ -189,14 +163,41 @@ public class productDescriptionDAO {
                         rsu.getInt("stock_quantity"),
                         rsu.getInt("category_id"),
                         rsu.getString("product_branch"), // Corrected column name
-                        rsu.getDate("date_added")); // Corrected column name
+                        rsu.getDate("date_added"),
+                        rsu.getInt("product_count")); // Corrected column name
                 listU.add(p);
             }
         } catch (SQLException e) {
         }
         return listU;
     }
-    
+
+    public List<Product> getTop12FromPrice(String result, int index, int size, String sort, String priceBegin, String priceEnd) {
+        List<Product> listU = new ArrayList<>();
+        String sql = "with x as (SELECT ROW_NUMBER() OVER (ORDER BY product_price " + sort + ") as rowNumber, products.* FROM  products WHERE product_id >= 3 AND product_name LIKE '%" + result + "%' AND  product_price BETWEEN " + priceBegin + "  AND " + priceEnd + ") select * from x where rowNumber between " + (index * size - (size - 1)) + " and " + (index * size) + "";
+        try {
+            connection = DBConnection.getConnection();
+            PreparedStatement sta = connection.prepareStatement(sql); // Use PreparedStatement instead of Statement
+            ResultSet rsu = sta.executeQuery();
+            while (rsu.next()) {
+                Product p = new Product(
+                        rsu.getInt("product_id"),
+                        rsu.getInt("user_id"),
+                        rsu.getString("product_name"),
+                        rsu.getDouble("product_price"),
+                        rsu.getString("image_url"),
+                        rsu.getInt("stock_quantity"),
+                        rsu.getInt("category_id"),
+                        rsu.getString("product_branch"), // Corrected column name
+                        rsu.getDate("date_added"),
+                        rsu.getInt("product_count")); // Corrected column name
+                listU.add(p);
+            }
+        } catch (SQLException e) {
+        }
+        return listU;
+    }
+
     public static void main(String[] args) throws SQLException {
         productDescriptionDAO pdModel = new productDescriptionDAO();
         List<image> l = pdModel.getImagesByProductId(2);

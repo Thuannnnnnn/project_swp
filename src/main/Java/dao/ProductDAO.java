@@ -42,7 +42,8 @@ public class ProductDAO {
                         rs.getInt("stock_quantity"),
                         rs.getInt("category_id"),
                         rs.getString("product_branch"), // Corrected column name
-                        rs.getDate("date_added")); // Corrected column name
+                        rs.getDate("date_added"),
+                 rs.getInt("product_count")); // Corrected column name
                 list.add(p);
             }
         } catch (SQLException e) {
@@ -81,8 +82,9 @@ public class ProductDAO {
                         rs.getString("image_url"),
                         rs.getInt("stock_quantity"),
                         rs.getInt("category_id"),
-                        rs.getString("product_branch"),
-                        rs.getTimestamp("date_added")); // Assuming date_added is of TIMESTAMP type for more precision
+                        rs.getString("product_branch"), // Corrected column name
+                        rs.getTimestamp("date_added"),
+                 rs.getInt("product_count")); // Corrected column name
                 list.add(p);
             }
         } catch (SQLException e) {
@@ -152,19 +154,19 @@ public class ProductDAO {
         return productId;
     }
 
-    public boolean editProduct(int productId, String productName, double productPrice, String imageUrl, int stockQuantity, int categoryId, String productBranch) {
+    public boolean editProduct(String productId, String productName, double productPrice, String imageUrl, int stockQuantity, int categoryId, String productBranch) {
         // Ensure the category exists, or create it
 
         // SQL statement for updating the product
         String sql = "UPDATE products SET product_name = ?, product_price = ?, image_url = ?, stock_quantity = ?, category_id = ?, product_branch = ? WHERE product_id = ?";
-        try (Connection connection = DBConnection.getConnection(); PreparedStatement st = connection.prepareStatement(sql)) {
+try (Connection connection = DBConnection.getConnection(); PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, productName);
             st.setDouble(2, productPrice);
             st.setString(3, imageUrl);
             st.setInt(4, stockQuantity);
             st.setInt(5, categoryId);
             st.setString(6, productBranch);
-            st.setInt(7, productId);
+            st.setString(7, productId);
 
             int affectedRows = st.executeUpdate();
             return affectedRows > 0;
@@ -228,7 +230,7 @@ public class ProductDAO {
     // Delete a product
     public boolean deleteProduct(String productId) {
         // These tables have foreign key references to the products table
-        String deleteFromReplyCommentsSql = "DELETE FROM replycomments WHERE feedback_id IN (SELECT feedback_id FROM feedbacks WHERE product_id = ?)";
+String deleteFromReplyCommentsSql = "DELETE FROM replycomments WHERE feedback_id IN (SELECT feedback_id FROM feedbacks WHERE product_id = ?)";
         String deleteFromCartSql = "DELETE FROM cart WHERE product_id = ?";
         String deleteFromImagesSql = "DELETE FROM images WHERE product_id = ?";
         String deleteFromProductDescriptionSql = "DELETE FROM productdescription WHERE product_id = ?";
@@ -292,8 +294,9 @@ public class ProductDAO {
                         rs.getString("image_url"),
                         rs.getInt("stock_quantity"),
                         rs.getInt("category_id"),
-                        rs.getString("product_branch"),
-                        rs.getDate("date_added"));
+                        rs.getString("product_branch"), // Corrected column name
+                        rs.getDate("date_added"),
+                 rs.getInt("product_count")); // Corrected column name
                 list.add(p);
             }
         } catch (SQLException e) {
@@ -302,10 +305,10 @@ public class ProductDAO {
         return list;
     }
 
-    public boolean productExists(int productId) {
+    public boolean productExists(String productId) {
         String sql = "SELECT COUNT(*) FROM products WHERE product_id = ?";
         try (Connection connection = DBConnection.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setInt(1, productId);
+            preparedStatement.setString(1, productId);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 int count = resultSet.getInt(1);
@@ -316,14 +319,22 @@ public class ProductDAO {
         }
         return false;
     }
-    
+    public void incrementProductCount(int productId) {
+        String sql = "UPDATE products SET product_count = product_count + 1 WHERE product_id = ?";
+        try (Connection connection = DBConnection.getConnection(); PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, productId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     
     
     public static void main(String[] args) {
         ProductDAO p = new ProductDAO();
         List<Product> lp = p.getAll();
         System.out.println(lp.get(0).getProduct_branch());
-        p.createProduct("Iphone",1, 9, "ok", 7, 6, "Samsusng");
+       
     }
 
 }

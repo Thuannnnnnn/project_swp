@@ -15,10 +15,13 @@ if(role == null || !role.trim().equals("admin")){
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link href="./styles/toolbarAdmin.css" rel="stylesheet"/>
         <link href="./styles/dashboardCSS.css" rel="stylesheet"/>
-          <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <link href="./styles/adminCSSProducts.css" rel="stylesheet"/>
+        <link href="./styles/toolbarAdmin.css" rel="stylesheet"/>
+
 
     </head>
     <body>
@@ -46,10 +49,64 @@ if(role == null || !role.trim().equals("admin")){
                     <div class="content-detail">
                         <div class="box-content green"> <h1 class="text-content green-text">Tổng số lượng tổng stock<span>${totalStockQuantityOfProducts}</span> </h1></div>
                         <div class="box-content blue"><h1 class="text-content blue-text">Tổng số lượng người dùng<span>${totalUsersNumber}</span></h1></div>
+                        <div class="box-content green"> <h1 class="text-content green-text">Tổng số lượt click vào tất cả sản phẩm<span>${totalProductCount}</span> </h1></div>
+                    </div>
+
+                </div>
+                <div class="container mt-5">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Product Name</th>
+                                <th>Price</th>
+                                <th>Image</th>
+                                <th>Click</th>
+        
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach var="product" items="${listProduct}" varStatus="status">
+                                <tr>
+                                    <th>${product.product_id}</th>
+                                    <td>${product.product_name}</td>
+                                    <td><span class="newPrice text-danger"><fmt:formatNumber value="${product.product_price}"/> VNĐ</span></td>
+                                    <td>
+                                        <img src="data:image/png;base64,${product.image_url}" alt="Product Image" style="width: 100px; height: auto;"/>
+                                    </td>
+                                    <td>${product.product_count}</td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+
+                    <div class="mt-5">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center gap-3">
+                                <c:if test="${currentPage > 1}">
+                                    <li class="page-item">
+                                        <a class="page-link bg-primary text-white" href="?page=${currentPage - 1}" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                </c:if>
+                                <c:forEach begin="1" end="${noOfPages}" var="i">
+                                    <li class="page-item ${i == currentPage ? 'active' : ''}">
+                                        <a class="page-link bg-primary text-white" href="?page=${i}">${i}</a>
+                                    </li>
+                                </c:forEach>
+                                <c:if test="${currentPage < noOfPages}">
+                                    <li class="page-item">
+                                        <a class="page-link bg-primary text-white" href="?page=${currentPage + 1}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </c:if>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
 
             </div>
-        </div>
     </body>
 </html>

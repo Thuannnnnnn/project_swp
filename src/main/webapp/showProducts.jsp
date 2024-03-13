@@ -3,10 +3,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
 String role = (String) session.getAttribute("UserRole");
-if(role == null && !role.trim().equals("admin") && !role.trim().equals("seller")){
+if(role == null || !role.trim().equals("admin")){
     response.sendRedirect("loginPage.jsp");
-    return;
-    }    
+    return;}    
 %>
 <!DOCTYPE html>
 <html>
@@ -35,7 +34,7 @@ if(role == null && !role.trim().equals("admin") && !role.trim().equals("seller")
             </div>
             <div class="right-content">
                 <h2 class="mb-3">Product List</h2>
-                <a href="/createProduct" class="btn btn-primary mb-3">Add Product</a>
+                <a href="createProduct" class="btn btn-primary mb-3">Add Product</a>
 
                 <table class="table table-bordered">
                     <thead class="thead-light">
@@ -46,32 +45,13 @@ if(role == null && !role.trim().equals("admin") && !role.trim().equals("seller")
                             <th>Image</th>
                             <th>Stock Quantity</th>
                             <th>Category ID</th>
+
+
+
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <% if (role.trim().equals("seller")) { %>
-                        <c:forEach items="${productList}" var="product">
-                            <c:if test="${sessionScope.userId == product.user_id}">
-                                <tr>
-                                    <td>${product.product_id}</td>
-                                    <td>${product.product_name}</td>
-                                    <td><fmt:formatNumber value="${product.product_price}" /> VNĐ</td>
-                                    <td><img class="image-products" src="data:image/png;base64,${product.image_url}" alt="Product Image"/></td>
-                                    <td>${product.stock_quantity}</td>
-                                    <td>${product.category_id}</td>
-                                    <td>
-                                        <a href="editProductPage.jsp?productId=${product.product_id}" class="btn btn-sm btn-success">Edit</a>
-                                        <form action="CrudProduct" method="post">
-                                            <input type="hidden" name="action" value="delete">
-                                            <input type="hidden" name="product_id" value="${product.product_id}">
-                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this product?')">Delete</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            </c:if>
-                        </c:forEach>
-                        <% }else { %>
                         <c:forEach items="${productList}" var="product">
                             <tr>
                                 <td>${product.product_id}</td>
@@ -80,17 +60,20 @@ if(role == null && !role.trim().equals("admin") && !role.trim().equals("seller")
                                 <td><img class="image-products" src="data:image/png;base64,${product.image_url}" alt="Product Image"/></td>
                                 <td>${product.stock_quantity}</td>
                                 <td>${product.category_id}</td>
+
+
+
+
+
                                 <td>
-                                    <a href="editProductPage.jsp?productId=${product.product_id}" class="btn btn-sm btn-success">Edit</a>
+                                    <a href="editProduct?productId=${product.product_id}" class="btn btn-sm btn-success">Edit</a>
                                     <form action="CrudProduct" method="post">
-                                        <input type="hidden" name="action" value="delete">
                                         <input type="hidden" name="product_id" value="${product.product_id}">
                                         <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this product?')">Delete</button>
                                     </form>
                                 </td>
                             </tr>
                         </c:forEach>
-                           <%  } %>
                     </tbody>
                 </table>
             </div>

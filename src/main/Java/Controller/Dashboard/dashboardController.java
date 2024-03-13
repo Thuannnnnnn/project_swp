@@ -5,6 +5,7 @@ package Controller.Dashboard;
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 import dao.DashboardDAO;
+import dao.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,6 +13,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
+import model.Product;
 
 /**
  *
@@ -58,15 +61,31 @@ public class dashboardController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        ProductDAO productDAO = new ProductDAO();
+        List<Product> productList = productDAO.getAll();
+        request.setAttribute("productList", productList);
         DashboardDAO dashboard = new DashboardDAO();
         int totalUsersNumber = dashboard.getNumberOfUsers();
         int totalNumberOfProducts = dashboard.getNumberOfProducts();
         int totalNumberOfOrders = dashboard.getNumberOfOrders();
         int totalStockQuantityOfProducts = dashboard.getTotalStockQuantityOfProducts();
+        int totalProductCount = dashboard.getTotalCountOfAllProducts();
         request.setAttribute("totalUsersNumber", totalUsersNumber);
         request.setAttribute("totalNumberOfProducts", totalNumberOfProducts);
         request.setAttribute("totalNumberOfOrders", totalNumberOfOrders);
         request.setAttribute("totalStockQuantityOfProducts", totalStockQuantityOfProducts);
+        request.setAttribute("totalProductCount", totalProductCount);
+        int page = 1;
+        int pageSize = 8;
+        if (request.getParameter("page") != null) {
+            page = Integer.parseInt(request.getParameter("page"));
+        }
+        List<Product> listProduct = productDAO.getAll(page, pageSize);
+        int totalProducts = productDAO.getTotalProductsCount();
+        int noOfPages = (int) Math.ceil(totalProducts * 1.0 / pageSize);
+        request.setAttribute("listProduct", listProduct);
+        request.setAttribute("noOfPages", noOfPages);
+        request.setAttribute("currentPage", page);
         request.getRequestDispatcher("/dashboardAdmin.jsp").forward(request, response);
     }
 

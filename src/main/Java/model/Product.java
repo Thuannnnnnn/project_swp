@@ -12,11 +12,12 @@ public class Product {
     private int category_id;
     private String product_branch;
     private Date dateAdded;
+    private int product_count;
 
     public Product() {
     }
 
-    public Product(int product_id, int user_id, String product_name, double product_price, String image_url, int stock_quantity, int category_id, String product_branch, Date dateAdded) {
+    public Product(int product_id, int user_id, String product_name, double product_price, String image_url, int stock_quantity, int category_id, String product_branch, Date dateAdded, int product_count) {
         this.product_id = product_id;
         this.user_id = user_id;
         this.product_name = product_name;
@@ -26,9 +27,8 @@ public class Product {
         this.category_id = category_id;
         this.product_branch = product_branch;
         this.dateAdded = dateAdded;
+        this.product_count = product_count;
     }
-
-   
 
     public int getProduct_id() {
         return product_id;
@@ -37,7 +37,8 @@ public class Product {
     public void setProduct_id(int product_id) {
         this.product_id = product_id;
     }
-     public int getUser_id() {
+
+    public int getUser_id() {
         return user_id;
     }
 
@@ -101,4 +102,11 @@ public class Product {
         this.dateAdded = dateAdded;
     }
 
+    public int getProduct_count() {
+        return product_count;
+    }
+
+    public void setProduct_count(int product_count) {
+        this.product_count = product_count;
+    }
 }

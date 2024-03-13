@@ -10,6 +10,7 @@ if(role == null && !role.trim().equals("admin") && !role.trim().equals("seller")
     return;
     }    
 %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -54,12 +55,11 @@ if(role == null && !role.trim().equals("admin") && !role.trim().equals("seller")
         <div class="container mt-5">
             <h2>Create New Product with Images</h2>
             <form action="createProduct" method="post" enctype="multipart/form-data">
-             
                 <div class="form-group">
                     <label for="productName">Product Name:</label>
                     <input type="text" class="form-control" id="productName" name="productName" placeholder="Enter product name" required>
                 </div>
-                  <input type="text" value="<%= session.getAttribute("userId")%>" name="userId" class="form-control d-none" id="productName" name="productName" placeholder="Enter product name" required>
+
                 <div class="form-group">
                     <label for="productPrice">Product Price:</label>
                     <input type="text" class="form-control" id="productPrice" name="productPrice" placeholder="Enter product price" required>

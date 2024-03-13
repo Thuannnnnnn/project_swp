@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="model.Product" %>
-<%@ page import="model.image" %>
-<%@ page import="dao.ProductDAO" %>
-<%@ page import="java.util.List" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="model.Category" %>
-<%@ page import="dao.CategoryDAO" %>
+<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -58,93 +55,163 @@
     <body>
         <div class="container mt-5">
             <h2>Edit Product</h2>
-            <% 
-                String productId = request.getParameter("productId");
-                ProductDAO productDAO = new ProductDAO();
-                Product product = productDAO.getProductById(productId);
-                if (product != null) {
-            %>
-            <form action="editProduct" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="productId" value="<%= productId %>">
+            <c:set var="productId" value="${param.productId}" scope="request"/>
+            <c:if test="${not empty product}">
+                <form action="editProduct" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="productId" value="${productId}">
 
-                <div class="form-group">
-                    <label for="productName">Product Name:</label>
-                    <input type="text" class="form-control" id="productName" name="productName" value="<%= product.getProduct_name() %>" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="productPrice">Product Price:</label>
-                    <input type="number" class="form-control" id="productPrice" name="productPrice" value="<%= product.getProduct_price() %>" min="0.01" step="0.01" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="stockQuantity">Stock Quantity:</label>
-                    <input type="number" class="form-control" id="stockQuantity" name="stockQuantity" value="<%= product.getStock_quantity() %>" min="1" step="1" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="categoryId">Category:</label>
-                    <select id="categoryId" class="form-control" name="categoryId" required>
-                        <% 
-                            CategoryDAO categoryDAO = new CategoryDAO();
-                            List<Category> categories = categoryDAO.getAllCategories();
-                            for (Category category : categories) {
-                                out.print("<option value=\"" + category.getCategoryId() + "\">" + category.getCategoryName() + "</option>");
-                            }
-                        %>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="productBranch">Product Branch:</label>
-                    <input type="text" class="form-control" id="productBranch" name="productBranch" value="<%= product.getProduct_branch() %>" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="image">Product Main Image:</label>
-                    <input type="file" class="form-control-file" id="image" name="image" accept=".jpg, .jpeg, .png">
-                </div>
-
-                <div class="form-group">
-                    <label for="additionalImages">Product Additional Images:</label>
-                    <input type="file" class="form-control-file" id="additionalImages" name="additionalImages" multiple accept=".jpg, .jpeg, .png">
-                    <div id="imagePreview" class="img-preview-container">
-                        <%
-                            List<image> additionalImages = productDAO.getAdditionalImages(productId);
-                            for (image img : additionalImages) {
-                                String imageDataURL = "data:image/png;base64," + img.getImage_url();
-                        %>
-                        <div class="img-preview">
-                            <input type="checkbox" class="image-checkbox" value="<%= img.getImage_id() %>">
-                            <img src="<%= imageDataURL %>" alt="Additional Image">
-                        </div>
-                        <%
-                            }
-                        %>
+                    <!-- Product Name -->
+                    <div class="form-group">
+                        <label for="productName">Product Name:</label>
+                        <input type="text" class="form-control" id="productName" name="productName" value="${product.product_name}" required>
                     </div>
-                </div>
-                <% if (request.getAttribute("error") != null) { %>
-                <div class="alert alert-danger" role="alert">
-                    <%= request.getAttribute("error") %>
-                </div>
-                <% } %>
-                
-                <p id="selectedImageCount">Selected images: 0</p>
 
-                <button id="deleteSelectedImages" type="button" class="btn btn-warning">Delete Selected Images</button><br>
+                    <!-- Product Price -->
+                    <div class="form-group">
+                        <label for="productPrice">Product Price:</label>
+                        <input type="text" class="form-control" id="productPrice" name="productPrice" value="${product.product_price}" required>
+                        <p class="text-danger" id="priceError"></p>
+                    </div>
 
-                <button type="submit" class="btn btn-primary">Update Product</button> <br>
+                    <!-- Stock Quantity -->
+                    <div class="form-group">
+                        <label for="stockQuantity">Stock Quantity:</label>
+                        <input type="number" class="form-control" id="stockQuantity" name="stockQuantity" value="${product.stock_quantity}" min="1" step="1" required>
+                        <p class="text-danger" id="quantityError"></p>
+                    </div>
 
-                <a href="CrudProduct" class="btn btn-primary mb-3">Back to list products</a>
-            </form>
-            <% 
-                } else {
-                    out.println("<p>Product not found!</p>");
-                }
-            %>
+                    <!-- Category Selection -->
+                    <div class="form-group">
+                        <label for="categoryId">Category:</label>
+                        <select id="categoryId" class="form-control" name="categoryId" required>
+                            <c:forEach var="category" items="${categories}">
+                                <option value="${category.categoryId}" ${category.categoryId == product.category_id ? 'selected' : ''}>${category.categoryName}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+
+                    <!-- Product Branch -->
+                    <div class="form-group">
+                        <label for="productBranch">Product Branch:</label>
+                        <input type="text" class="form-control" id="productBranch" name="productBranch" value="${product.product_branch}" required>
+                    </div>
+
+                    <!-- Main Image Upload -->
+                    <div class="form-group">
+                        <label for="image">Product Main Image:</label>
+                        <input type="file" class="form-control-file" id="image" name="image" accept=".jpg, .jpeg, .png">
+                    </div>
+
+                    <!-- Additional Images Upload -->
+                    <div class="form-group">
+                        <label for="additionalImages">Product Additional Images:</label>
+                        <input type="file" class="form-control-file" id="additionalImages" name="additionalImages" multiple accept=".jpg, .jpeg, .png">
+                        <div id="imagePreview" class="img-preview-container">
+                            <c:forEach var="img" items="${additionalImages}">
+                                <div class="img-preview">
+                                    <input type="checkbox" class="image-checkbox" value="${img.image_id}">
+                                    <img src="data:image/png;base64,${img.image_url}" alt="Additional Image">
+                                </div>
+
+
+                            </c:forEach>
+                        </div>
+                    </div>
+                    <c:if test="${not empty sessionScope.imageError}">
+                        <div class="alert alert-danger" role="alert">
+                            ${sessionScope.imageError}
+                        </div>
+                        <%-- Remove the error message from the session after displaying it --%>
+                        <%
+                            session.removeAttribute("imageError");
+                        %>
+                    </c:if>
+
+
+
+                    <p id="selectedImageCount">Selected images: 0</p>
+
+                    <button id="deleteSelectedImages" type="button" class="btn btn-warning">Delete Selected Images</button><br>
+
+                    <button type="submit" class="btn btn-primary">Update Product</button> <br>
+
+                    <a href="CrudProduct" class="btn btn-primary mb-3">Back to list products</a>
+                </form>
+            </c:if>
+            <c:if test="${empty product}">
+                <p>Product not found!</p>
+            </c:if>
         </div>
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script>
+            window.addEventListener('DOMContentLoaded', (event) => {
+                formatPriceInput();
+            });
+
+            function formatPriceInput() {
+                var priceInput = document.getElementById('productPrice');
+                if (!priceInput.value)
+                    return; // Skip if value is empty
+
+                // Convert to number to remove scientific notation, then to string
+                var price = parseFloat(priceInput.value).toString();
+
+                // Check if price is an integer (no decimal part) and handle accordingly
+                if (price.indexOf('.') !== -1) {
+                    // If there is a decimal part, ensure it does not end with '.00'
+                    price = parseFloat(price).toFixed(2);
+                    if (price.endsWith('.00')) {
+                        price = price.substring(0, price.length - 3);
+                    }
+                }
+
+                priceInput.value = price;
+            }
+
+            $(document).ready(function () {
+                $('#productPrice').on('input', function () {
+                    // Kiểm tra xem giá trị nhập vào có phải là số không
+                    var price = $(this).val();
+                    if (isNaN(price)) {
+                        $('#priceError').text('Please enter a valid number');
+                        $(this).val(''); // Xóa giá trị không phải số
+                        return;
+                    }
+
+                    // Kiểm tra giá trị nhập vào có vượt quá mức giới hạn không (ví dụ: 100000000)
+                    var maxPrice = 100000000;
+                    if (parseFloat(price) > maxPrice) {
+                        $('#priceError').text('Please enter a price less than ' + maxPrice);
+                        $(this).val('');
+                        return;
+                    }
+
+                    // Nếu không có lỗi, xóa thông báo lỗi
+                    $('#priceError').text('');
+                });
+            });
+            $(document).ready(function () {
+                $('#stockQuantity').on('input', function () {
+                    // Kiểm tra xem giá trị nhập vào có phải là số không
+                    var quantity = $(this).val();
+                    if (isNaN(quantity)) {
+                        $('#quantityError').text('Please enter a valid number');
+                        $(this).val(''); // Xóa giá trị không phải số
+                        return;
+                    }
+
+                    // Kiểm tra giá trị nhập vào có vượt quá mức giới hạn không (ví dụ: 100000000)
+                    var maxQ = 10000;
+                    if (parseFloat(quantity) > maxQ) {
+                        $('#quantityError').text('Please enter a price less than ' + maxQ);
+                        $(this).val('');
+                        return;
+                    }
+
+                    // Nếu không có lỗi, xóa thông báo lỗi
+                    $('#priceError').text('');
+                });
+            });
             $(document).ready(function () {
                 // Cập nhật số lượng hình ảnh được chọn
                 function updateSelectedCount() {
