@@ -18,6 +18,13 @@ public class image {
         this.image_url = image_url;
     }
 
+    public image(int product_id, String image_url) {
+        this.product_id = product_id;
+        this.image_url = image_url;
+    }
+    
+    
+
     public int getImage_id() {
         return image_id;
     }

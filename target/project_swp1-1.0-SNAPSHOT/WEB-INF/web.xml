@@ -34,7 +34,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>deleteSliderServlet</servlet-name>
-        <url-pattern>/deleteSliderServlet</url-pattern>
+         <url-pattern>/admin-setting</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>editSliderServlet</servlet-name>

@@ -5,6 +5,7 @@
 package Controller;
 
 import dao.ProductDAO;
+import dao.imageDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,8 +13,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.sql.SQLException;
 import java.util.List;
 import model.Product;
+import model.image;
 
 /**
  *
@@ -57,23 +61,37 @@ public class index extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+   
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-    int page = 1;
-    int pageSize = 8; 
-    if(request.getParameter("page") != null)
-        page = Integer.parseInt(request.getParameter("page"));   
-    ProductDAO productDAO = new ProductDAO();
-    List<Product> listProduct = productDAO.getAll(page, pageSize);
-    int totalProducts = productDAO.getTotalProductsCount();
-    int noOfPages = (int) Math.ceil(totalProducts * 1.0 / pageSize);
-    request.setAttribute("listProduct", listProduct);
-    request.setAttribute("noOfPages", noOfPages);
-    request.setAttribute("currentPage", page);
+            throws ServletException, IOException {
+        int page = 1;
+        int pageSize = 8;
+        if (request.getParameter("page") != null) {
+            page = Integer.parseInt(request.getParameter("page"));
+        }
+        ProductDAO productDAO = new ProductDAO();
+        imageDAO im = new imageDAO();
+        List<Product> listProduct = productDAO.getAll(page, pageSize);
+        int totalProducts = productDAO.getTotalProductsCount();
+        int noOfPages = (int) Math.ceil(totalProducts * 1.0 / pageSize);
+        List<image> la = im.getImgList(1);
+        image img = null;
+        try {
+            img = im.getImageByProductId(2);
+             HttpSession session = request.getSession();
+             session.setAttribute("logo", img.getImage_url());
+        } catch (SQLException ex) {
 
-    request.getRequestDispatcher("/index.jsp").forward(request, response);
-}
+        }
+        request.setAttribute("listSlider", la);
+        
+        request.setAttribute("listProduct", listProduct);
+        request.setAttribute("noOfPages", noOfPages);
+        request.setAttribute("currentPage", page);
+        request.getRequestDispatcher("/index.jsp").forward(request, response);
+
+    }
 
     /**
      * Handles the HTTP <code>POST</code> method.

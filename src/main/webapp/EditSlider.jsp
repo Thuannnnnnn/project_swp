@@ -22,20 +22,26 @@
             image img = dao.getImageById(Integer.parseInt(id));
 
             // Display the image and form only if the image is retrieved successfully
-            %>
-            <div>
-                <img src="data:image/jpeg;base64,<%=img.getImage_url()%>" alt="Current Image" style="max-width: 500px; height: auto;">
-            </div>
-            <form action="editSliderServlet" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="id" value="<%= img.getImage_id() %>">
-                <input type="hidden" name="product_id" id="product_id" value="1">
-                <label for="image">New Image:</label>
-                <input type="file" name="image" id="image" accept=".jpg, .jpeg, .png">
-                <input type="submit" value="Update Image">
-            </form>
-            <br>
-            <a href="CRUDSlider.jsp">Add Slider</a>
-            <%
+            if (img != null) {
+                // Ensure img.getImage_url() returns a valid base64-encoded string
+                String imageBase64 = img.getImage_url(); // Placeholder, adjust as necessary
+%>
+                <div>
+                    <img src="data:image/jpeg;base64,<%=imageBase64%>" alt="Current Image" style="max-width: 500px; height: auto;">
+                </div>
+                <form action="editSliderServlet" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="id" value="<%= img.getImage_id() %>">
+                    <input type="hidden" name="product_id" id="product_id" value="1">
+                    <label for="image">New Image:</label>
+                    <input type="file" name="image" id="image" accept=".jpg, .jpeg, .png">
+                    <input type="submit" value="Update Image">
+                </form>
+                <br>
+                <a href="admin-setting">Add Slider</a>
+<%
+            } else {
+                out.println("Image not found.");
+            }
         } catch (NumberFormatException e) {
             // Handle the exception if the ID cannot be parsed to an integer
             out.println("Invalid image ID format.");
@@ -45,5 +51,6 @@
         out.println("Missing image ID parameter.");
     }
 %>
+
 </body>
 </html>

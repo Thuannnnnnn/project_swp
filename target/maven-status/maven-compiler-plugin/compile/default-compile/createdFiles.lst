@@ -14,6 +14,7 @@ controllerCompareProduct\catalogsearchServlet.class
 dao\orderStatusDAO.class
 dao\UserDAO.class
 Controller\Order\orderHistory.class
+Controller\Image\editLogoServlet.class
 model\ProductImage.class
 model\User.class
 Controller\User\login.class

@@ -35,7 +35,7 @@
             <div class="container content">
                 <div class="left-content">
                     <a href="/" class="logo-link"> 
-                        <img src="https://gcs.tripi.vn/public-tripi/tripi-feed/img/474049VKG/logo-tottenham-dep-nhat-3.png" alt="logo" class="logo-image"/>
+                         <img src="data:image/png;base64,<%=session.getAttribute("logo")%>" alt="logo" class="logo-image"/>
                     </a>
                     <div class="dropdown no-mb">
                         <span class="btn dropdown-toggle btn-white">Danh mục </span>
@@ -77,7 +77,7 @@ if(session.getAttribute("UserRole") != null){
                     %>
                 </div>
             </div>
-            <div class="">
+            <div class="d-flex">
                 <div class="menu">
                     <nav class="navbar navbar-vertical w-100">
                         <ul class="navbar-nav w-100">
@@ -289,8 +289,22 @@ if(session.getAttribute("UserRole") != null){
                         </ul>
                     </nav>
                 </div>
-                <div>
-
+                 <div class="w-50 mt-3 ">
+                    <div id="carouselExampleIndicators" class="carousel slide w-100 rounded" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <c:forEach items="${listSlider}" var="image" varStatus="status">
+                                <div class="carousel-item ${status.index == 0 ? 'active' : ''}">
+                                    <img src="data:image/png;base64,${image.image_url}" class="d-block w-100 rounded-3" alt="Image ${image.image_id}">
+                                </div>
+                            </c:forEach>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="container mt-5">
