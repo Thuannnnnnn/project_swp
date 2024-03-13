@@ -7,39 +7,51 @@ package model;
 import java.sql.Date;
 
 public class Order {
+
     private int orderID;
     private int userID;
     private String deliveryAddress;
     private String phoneNumber;
     private String recipientName;
     private String paymentMethod;
-    private float totalPrice;
-    private int statusOrderID;
-    private String statusOrderName;
-
-    public String getStatusOrderName() {
-        return statusOrderName;
-    }
-
-    public void setStatusOrderName(String statusOrderName) {
-        this.statusOrderName = statusOrderName;
-    }
+    private int status_order_id;
     private Date timeBuy;
 
     public Order() {
     }
 
-    public Order(int orderID, int userID, String deliveryAddress, String phoneNumber, String recipientName, String paymentMethod, float totalPrice, int statusOrderID, String statusOrderName, Date timeBuy) {
+    public Order(int orderID, int userID, String deliveryAddress, String phoneNumber, String recipientName, String paymentMethod, int status_order_id, Date timeBuy) {
         this.orderID = orderID;
+        this.userID = userID;
+
+        this.deliveryAddress = deliveryAddress;
+        this.phoneNumber = phoneNumber;
+        this.recipientName = recipientName;
+        this.paymentMethod = paymentMethod;
+
+        this.status_order_id = status_order_id;
+        this.timeBuy = timeBuy;
+    }
+
+    public Order(int userID, String deliveryAddress, String phoneNumber, String recipientName, String paymentMethod, int status_order_id, Date timeBuy) {
         this.userID = userID;
         this.deliveryAddress = deliveryAddress;
         this.phoneNumber = phoneNumber;
         this.recipientName = recipientName;
         this.paymentMethod = paymentMethod;
-        this.totalPrice = totalPrice;
-        this.statusOrderID = statusOrderID;
-        this.statusOrderName = statusOrderName;
+
+        this.status_order_id = status_order_id;
         this.timeBuy = timeBuy;
+    }
+
+    public Order(int userID, String deliveryAddress, String phoneNumber, String recipientName, String paymentMethod, int status_order_id) {
+        this.userID = userID;
+        this.deliveryAddress = deliveryAddress;
+        this.phoneNumber = phoneNumber;
+        this.recipientName = recipientName;
+        this.paymentMethod = paymentMethod;
+
+        this.status_order_id = status_order_id;
     }
 
     public int getOrderID() {
@@ -90,20 +102,12 @@ public class Order {
         this.paymentMethod = paymentMethod;
     }
 
-    public float getTotalPrice() {
-        return totalPrice;
+    public int getStatus_order_id() {
+        return status_order_id;
     }
 
-    public void setTotalPrice(float totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public int getStatusOrderID() {
-        return statusOrderID;
-    }
-
-    public void setStatusOrderID(int statusOrderID) {
-        this.statusOrderID = statusOrderID;
+    public void setStatus_order_id(int status_order_id) {
+        this.status_order_id = status_order_id;
     }
 
     public Date getTimeBuy() {
@@ -113,4 +117,5 @@ public class Order {
     public void setTimeBuy(Date timeBuy) {
         this.timeBuy = timeBuy;
     }
+
 }

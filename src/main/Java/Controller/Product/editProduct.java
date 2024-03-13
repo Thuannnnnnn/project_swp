@@ -32,7 +32,7 @@ public class editProduct extends HttpServlet {
             throws ServletException, IOException {
         LOGGER.info("Processing product edit request");
 
-        String productId = request.getParameter("productId");
+        String productIdStr = request.getParameter("productId");
         String productName = request.getParameter("productName");
         String productPriceStr = request.getParameter("productPrice");
         String stockQuantityStr = request.getParameter("stockQuantity");
@@ -41,9 +41,10 @@ public class editProduct extends HttpServlet {
         Part imagePart = request.getPart("image");
 
         double productPrice;
-        int stockQuantity, categoryId;
+        int stockQuantity, categoryId,productId;
 
         try {
+            productId  = Integer.parseInt(productIdStr);
             productPrice = Double.parseDouble(productPriceStr);
             stockQuantity = Integer.parseInt(stockQuantityStr);
             categoryId = Integer.parseInt(categoryIdStr);
@@ -82,7 +83,7 @@ public class editProduct extends HttpServlet {
         imageDAO imageDao = new imageDAO();
         int existingImageCount = 0;
         try {
-            existingImageCount = imageDao.getImageCountByProductId(Integer.parseInt(productId));
+            existingImageCount = imageDao.getImageCountByProductId(productId);
         } catch (SQLException ex) {
             Logger.getLogger(editProduct.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -100,7 +101,7 @@ public class editProduct extends HttpServlet {
             if ("additionalImages".equals(part.getName()) && part.getSize() > 0) {
                 String imageBase64 = convertImageToBase64(part.getInputStream());
                 image img = new image();
-                img.setProduct_id(Integer.parseInt(productId));
+                img.setProduct_id(productId);
                 img.setImage_url(imageBase64);
                 try {
                     imageDao.addImage(img);

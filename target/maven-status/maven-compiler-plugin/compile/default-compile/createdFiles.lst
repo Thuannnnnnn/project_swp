@@ -1,8 +1,10 @@
+dao\orderDetailDAO.class
 Controller\Dashboard\dashboardController.class
 dao\imageDAO.class
 model\image.class
 dao\CategoryDAO.class
 Controller\Image\UploadServlet.class
+dao\cartDAO.class
 Controller\Order\CRUDOrderController.class
 Controller\User\ForgotPassword.class
 Controller\Product\editProduct.class
@@ -35,6 +37,7 @@ model\orderStatus.class
 dao\productDescriptionDAO.class
 Controller\Order\orderController.class
 Controller\index.class
+Controller\Cart\addCart.class
 model\Cart.class
 Controller\User\AdminUser.class
 Controller\Order\editOrder.class
@@ -42,8 +45,11 @@ Controller\Product\CrudProduct.class
 controllerCompareProduct\update.class
 Controller\User\SignUp.class
 Controller\Product\createProduct.class
+Controller\Cart\CRUDCart.class
+Controller\Order\orderPayment.class
 dao\DashboardDAO.class
 Controller\Support\supportUser.class
 model\Order.class
 Controller\User\SendOtpServlet$1.class
+model\orderDetail.class
 dao\ProductImageDAO.class

@@ -1,115 +1,209 @@
 <%-- 
-    Document   : orderHistory
-    Created on : Feb 28, 2024, 7:48:43 AM
-    Author     : TU ANH
+    Document   : index
+    Created on : Feb 27, 2024, 8:07:44 PM
+    Author     : khaye
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<%@page import="dao.orderStatusDAO"%>
-<%@page import="dao.orderDAO"%>
-<%@ page import="model.orderStatus" %>
-<%@ page import="model.Order" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<%
-if(session.getAttribute("UserRole") == null){
-    response.sendRedirect("login");
-    return; 
-}
-%>
+<!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">        <title>JSP Page</title>
-        <link href="styles/orderHis.css" rel="stylesheet" type="text/css"/>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <title>JSP Page</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <link href="./styles/headerCSS.css" rel="stylesheet"/>
+        <link href="./styles/home2.css" rel="stylesheet"/>
+        <script
+            type="module"
+            src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+        ></script>
+        <script
+            nomodule
+            src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+        ></script>
     </head>
-    <body>
-        <table class="table table-hover">
-            <h3>Order History</h3>
+    <body class=" d-flex flex-column min-vh-100" style="height: 100%;
+          margin: 0;">
+        <div class="wrap-content ">
+            <div class="container content">
+                <div class="left-content">
+                    <a href="/" class="logo-link"> 
 
-            <% 
-        String fullname = (String) session.getAttribute("fullName");%>
+                        <img src="data:image/png;base64,<%=session.getAttribute("logo")%>" alt="logo" class="logo-image"/>
+                    </a>
+                    <div class="dropdown no-mb">
+                        <span class="btn dropdown-toggle btn-white">Danh mục </span>
+                        <ul class="dropdown-content">
+                            <li><a class="dropdown-item" href="#">Điện thoại smart phone</a></li>
+                            <li><a class="dropdown-item" href="#">Ipad</a></li>
+                            <li><a class="dropdown-item" href="#">Laptop</a></li>
+                            <li><a class="dropdown-item" href="#">PC</a></li>
+                        </ul>
+                    </div>
+                    <div class="search">
+                        <form action="catalogsearchServlet">
+                            <input name="search" class="search-input" placeholder="Tìm kiếm..."/>
+                            <input name="page" value="1" type="hidden"/>
+                            <button class="search-btn">
+                                <svg height="20px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="20px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M344.5,298c15-23.6,23.8-51.6,23.8-81.7c0-84.1-68.1-152.3-152.1-152.3C132.1,64,64,132.2,64,216.3  c0,84.1,68.1,152.3,152.1,152.3c30.5,0,58.9-9,82.7-24.4l6.9-4.8L414.3,448l33.7-34.3L339.5,305.1L344.5,298z M301.4,131.2  c22.7,22.7,35.2,52.9,35.2,85c0,32.1-12.5,62.3-35.2,85c-22.7,22.7-52.9,35.2-85,35.2c-32.1,0-62.3-12.5-85-35.2  c-22.7-22.7-35.2-52.9-35.2-85c0-32.1,12.5-62.3,35.2-85c22.7-22.7,52.9-35.2,85-35.2C248.5,96,278.7,108.5,301.4,131.2z"/></svg>
+                            </button>
+                        </form>
+                    </div>
 
-            <tr>
-                <th class="tablet-none">Họ và tên</th>
-                <th class="tablet-none">Địa chỉ giao hàng</th>
-                <th class="tablet-none">Số điện thoại</th>
-                <th class="tablet-none">Tên người nhận</th>
-                <th class="tablet-none">Phương thức thanh toán</th>
-                <th class="tablet-none">Tổng giá</th>
-                <th class="tablet-none">Trạng thái</th>
-                <th class="tablet-none">Thời gian đặt hàng</th>
-            </tr>
 
-            <c:forEach var="order" items="${orderHistory}" varStatus="status">
+                </div>
+                <div class="right-content">
+                    <button class="btn-white btn white-space-nowrap no-mb">Tra cứu đơn hàng</button>
+                    <%
+if(session.getAttribute("UserRole") == null){
+                    %>
+                    <a href="/login"><button class="btn-white btn white-space-nowrap">Đăng nhập</button></a>
+                    <% }
+                    %>
+                    <%
+if(session.getAttribute("UserRole") != null){
+                    %>
+                    <a href="/logout"><button class="btn-danger btn white-space-nowrap">LogOut</button></a>
+                    <% }
+                    %>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid mt-5" style="width: 80%; margin: auto;">
+            <table class="table table-striped">
                 <tr>
-                    <td class="tablet-none"><%=fullname%></td>
-                    <td class="tablet-none">${order.deliveryAddress}</td>
-                    <td class="tablet-none">${order.phoneNumber}</td>
-                    <td class="recipient-name"><span class="header-details">Tên người nhận: </span>${order.recipientName}</td>
-                    <td class="tablet-none">${order.paymentMethod}</td>
-                    <td class="tablet-none">${order.totalPrice}</td>
-                    <td class="status-name"><span class="header-details">Trạng thái: </span><span style="text-align: center; padding: 4px;" class="<c:out value="${order.statusOrderName.toLowerCase()}"/>">${order.statusOrderName}</span></td>
-                    <td class="tablet-none">${order.timeBuy}</td> 
-                    <td class="but-show">
-                        <button style="border: none; margin-left: 20px; margin-right: 25px;" class="expand-btn" data-order-id="${order.orderID}">
-                            <img style="width: 21px; align-items: center;" src="./img-module/arrow-down.png" alt="alt"/>
-                        </button>
-                    </td>
-                    <td style="border: none;">
-                        <c:choose>
-                            <c:when test="${order.statusOrderName == 'processing'}">
-                                <!-- Thêm một form để gửi yêu cầu POST khi nhấn vào nút -->
-                                <form id="cancel-form-${order.orderID}" action="orderHistory" method="post">
-                                    <input type="hidden" name="orderID" value="${order.orderID}" />
-                                    <button type="submit" class="btn btn-outline-danger cancel-btn" data-order-id="${order.orderID}">
-                                        Hủy đơn hàng
-                                    </button>
-                                </form>
-                            </c:when>
-                        </c:choose>
-                    </td>
-
+                    <th>
+                        Tên 
+                    </th>
+                    <th>
+                        Số Điện Thoại 
+                    </th>
+                    <th>
+                        Địa Chỉ
+                    </th>
+                    <th>
+                        Thanh Toán
+                    </th>
+                    <th>
+                        Trạng Thái
+                    </th>
+                    <th>
+                        Thời Gian Mua
+                    </th>
+                    <th>
+                        Sản Phẩm
+                    </th>
+                    <th>
+                        Tổng Tiền
+                    </th>
                 </tr>
+                <c:forEach items="${listOrder}" var="listOrder" varStatus="status">
+                    <tr>
+                        <td>
+                            ${listOrder.recipientName}  
+                        </td>
+                        <td>
+                            ${listOrder.phoneNumber}  
+                        </td>
+                        <td>
+                            ${listOrder.deliveryAddress}  
+                        </td>
+                        <td>
+                            ${listOrder.paymentMethod}  
+                        </td>
+                        <td>
+                            <c:forEach items="${listOrderStatus}" var="listOrderStatus" varStatus="status2">
+                                <c:if test="${listOrder.status_order_id == listOrderStatus.status_order_id}">
+                                    ${listOrderStatus.status_order_name}
+                                </c:if> 
+                            </c:forEach>
+                        </td>
+                        <td>
+                            ${listOrder.timeBuy}  
+                        </td>
+                        <td>
+                            <c:forEach items="${ListOrderDetail}" var="ListOrderDetail" varStatus="status3">
+                                <c:forEach items="${ListProduct}" var="ListProduct" varStatus="status4">
+                                    <c:if test="${ListOrderDetail.order_id == listOrder.orderID}">
+                                        <c:if test="${ListProduct.product_id == ListOrderDetail.product_id}">
+                                            <c:set var="itemTotal" value="${ListOrderDetail.quantity * ListProduct.product_price}"/>
+                                            <c:set var="total" value="${total + itemTotal}"/> <!-- Update total -->
+                                            <div class="d-flex">
+
+                                                <div>
+                                                    <img src="data:image/png;base64,${ListProduct.image_url}" width="50"/>
+                                                </div>
+                                                <div>
+                                                    ${ListProduct.product_name} <br> Số Lượng: ${ListOrderDetail.quantity} Giá:  <fmt:formatNumber value="${ListProduct.product_price}"/> VNĐ
+                                                </div>
+                                            </div> <br>
+                                        </c:if> 
+                                    </c:if> 
+                                </c:forEach>
+                            </c:forEach>
+                        </td>
+                        <td>
+                            <fmt:formatNumber value="${total}" type="number"/> VNĐ
+                            <c:set var="total" value="${0}"/>
+                        </td>
+
+                    </tr>
+                </c:forEach>
+
+            </table> 
+        </div>
+
+        <div>
+            <div class=" mt-5 py-3 footerr">
+                <div class="ml-5 mt-5 ft1"> <h3 class="text-white">EndureTale S</h3>
+                    <h3 class="text-white">CÔNG TY TNHH ENDURETALES</h3>
+                    <p class="text-white">Mã số thuế : 92828823</p>
+                    <p class="text-white">Địa chỉ : tòa nhà số 5, đường Nguyễn Văn Cừ nối dài, phường An Khánh, quận Ninh Kiều, Cần Thơ.s</p>
+                    <h5 class="text-white">Kết nối với chúng tôi</h5>
+                    <div class="d-flex justify-content-between"><ion-icon name="mail-outline"></ion-icon> <input type="mail" placeholder="Nhập email của bạn..."> <button>Xac Nhan</button></div></div>
+
+                <div style="width: 30%;" class="mt-5 ft2 items-center"> 
+                    <div> <a href="#" class="text-decoration-none text-white">Mua hàng và thanh toán Online </a> <br>
+                        <a href="#"class="text-decoration-none text-white">Mua hàng trả góp Online</a><br>
+                        <a href="#"class="text-decoration-none text-white">Chính sách giao hàng</a><br>
+                        <a href="#"class="text-decoration-none text-white"> Tra điểm Smember</a><br>
+                        <a href="#"class="text-decoration-none text-white">Xem ưu đãi Smember</a><br>
+                        <a href="#"class="text-decoration-none text-white">Tra thông tin bảo hành</a><br>
+                        <a href="#"class="text-decoration-none text-white">Tra cứu hoá đơn điện tử</a><br>
+                        <a href="#"class="text-decoration-none text-white"> Thông tin hoá đơn mua hàng</a><br>
+                        <a href="#"class="text-decoration-none text-white">Trung tâm bảo hành chính hãng</a><br>
+                        <a href="#"class="text-decoration-none text-white">Quy định về việc sao lưu dữ liệu</a><br></div>
+                </div>
+
+                <div style="width: 30%;" class="mr-5 mt-5 ft3"> 
+                    <div>
+                        <a href="#" class="text-decoration-none text-white"> Khách hàng doanh nghiệp (B2B) </a> <br>
+                        <a href="#"class="text-decoration-none text-white">Ưu đãi thanh toán</a><br>
+                        <a href="#"class="text-decoration-none text-white">Quy chế hoạt động</a><br>
+                        <a href="#"class="text-decoration-none text-white"> Chính sách Bảo hành</a><br>
+                        <a href="#"class="text-decoration-none text-white">Liên hệ hợp tác kinh doanh</a><br>
+                        <a href="#"class="text-decoration-none text-white">Tuyển dụng</a><br>
+                        <a href="#"class="text-decoration-none text-white">  Dịch vụ bảo hành điện thoại</a><br>
+                        <a href="#"class="text-decoration-none text-white"> Dịch vụ bảo hành mở rộng</a><br></div>
+                </div>
+            </div>
+        </div>
 
 
 
-                <tr style="margin-bottom: 20px;" id="detail-row-${order.orderID}" class="details-row">
-                    <td><span class="header-details">Họ và tên: </span><%=fullname%></td>
-                    <td><span class="header-details">Địa chỉ giao hàng: </span>${order.deliveryAddress}</td>
-                    <td><span class="header-details">Số điện thoại: </span>${order.phoneNumber}</td>
-                    <td><span class="header-details">Phương thức thanh toán: </span>${order.paymentMethod}</td>
-                    <td><span class="header-details">Tổng giá: </span>${order.totalPrice}</span></td>
-                    <td><span class="header-details">Thời gian đặt hàng: </span>${order.timeBuy}</td> 
-
-                </tr>
 
 
-            </c:forEach>
-        </table>
-    </body>
+    </div>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var expandBtns = document.querySelectorAll('.expand-btn');
-            expandBtns.forEach(function (btn) {
-                btn.addEventListener('click', function () {
-                    var orderId = this.getAttribute('data-order-id');
-                    var detailRow = document.getElementById('detail-row-' + orderId);
-                    if (detailRow) {
-                        detailRow.classList.toggle('show-details');
-                        // Toggle the arrow icon
-                        var icon = this.querySelector('img');
-                        if (icon) {
-                            icon.src = detailRow.classList.contains('show-details') ? './img-module/arrow-up.png' : './img-module/arrow-down.png';
-                        }
-                    }
-                });
-            });
-        });
-
 
     </script>
+</body>
 </html>

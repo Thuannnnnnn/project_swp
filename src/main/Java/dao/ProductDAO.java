@@ -152,7 +152,7 @@ public class ProductDAO {
         return productId;
     }
 
-    public boolean editProduct(String productId, String productName, double productPrice, String imageUrl, int stockQuantity, int categoryId, String productBranch) {
+    public boolean editProduct(int productId, String productName, double productPrice, String imageUrl, int stockQuantity, int categoryId, String productBranch) {
         // Ensure the category exists, or create it
 
         // SQL statement for updating the product
@@ -164,7 +164,7 @@ public class ProductDAO {
             st.setInt(4, stockQuantity);
             st.setInt(5, categoryId);
             st.setString(6, productBranch);
-            st.setString(7, productId);
+            st.setInt(7, productId);
 
             int affectedRows = st.executeUpdate();
             return affectedRows > 0;
@@ -175,12 +175,12 @@ public class ProductDAO {
     }
 // Trong lớp ProductDAO
 
-    public List<image> getAdditionalImages(String productId) {
+    public List<image> getAdditionalImages(int productId) {
         List<image> additionalImages = new ArrayList<>();
         String sql = "SELECT * FROM images WHERE product_id = ?";
         try (Connection connection = DBConnection.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
-            preparedStatement.setString(1, productId);
+            preparedStatement.setInt(1, productId);
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
@@ -197,13 +197,13 @@ public class ProductDAO {
         return additionalImages;
     }
 
-    public Product getProductById(String productId) {
+    public Product getProductById(int productId) {
         Product product = null;
         String sql = "SELECT * FROM products WHERE product_id = ?";
 
         try (Connection connection = DBConnection.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
-            preparedStatement.setString(1, productId);
+            preparedStatement.setInt(1, productId);
 
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -302,10 +302,10 @@ public class ProductDAO {
         return list;
     }
 
-    public boolean productExists(String productId) {
+    public boolean productExists(int productId) {
         String sql = "SELECT COUNT(*) FROM products WHERE product_id = ?";
         try (Connection connection = DBConnection.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, productId);
+            preparedStatement.setInt(1, productId);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 int count = resultSet.getInt(1);

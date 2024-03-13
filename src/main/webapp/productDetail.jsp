@@ -7,7 +7,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" >
-             <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
         <title>Accordion</title>
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -205,19 +205,27 @@
                                     <h3  >${i.product_name}</h3>
                                     <button id="open-modal"  class="btn btn-sm" style="margin-left: 5px; font-size: 12px;background-color: #eee; color: black;  border: 1px solid red;  ">+ So Sánh</button>
                                 </div>
-                                <h4 class="price">Giá hiện tại: <span>${priceId}</span></h4>                               
-                                <div class="form-group">
-                                    <label for="soluong">Số lượng đặt mua:</label>
-                                    <input type="number" class="form-control" id="soluong" name="soluong" min="0">
-                                </div>
-                                <form name="frmsanphamchitiet" id="frmsanphamchitiet" method="post">
-                                    <input type="hidden" name="sp_ma" id="sp_ma" value="5">
-                                    <input type="hidden" name="sp_ten" id="sp_ten" value="Samsung Galaxy Tab 10.1 3G 16G">
-                                    <input type="hidden" name="sp_gia" id="sp_gia" value="10990000.00">
-                                    <input type="hidden" name="hinhdaidien" id="hinhdaidien" value="samsung-galaxy-tab-10.jpg">
+                                <h4 class="price">Giá hiện tại: <span>${priceId}</span></h4>   
+                                <form action="addCart" name="frmsanphamchitiet" id="frmsanphamchitiet" method="post">
+                                     <input type="hidden" name="method" value="cart"> 
+                                    <div class="form-group">
+                                        <label for="soluong">Số lượng đặt mua:</label>
+                                        <input type="number" class="form-control" id="quantity" name="quantity" min="0">
+                                    </div>
+
+                                    <input type="hidden" name="productId" id="productId" value="${productId}">
                                     <div class="action">
-                                        <a class="add-to-cart btn btn-default" id="btnThemVaoGioHang" style="margin-bottom: 5px">Thêm vào giỏ hàng</a>
-                                        <a class="like btn btn-default" style="margin-bottom: 5px" >Mua Ngay</a>
+                                        <button class="add-to-cart btn btn-default" id="btnThemVaoGioHang" style="margin-bottom: 5px">Thêm vào giỏ hàng</button>
+
+                                    </div>
+                                </form>
+                                <form id="BuyNowForm" action="orderPayment" method="post">
+                                    <input type="hidden" name="productId" id="productId" value="${productId}">
+                                    <input type="hidden" name="quantity" id="quantityForOrder"> 
+                                    <input type="hidden" name="method" value="buy"> 
+                                     <div class="action">
+                                        <button class="add-to-cart btn btn-default" id="buyNow" style="margin-bottom: 5px">Mua Ngay</button>
+
                                     </div>
                                 </form>
                             </div>
@@ -266,6 +274,22 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#btnThemVaoGioHang').click(function (e) {
+            // Gửi yêu cầu AJAX đến server để kiểm tra trạng thái đăng nhập
+            $.get('/addCart', function (isLoggedIn) {
+                if (isLoggedIn !== "true") {
+                    // Nếu người dùng chưa đăng nhập, chuyển hướng đến trang đăng nhập
+                    window.location.href = '/login'; // Thay đổi đường dẫn nếu cần
+                } else {
+                    window.location.href = '/cart';
+                    alert("Tiến hành thêm vào giỏ hàng");
+                }
+            });
+        });
+    });
+
     console.log(<%= productId2 %>);
     function updateProductInfo(productId2) {
         $.ajax({
@@ -277,10 +301,10 @@
                 // Giả sử server trả về một mảng các sản phẩm và bạn muốn xử lý sản phẩm đầu tiên
                 if (products.length > 0) {
                     var product = products[0]; // Lấy sản phẩm đầu tiên từ mảng
-                    $("#productImage").attr("src", "data:image/png;base64,"+product.image_url);
+                    $("#productImage").attr("src", "data:image/png;base64," + product.image_url);
                     $("#productName").text(product.product_name);
                     $("#productId2").val(product.product_id);
-                   
+
                     console.log(product.product_id);
                 }
             },
@@ -315,6 +339,15 @@
             var warningModal = new bootstrap.Modal(document.getElementById('warningModal'));
             warningModal.show(); // Hiển thị modal
         }
+    });
+    $(document).ready(function () {
+        $('#buyNow').click(function (e) {
+            e.preventDefault(); // Ngăn không cho form submit ngay lập tức
+            var quantity = $('#quantity').val(); // Lấy giá trị số lượng từ form đầu tiên
+            $('#quantityForOrder').val(quantity); // Đặt giá trị số lượng vào trường ẩn của form thứ hai
+            $(this).closest('#BuyNowForm').submit(); // Submit form thứ hai
+         
+        });
     });
 </script>
 </html>
