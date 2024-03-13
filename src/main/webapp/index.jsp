@@ -19,7 +19,8 @@
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
         <link href="./styles/headerCSS.css" rel="stylesheet"/>
-        <link href="./styles/home2.css" rel="stylesheet"/>
+        <link href="./styles/footerCSS.css" rel="stylesheet"/>
+        <link href="./styles/home.css" rel="stylesheet"/>
         <script
             type="module"
             src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
@@ -58,8 +59,8 @@
             if(session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("admin")){
                     %>
                     <a href="/dashboard"><button class="btn-danger btn white-space-nowrap">Management</button></a>
-                     <% }
-            if(session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("seller")){
+                    <% }
+           if(session.getAttribute("UserRole") != null && session.getAttribute("UserRole").equals("seller")){
                     %>
                     <a href="/order"><button class="btn-danger btn white-space-nowrap">Management</button></a>
                     <% }
@@ -343,7 +344,7 @@ if(session.getAttribute("UserRole") != null){
 
             </div>
             <div>
-                <div class=" mt-5 py-3 footerr">
+                <div class=" mt-5 py-3 footer">
                     <div class="ml-5 mt-5 ft1"> <h3 class="text-white">EndureTale S</h3>
                         <h3 class="text-white">CÔNG TY TNHH ENDURETALES</h3>
                         <p class="text-white">Mã số thuế : 92828823</p>
@@ -379,9 +380,6 @@ if(session.getAttribute("UserRole") != null){
             </div>
         </div>
     </body>
-</html>
-
-</div>
 <script>
     function submitForm() {
         document.getElementById("hiddenForm").submit();
