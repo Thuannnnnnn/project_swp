@@ -38,6 +38,7 @@ dao\productDescriptionDAO.class
 Controller\Order\orderController.class
 Controller\index.class
 Controller\Cart\addCart.class
+Controller\User\editUser.class
 model\Cart.class
 Controller\User\AdminUser.class
 Controller\Order\editOrder.class
