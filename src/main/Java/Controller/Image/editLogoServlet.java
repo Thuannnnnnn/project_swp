@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package Controller.Image;
 
 import dao.imageDAO;
@@ -10,6 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -17,38 +17,42 @@ import jakarta.servlet.http.Part;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.Base64;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.image;
 
 /**
  *
  * @author Asus
  */
+@WebServlet(name = "editLogoServlet", urlPatterns = {"/editLogoServlet"})
 @MultipartConfig
-public class editSliderServlet extends HttpServlet {
-   
-    
-   
-    /** 
-     * Handles the HTTP <code>POST</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+public class editLogoServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String id = request.getParameter("id");
+        request.setAttribute("id", id);
+        request.getRequestDispatcher("/adminSetting.jsp").forward(request, response);
+    }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        int imageId = Integer.parseInt(request.getParameter("id"));
-        int productId = Integer.parseInt(request.getParameter("product_id"));
-        Part filePart = request.getPart("image"); 
+            throws ServletException, IOException {
+        int product_id = 2; // This might be dynamic based on your requirements
+        Part filePart = request.getPart("image");
         String imageBase64 = convertImageToBase64(filePart);
 
         imageDAO dao = new imageDAO();
-        image img = new image(imageId, productId, imageBase64);
+        image img = new image();
+        img.setProduct_id(product_id);
+        img.setImage_url(imageBase64); // Assuming image_url holds the Base64 string
 
         try {
             dao.updateImage(img);
-            response.sendRedirect("/admin-setting"); 
+            response.sendRedirect("/admin-setting");
         } catch (SQLException e) {
             throw new ServletException("SQL error occurred: " + e.getMessage(), e);
         }
@@ -63,15 +67,5 @@ public class editSliderServlet extends HttpServlet {
         }
         return null; // or handle appropriately
     }
-    
-
-    /** 
-     * Returns a short description of the servlet.
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }

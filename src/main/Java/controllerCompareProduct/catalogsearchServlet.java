@@ -25,12 +25,16 @@ public class catalogsearchServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+       
+        productDescriptionDAO pdModel = new productDescriptionDAO();
         String resutl = request.getParameter("search");
         String pageString = request.getParameter("page");
         String sortString = request.getParameter("sort");
         String price = request.getParameter("price");
+     
         List<Product> p = new ArrayList<>();
         String sort = "";
+        
 
         if (sortString == null) {
             sort = "ASC";
@@ -38,7 +42,7 @@ public class catalogsearchServlet extends HttpServlet {
             sort = sortString;
         }
 
-        productDescriptionDAO pdModel = new productDescriptionDAO();
+      
         int page = 1;
         if (pageString != null) {
             page = Integer.parseInt(pageString);
@@ -58,6 +62,7 @@ public class catalogsearchServlet extends HttpServlet {
         if (quantity % pageSize != 0) {
             endPage++;
         }
+        
 
         request.setAttribute("page", page);
         request.setAttribute("result", resutl);

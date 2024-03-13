@@ -13,94 +13,74 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import java.util.Base64;
-import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import java.util.stream.Collectors;
 import model.image;
 import org.apache.commons.io.IOUtils;
 
 @MultipartConfig
 public class addSliderServlet extends HttpServlet {
-
-    @Override
+private static final Logger LOGGER = Logger.getLogger(addSliderServlet.class.getName());
+   @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String productIdStr = request.getParameter("product_id");
         if (productIdStr == null || productIdStr.trim().isEmpty()) {
-            handleMissingParameter(response, "Product ID is missing");
-            return;
+
+            return; // Do not process if product_id is missing
         }
 
         int productId;
         try {
             productId = Integer.parseInt(productIdStr);
         } catch (NumberFormatException e) {
-            handleInvalidParameter(response, "Invalid Product ID format");
+
             return;
         }
-
-        Collection<Part> imageParts = request.getParts().stream()
-                .filter(part -> "images[]".equals(part.getName()) && part.getSize() > 0)
-                .collect(Collectors.toList());
-
-        if (imageParts.isEmpty()) {
-            handleMissingParameter(response, "No images provided");
-            return;
-        }
-
+       
         imageDAO dao = new imageDAO();
+        int imageCount = 0;
 
-        for (Part imagePart : imageParts) {
+        for (Part imagePart : request.getParts()) {
+           
+            
+            if (!"images[]".equals(imagePart.getName()) || imagePart.getSize() <= 0) {
+             
+                continue; // Skip if not an image part or if size is 0
+            }
+            if (imageCount >= 5) { // Check if the limit of 5 images is reached
+              
+                request.setAttribute("error", "Cannot add more than 5 images.");
+                request.getRequestDispatcher("/path-to-your-error-page").forward(request, response);
+                return;
+            }
             try (InputStream inputStream = imagePart.getInputStream()) {
                 String contentType = imagePart.getContentType();
-                if (!isValidImageType(contentType)) {
-                    handleInvalidImageType(response);
-                    return;
-                }
-
-                if (imagePart.getSize() > 10485760) { // 10 MB limit
-                    throw new ServletException("File size exceeds maximum limit (10 MB)");
+                if (!isValidImageType(contentType) || imagePart.getSize() > 10485760) { // 10 MB limit
+                  
+                    continue; // Skip if not a valid image type or too large
                 }
 
                 String imageBase64 = convertImageToBase64(inputStream);
-
                 image img = new image();
                 img.setProduct_id(productId);
                 img.setImage_url(imageBase64);
                 dao.addImage(img);
+                imageCount++; // Increment valid image count
+               
             } catch (Exception e) {
-                handleError(response, e.getMessage());
-                return;
+                LOGGER.log(Level.SEVERE, "Error processing image: {0}", e.getMessage());
+                // Error handling; can log error if needed
             }
         }
-
-        response.sendRedirect("CRUDSlider.jsp");
+        // Redirect the user if needed
+        response.sendRedirect("/admin-setting");
     }
 
     private String convertImageToBase64(InputStream inputStream) throws IOException {
         byte[] imageBytes = IOUtils.toByteArray(inputStream);
         return Base64.getEncoder().encodeToString(imageBytes);
-    }
-
-    private void handleInvalidParameter(HttpServletResponse response, String message) throws IOException {
-        appendErrorMessage(response, message);
-    }
-
-    private void handleMissingParameter(HttpServletResponse response, String message) throws IOException {
-        appendErrorMessage(response, message);
-    }
-
-    private void handleInvalidImageType(HttpServletResponse response) throws IOException {
-        appendErrorMessage(response, "Only PNG and JPG image types are accepted.");
-    }
-
-    private void handleError(HttpServletResponse response, String errorMessage) throws IOException {
-        appendErrorMessage(response, "Error processing the image upload: " + errorMessage);
-    }
-
-    private void appendErrorMessage(HttpServletResponse response, String errorMessage) throws IOException {
-        response.setContentType("text/html");
-        response.getWriter().println("<script>document.getElementById('error-message').innerHTML += '<p style=\"color: red;\">" + errorMessage + "</p>';</script>");
     }
 
     private boolean isValidImageType(String contentType) {
